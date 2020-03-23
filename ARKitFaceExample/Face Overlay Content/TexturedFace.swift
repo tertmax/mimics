@@ -23,10 +23,14 @@ class TexturedFace: NSObject, VirtualContentController {
         let faceGeometry = ARSCNFaceGeometry(device: sceneView.device!)!
         let material = faceGeometry.firstMaterial!
         
-        material.diffuse.contents = #imageLiteral(resourceName: "wireframeTexture") // Example texture map image.
+//        material.diffuse.contents = #imageLiteral(resourceName: "andrii.png") // Example texture map image.
         material.lightingModel = .physicallyBased
         
-        contentNode = SCNNode(geometry: faceGeometry)
+        let andriiNode = SCNScene(named: "andrii.scn")
+        andriiNode?.rootNode.geometry = faceGeometry
+        
+//        contentNode = SCNNode(geometry: faceGeometry)
+        contentNode = andriiNode?.rootNode
         #endif
         return contentNode
     }

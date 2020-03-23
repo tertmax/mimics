@@ -1,0 +1,60 @@
+/* 
+  Constants.strings
+  SprinterWing
+
+  Created by mac on 8/13/19.
+  Copyright © 2019 unicreo. All rights reserved.
+*/
+
+
+//MARK: Shelf
+
+"razor" = "razor";
+"bandage" = "bandage";
+"comb" = "comb";
+"toothbrush" = "toothbrush";
+"toilet_water" = "toilet_water";
+
+//MARK: Face
+
+"left_brow" = "left_brow";
+"right_brow" = "right_brow";
+"left_eyeball" = "left_eyeball";
+"right_eyeball" = "right_eyeball";
+"eyes" = "eyes";
+"jaw_top" = "jaw_top";
+"jaw_bottom" = "jaw_bottom";
+"lip_top" = "lip_top";
+"lip_bottom" = "lip_bottom";
+"mouth_inside" = "mouth_inside";
+"mouth_default" = "mouth_default";
+"pimple1_initial" = "pimple1_initial";
+"pimple1_bleedning" = "pimple1_bleeding";
+"pimple1_fixed" = "pimple1_fixed";
+"pimple2" = "pimple2";
+"pimple1_pinch_zone" = "pimple1_pinch_zone";
+"pimple2_pinch_zone" = "pimple2_pinch_zone";
+
+//MARK: Hair
+
+"hair_left_initial" = "hair_left_initial";
+"hair_left_fixed" = "hair_left_fixed";
+"hair_right_initial" = "hair_right_initial";
+"hair_right_fixed_right" = "hair_right_fixed_right";
+"hair_right_fixed_left" = "hair_right_fixed_left";
+"hair_right_fixed_up" = "hair_right_fixed_up";
+"hair_right_fixed_down" = "hair_right_fixed_down";
+
+//MARK: Sink
+
+"water" = "water";
+"cold_valve" = "cold_valve";
+"hot_valve" = "hot_valve";
+"steam1" = "steam1";
+"steam2" = "steam2";
+"steam3" = "steam3";
+"towel_wet" = "towel_wet";
+"towel_dry" = "towel_dry";
+"crane" = "crane";
+
+

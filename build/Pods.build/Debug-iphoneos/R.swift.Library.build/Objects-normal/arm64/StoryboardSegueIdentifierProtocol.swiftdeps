@@ -1,0 +1,123 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "StoryboardSegueIdentifierType"
+- "StoryboardSegueIdentifier"
+- "TypedStoryboardSegueInfo"
+- "StoryboardSegue"
+provides-nominal:
+- "6Rswift29StoryboardSegueIdentifierTypeP"
+- "6Rswift25StoryboardSegueIdentifierV"
+- "6Rswift24TypedStoryboardSegueInfoV"
+- "6Rswift15StoryboardSegueV"
+provides-member:
+- ["6Rswift29StoryboardSegueIdentifierTypeP", ""]
+- ["6Rswift25StoryboardSegueIdentifierV", ""]
+- ["6Rswift24TypedStoryboardSegueInfoV", ""]
+- ["6Rswift15StoryboardSegueV", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- "AssignmentPrecedence"
+- "IdentifierType"
+- "StoryboardSegue"
+- "StoryboardSegueIdentifier"
+- "StoryboardSegueIdentifierType"
+- "String"
+- "TypedStoryboardSegueInfo"
+depends-member:
+- ["s23CustomStringConvertibleP", "DestinationType"]
+- ["s23CustomStringConvertibleP", "SegueType"]
+- ["s23CustomStringConvertibleP", "SourceType"]
+- !private ["s23CustomStringConvertibleP", "StoryboardSegue"]
+- ["s23CustomStringConvertibleP", ""]
+- ["s23CustomStringConvertibleP", "description"]
+- ["s23CustomStringConvertibleP", "identifier"]
+- ["6Rswift14IdentifierTypeP", "DestinationType"]
+- ["6Rswift14IdentifierTypeP", "SegueType"]
+- ["6Rswift14IdentifierTypeP", "SourceType"]
+- !private ["6Rswift14IdentifierTypeP", "StoryboardSegue"]
+- ["6Rswift14IdentifierTypeP", ""]
+- ["6Rswift14IdentifierTypeP", "description"]
+- ["6Rswift14IdentifierTypeP", "identifier"]
+- ["6Rswift15StoryboardSegueV", "StoryboardSegueIdentifier"]
+- ["6Rswift15StoryboardSegueV", "identifier"]
+- ["6Rswift15StoryboardSegueV", "init"]
+- ["6Rswift15StoryboardSegueV", "source"]
+- ["6Rswift25StoryboardSegueIdentifierV", "DestinationType"]
+- ["6Rswift25StoryboardSegueIdentifierV", "SegueType"]
+- ["6Rswift25StoryboardSegueIdentifierV", "SourceType"]
+- ["6Rswift25StoryboardSegueIdentifierV", "StoryboardSegue"]
+- ["6Rswift25StoryboardSegueIdentifierV", "String"]
+- ["6Rswift25StoryboardSegueIdentifierV", "deinit"]
+- ["6Rswift25StoryboardSegueIdentifierV", "description"]
+- ["6Rswift25StoryboardSegueIdentifierV", "identifier"]
+- ["6Rswift25StoryboardSegueIdentifierV", "init"]
+- ["6Rswift25StoryboardSegueIdentifierV", "storyboardSegue"]
+- ["6Rswift29StoryboardSegueIdentifierTypeP", "DestinationType"]
+- ["6Rswift29StoryboardSegueIdentifierTypeP", "SegueType"]
+- ["6Rswift29StoryboardSegueIdentifierTypeP", "SourceType"]
+- !private ["6Rswift29StoryboardSegueIdentifierTypeP", "StoryboardSegue"]
+- ["6Rswift29StoryboardSegueIdentifierTypeP", ""]
+- ["6Rswift29StoryboardSegueIdentifierTypeP", "description"]
+- ["6Rswift29StoryboardSegueIdentifierTypeP", "identifier"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "DestinationType"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "SegueType"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "SourceType"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "String"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "deinit"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "description"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "destination"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "identifier"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "init"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "segue"]
+- ["6Rswift24TypedStoryboardSegueInfoV", "source"]
+depends-nominal:
+- "s23CustomStringConvertibleP"
+- "6Rswift14IdentifierTypeP"
+- "6Rswift15StoryboardSegueV"
+- "6Rswift25StoryboardSegueIdentifierV"
+- "6Rswift29StoryboardSegueIdentifierTypeP"
+- "6Rswift24TypedStoryboardSegueInfoV"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/ObjectiveC.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/CoreImage.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/QuartzCore.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/Dispatch.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/Metal.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/Darwin.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/Foundation.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/CoreFoundation.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/CoreGraphics.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/Swift.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/UIKit.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/swift/SwiftOnoneSupport.swiftmodule/arm64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/Combine.framework/Modules/Combine.swiftmodule/arm64-apple-ios.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/ObjectiveC.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/CoreImage.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/QuartzCore.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/Dispatch.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/Metal.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/Darwin.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/Foundation.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/CoreFoundation.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/CoreGraphics.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/Swift.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/UIKit.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/SwiftOnoneSupport.swiftmodule/arm64.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/Combine.swiftmodule/arm64-apple-ios.swiftmodule"
+- "/Users/max/Downloads/TrackingAndVisualizingFaces/Pods/Target Support Files/R.swift.Library/R.swift.Library-umbrella.h"
+- "/Users/max/Downloads/TrackingAndVisualizingFaces/build/Pods.build/Debug-iphoneos/R.swift.Library.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/apinotes/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "162d293ead0b0b490f5d78abc6dbe448"
