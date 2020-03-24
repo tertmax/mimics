@@ -114,7 +114,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.file` struct is generated, and contains static references to 8 files.
+  /// This `R.file` struct is generated, and contains static references to 7 files.
   struct file {
     /// Resource file `20200306_161439.obj`.
     static let _161439Obj = Rswift.FileResource(bundle: R.hostingBundle, name: "20200306_161439", pathExtension: "obj")
@@ -130,8 +130,6 @@ struct R: Rswift.Validatable {
     static let andriiScn = Rswift.FileResource(bundle: R.hostingBundle, name: "andrii", pathExtension: "scn")
     /// Resource file `model.mtl`.
     static let modelMtl = Rswift.FileResource(bundle: R.hostingBundle, name: "model", pathExtension: "mtl")
-    /// Resource file `myface.obj`.
-    static let myfaceObj = Rswift.FileResource(bundle: R.hostingBundle, name: "myface", pathExtension: "obj")
 
     /// `bundle.url(forResource: "20200306_161439", withExtension: "obj")`
     static func _161439Obj(_: Void = ()) -> Foundation.URL? {
@@ -175,27 +173,33 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "myface", withExtension: "obj")`
-    static func myfaceObj(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.myfaceObj
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 69 images.
+  /// This `R.image` struct is generated, and contains static references to 83 images.
   struct image {
     /// Image `andrii`.
     static let andrii = Rswift.ImageResource(bundle: R.hostingBundle, name: "andrii")
     /// Image `bath_background`.
     static let bath_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_background")
+    /// Image `bath_cheek_left_blown`.
+    static let bath_cheek_left_blown = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_cheek_left_blown")
+    /// Image `bath_cheek_right_blown`.
+    static let bath_cheek_right_blown = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_cheek_right_blown")
     /// Image `bath_dirt`.
     static let bath_dirt = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_dirt")
     /// Image `bath_eyes_damaged`.
     static let bath_eyes_damaged = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_eyes_damaged")
     /// Image `bath_eyes_default`.
     static let bath_eyes_default = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_eyes_default")
+    /// Image `bath_fly_body`.
+    static let bath_fly_body = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_fly_body")
+    /// Image `bath_fly_nose`.
+    static let bath_fly_nose = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_fly_nose")
+    /// Image `bath_fly_wings_1`.
+    static let bath_fly_wings_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_fly_wings_1")
+    /// Image `bath_fly_wings_2`.
+    static let bath_fly_wings_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_fly_wings_2")
     /// Image `bath_hair_left_fixed`.
     static let bath_hair_left_fixed = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_left_fixed")
     /// Image `bath_hair_left_initial`.
@@ -226,12 +230,24 @@ struct R: Rswift.Validatable {
     static let bath_lip_top = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_lip_top")
     /// Image `bath_mirror`.
     static let bath_mirror = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mirror")
+    /// Image `bath_mouth_brushed_water_falling_1`.
+    static let bath_mouth_brushed_water_falling_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_brushed_water_falling_1")
+    /// Image `bath_mouth_brushed_water_falling_2`.
+    static let bath_mouth_brushed_water_falling_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_brushed_water_falling_2")
+    /// Image `bath_mouth_brushed_water_falling_3`.
+    static let bath_mouth_brushed_water_falling_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_brushed_water_falling_3")
+    /// Image `bath_mouth_brushed_water`.
+    static let bath_mouth_brushed_water = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_brushed_water")
+    /// Image `bath_mouth_brushed`.
+    static let bath_mouth_brushed = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_brushed")
     /// Image `bath_mouth_closed`.
     static let bath_mouth_closed = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_closed")
     /// Image `bath_mouth_inside`.
     static let bath_mouth_inside = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_inside")
     /// Image `bath_nose`.
     static let bath_nose = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_nose")
+    /// Image `bath_paste`.
+    static let bath_paste = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_paste")
     /// Image `bath_shirt_fixed`.
     static let bath_shirt_fixed = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_shirt_fixed")
     /// Image `bath_shirt_initial`.
@@ -260,6 +276,10 @@ struct R: Rswift.Validatable {
     static let bath_tap_water2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_tap_water2")
     /// Image `bath_tap_water3`.
     static let bath_tap_water3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_tap_water3")
+    /// Image `bath_toothbrush_pasted`.
+    static let bath_toothbrush_pasted = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_toothbrush_pasted")
+    /// Image `bath_toothbrush`.
+    static let bath_toothbrush = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_toothbrush")
     /// Image `bath_towel_dry`.
     static let bath_towel_dry = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_towel_dry")
     /// Image `bath_towel_wet`.
@@ -340,6 +360,20 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_cheek_left_blown", bundle: ..., traitCollection: ...)`
+    static func bath_cheek_left_blown(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_cheek_left_blown, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_cheek_right_blown", bundle: ..., traitCollection: ...)`
+    static func bath_cheek_right_blown(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_cheek_right_blown, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "bath_dirt", bundle: ..., traitCollection: ...)`
     static func bath_dirt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_dirt, compatibleWith: traitCollection)
@@ -357,6 +391,34 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bath_eyes_default", bundle: ..., traitCollection: ...)`
     static func bath_eyes_default(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_eyes_default, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_fly_body", bundle: ..., traitCollection: ...)`
+    static func bath_fly_body(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_fly_body, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_fly_nose", bundle: ..., traitCollection: ...)`
+    static func bath_fly_nose(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_fly_nose, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_fly_wings_1", bundle: ..., traitCollection: ...)`
+    static func bath_fly_wings_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_fly_wings_1, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_fly_wings_2", bundle: ..., traitCollection: ...)`
+    static func bath_fly_wings_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_fly_wings_2, compatibleWith: traitCollection)
     }
     #endif
 
@@ -466,6 +528,41 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_mouth_brushed", bundle: ..., traitCollection: ...)`
+    static func bath_mouth_brushed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_mouth_brushed, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_mouth_brushed_water", bundle: ..., traitCollection: ...)`
+    static func bath_mouth_brushed_water(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_mouth_brushed_water, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_mouth_brushed_water_falling_1", bundle: ..., traitCollection: ...)`
+    static func bath_mouth_brushed_water_falling_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_mouth_brushed_water_falling_1, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_mouth_brushed_water_falling_2", bundle: ..., traitCollection: ...)`
+    static func bath_mouth_brushed_water_falling_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_mouth_brushed_water_falling_2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_mouth_brushed_water_falling_3", bundle: ..., traitCollection: ...)`
+    static func bath_mouth_brushed_water_falling_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_mouth_brushed_water_falling_3, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "bath_mouth_closed", bundle: ..., traitCollection: ...)`
     static func bath_mouth_closed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_mouth_closed, compatibleWith: traitCollection)
@@ -483,6 +580,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bath_nose", bundle: ..., traitCollection: ...)`
     static func bath_nose(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_nose, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_paste", bundle: ..., traitCollection: ...)`
+    static func bath_paste(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_paste, compatibleWith: traitCollection)
     }
     #endif
 
@@ -581,6 +685,20 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bath_tap_water3", bundle: ..., traitCollection: ...)`
     static func bath_tap_water3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_tap_water3, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_toothbrush", bundle: ..., traitCollection: ...)`
+    static func bath_toothbrush(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_toothbrush, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_toothbrush_pasted", bundle: ..., traitCollection: ...)`
+    static func bath_toothbrush_pasted(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_toothbrush_pasted, compatibleWith: traitCollection)
     }
     #endif
 
@@ -813,7 +931,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.bath` struct is generated, and contains static references to 38 localization keys.
+    /// This `R.string.bath` struct is generated, and contains static references to 51 localization keys.
     struct bath {
       /// Value: bandage
       static let bandage = Rswift.StringResource(key: "bandage", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -825,6 +943,14 @@ struct R: Rswift.Validatable {
       static let crane = Rswift.StringResource(key: "crane", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: eyes
       static let eyes = Rswift.StringResource(key: "eyes", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: fly
+      static let fly = Rswift.StringResource(key: "fly", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: fly_body
+      static let fly_body = Rswift.StringResource(key: "fly_body", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: fly_nose
+      static let fly_nose = Rswift.StringResource(key: "fly_nose", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: fly_wings
+      static let fly_wings = Rswift.StringResource(key: "fly_wings", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: hair_left_fixed
       static let hair_left_fixed = Rswift.StringResource(key: "hair_left_fixed", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: hair_left_initial
@@ -847,12 +973,20 @@ struct R: Rswift.Validatable {
       static let jaw_top = Rswift.StringResource(key: "jaw_top", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: left_brow
       static let left_brow = Rswift.StringResource(key: "left_brow", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: left_cheek
+      static let left_cheek = Rswift.StringResource(key: "left_cheek", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: left_eyeball
       static let left_eyeball = Rswift.StringResource(key: "left_eyeball", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: lip_bottom
       static let lip_bottom = Rswift.StringResource(key: "lip_bottom", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: lip_top
       static let lip_top = Rswift.StringResource(key: "lip_top", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: magenta_cup
+      static let magenta_cup = Rswift.StringResource(key: "magenta_cup", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mouth_brushed
+      static let mouth_brushed = Rswift.StringResource(key: "mouth_brushed", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mouth_brushed_water
+      static let mouth_brushed_water = Rswift.StringResource(key: "mouth_brushed_water", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_default
       static let mouth_default = Rswift.StringResource(key: "mouth_default", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_inside
@@ -869,10 +1003,14 @@ struct R: Rswift.Validatable {
       static let pimple2 = Rswift.StringResource(key: "pimple2", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: pimple2_pinch_zone
       static let pimple2_pinch_zone = Rswift.StringResource(key: "pimple2_pinch_zone", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: purple_cup
+      static let purple_cup = Rswift.StringResource(key: "purple_cup", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: razor
       static let razor = Rswift.StringResource(key: "razor", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: right_brow
       static let right_brow = Rswift.StringResource(key: "right_brow", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: right_cheek
+      static let right_cheek = Rswift.StringResource(key: "right_cheek", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: right_eyeball
       static let right_eyeball = Rswift.StringResource(key: "right_eyeball", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: steam1
@@ -891,6 +1029,12 @@ struct R: Rswift.Validatable {
       static let towel_wet = Rswift.StringResource(key: "towel_wet", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: water
       static let water = Rswift.StringResource(key: "water", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: water_falling1
+      static let water_falling1 = Rswift.StringResource(key: "water_falling1", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: water_falling2
+      static let water_falling2 = Rswift.StringResource(key: "water_falling2", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: water_falling3
+      static let water_falling3 = Rswift.StringResource(key: "water_falling3", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
 
       /// Value: bandage
       static func bandage(preferredLanguages: [String]? = nil) -> String {
@@ -955,6 +1099,58 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("eyes", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: fly
+      static func fly(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("fly", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "fly"
+        }
+
+        return NSLocalizedString("fly", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: fly_body
+      static func fly_body(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("fly_body", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "fly_body"
+        }
+
+        return NSLocalizedString("fly_body", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: fly_nose
+      static func fly_nose(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("fly_nose", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "fly_nose"
+        }
+
+        return NSLocalizedString("fly_nose", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: fly_wings
+      static func fly_wings(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("fly_wings", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "fly_wings"
+        }
+
+        return NSLocalizedString("fly_wings", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: hair_left_fixed
@@ -1100,6 +1296,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("left_brow", tableName: "Bath", bundle: bundle, comment: "")
       }
 
+      /// Value: left_cheek
+      static func left_cheek(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("left_cheek", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "left_cheek"
+        }
+
+        return NSLocalizedString("left_cheek", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
       /// Value: left_eyeball
       static func left_eyeball(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1137,6 +1346,45 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("lip_top", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: magenta_cup
+      static func magenta_cup(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("magenta_cup", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "magenta_cup"
+        }
+
+        return NSLocalizedString("magenta_cup", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mouth_brushed
+      static func mouth_brushed(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mouth_brushed", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mouth_brushed"
+        }
+
+        return NSLocalizedString("mouth_brushed", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mouth_brushed_water
+      static func mouth_brushed_water(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mouth_brushed_water", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mouth_brushed_water"
+        }
+
+        return NSLocalizedString("mouth_brushed_water", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: mouth_default
@@ -1243,6 +1491,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("pimple2_pinch_zone", tableName: "Bath", bundle: bundle, comment: "")
       }
 
+      /// Value: purple_cup
+      static func purple_cup(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("purple_cup", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "purple_cup"
+        }
+
+        return NSLocalizedString("purple_cup", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
       /// Value: razor
       static func razor(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1267,6 +1528,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("right_brow", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: right_cheek
+      static func right_cheek(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("right_cheek", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "right_cheek"
+        }
+
+        return NSLocalizedString("right_cheek", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: right_eyeball
@@ -1384,6 +1658,45 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("water", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: water_falling1
+      static func water_falling1(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("water_falling1", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "water_falling1"
+        }
+
+        return NSLocalizedString("water_falling1", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: water_falling2
+      static func water_falling2(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("water_falling2", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "water_falling2"
+        }
+
+        return NSLocalizedString("water_falling2", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: water_falling3
+      static func water_falling3(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("water_falling3", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "water_falling3"
+        }
+
+        return NSLocalizedString("water_falling3", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

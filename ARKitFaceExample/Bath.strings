@@ -14,6 +14,8 @@
 "comb" = "comb";
 "toothbrush" = "toothbrush";
 "toilet_water" = "toilet_water";
+"magenta_cup" = "magenta_cup";
+"purple_cup" = "purple_cup";
 
 //MARK: Face
 
@@ -28,6 +30,13 @@
 "lip_bottom" = "lip_bottom";
 "mouth_inside" = "mouth_inside";
 "mouth_default" = "mouth_default";
+"mouth_brushed" = "mouth_brushed";
+"mouth_brushed_water" = "mouth_brushed_water";
+"water_falling1" = "water_falling1";
+"water_falling2" = "water_falling2";
+"water_falling3" = "water_falling3";
+"left_cheek" = "left_cheek";
+"right_cheek" = "right_cheek";
 "pimple1_initial" = "pimple1_initial";
 "pimple1_bleedning" = "pimple1_bleeding";
 "pimple1_fixed" = "pimple1_fixed";
@@ -56,5 +65,12 @@
 "towel_wet" = "towel_wet";
 "towel_dry" = "towel_dry";
 "crane" = "crane";
+
+//MARK: Fly
+
+"fly" = "fly";
+"fly_body" = "fly_body";
+"fly_nose" = "fly_nose";
+"fly_wings" = "fly_wings";
 
 
