@@ -10,9 +10,11 @@
 //MARK: Shelf
 
 "razor" = "razor";
+"razor_top" = "razor_top";
 "bandage" = "bandage";
 "comb" = "comb";
 "toothbrush" = "toothbrush";
+"toothbrush_top" = "toothbrush_top";
 "toilet_water" = "toilet_water";
 "magenta_cup" = "magenta_cup";
 "purple_cup" = "purple_cup";
@@ -41,8 +43,10 @@
 "pimple1_bleedning" = "pimple1_bleeding";
 "pimple1_fixed" = "pimple1_fixed";
 "pimple2" = "pimple2";
+"pimple3" = "pimple3";
 "pimple1_pinch_zone" = "pimple1_pinch_zone";
 "pimple2_pinch_zone" = "pimple2_pinch_zone";
+"hair_piece" = "hair_piece";
 
 //MARK: Hair
 

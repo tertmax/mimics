@@ -18,6 +18,7 @@
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
 		39D8DC1B1E8ADAE600386B05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */; };
+		5016D691242D488E00066A31 /* BathAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5016D690242D488E00066A31 /* BathAnimator.swift */; };
 		504852312412929F008EDB80 /* 20200306_161439.obj in Resources */ = {isa = PBXBuildFile; fileRef = 504852302412929F008EDB80 /* 20200306_161439.obj */; };
 		50485233241292BD008EDB80 /* andrii.png in Resources */ = {isa = PBXBuildFile; fileRef = 50485232241292BD008EDB80 /* andrii.png */; };
 		50485235241292C4008EDB80 /* model.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 50485234241292C4008EDB80 /* model.mtl */; };
@@ -28,6 +29,9 @@
 		50CFF265242921260002FE2C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CFF264242921260002FE2C /* File.swift */; };
 		50CFF2672429324D0002FE2C /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CFF2662429324D0002FE2C /* UIDeviceExtension.swift */; };
 		50E24081241A9A5600A37A7A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 50E24080241A9A5600A37A7A /* GameScene.sks */; };
+		50ECB60E242D45F10034DC57 /* BathPhysicsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ECB60D242D45F10034DC57 /* BathPhysicsUtil.swift */; };
+		50ECB610242D46060034DC57 /* BathNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ECB60F242D46060034DC57 /* BathNodes.swift */; };
+		50ECB612242D461D0034DC57 /* BathState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ECB611242D461D0034DC57 /* BathState.swift */; };
 		50EF76FA2421862100A0B748 /* Bath.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50EF76F92421862100A0B748 /* Bath.strings */; };
 		50EF76FE2421881400A0B748 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF76FD2421881400A0B748 /* R.generated.swift */; };
 		942AF577CCB4BFB12AFA93AF /* Pods_ARKitFaceExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C6600B1223CE871C78E789 /* Pods_ARKitFaceExample.framework */; };
@@ -54,6 +58,7 @@
 		3929C4971E89EC2C00E00B60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3929C49E1E89EE4400E00B60 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5016D690242D488E00066A31 /* BathAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BathAnimator.swift; sourceTree = "<group>"; };
 		504852302412929F008EDB80 /* 20200306_161439.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20200306_161439.obj; sourceTree = "<group>"; };
 		50485232241292BD008EDB80 /* andrii.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = andrii.png; sourceTree = "<group>"; };
 		50485234241292C4008EDB80 /* model.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = model.mtl; sourceTree = "<group>"; };
@@ -64,6 +69,9 @@
 		50CFF264242921260002FE2C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		50CFF2662429324D0002FE2C /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		50E24080241A9A5600A37A7A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		50ECB60D242D45F10034DC57 /* BathPhysicsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BathPhysicsUtil.swift; sourceTree = "<group>"; };
+		50ECB60F242D46060034DC57 /* BathNodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BathNodes.swift; sourceTree = "<group>"; };
+		50ECB611242D461D0034DC57 /* BathState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BathState.swift; sourceTree = "<group>"; };
 		50EF76F92421862100A0B748 /* Bath.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Bath.strings; sourceTree = "<group>"; };
 		50EF76FD2421881400A0B748 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		599BD8C45F5DF9E9198A762B /* Pods-ARKitFaceExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitFaceExample.debug.xcconfig"; path = "Target Support Files/Pods-ARKitFaceExample/Pods-ARKitFaceExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,11 +139,11 @@
 		3929C48A1E89EC2C00E00B60 /* ARKitFaceExample */ = {
 			isa = PBXGroup;
 			children = (
+				50ECB60C242D45AA0034DC57 /* Bath */,
 				50CFF261242920770002FE2C /* Extensions */,
 				50EF76FD2421881400A0B748 /* R.generated.swift */,
 				50EF76F92421862100A0B748 /* Bath.strings */,
 				3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */,
-				3929C48D1E89EC2C00E00B60 /* ViewController.swift */,
 				C8904E581F4CFE380089E530 /* Face Overlay Content */,
 				11EE23D1213479CF00C0DEAD /* Utilities.swift */,
 				1488324C1EFC3ED00043E0AB /* Resources */,
@@ -159,6 +167,18 @@
 				50CFF2662429324D0002FE2C /* UIDeviceExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		50ECB60C242D45AA0034DC57 /* Bath */ = {
+			isa = PBXGroup;
+			children = (
+				3929C48D1E89EC2C00E00B60 /* ViewController.swift */,
+				50ECB60D242D45F10034DC57 /* BathPhysicsUtil.swift */,
+				50ECB60F242D46060034DC57 /* BathNodes.swift */,
+				50ECB611242D461D0034DC57 /* BathState.swift */,
+				5016D690242D488E00066A31 /* BathAnimator.swift */,
+			);
+			path = Bath;
 			sourceTree = "<group>";
 		};
 		690A3257C5246D71602E2F11 /* Configuration */ = {
@@ -347,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50ECB60E242D45F10034DC57 /* BathPhysicsUtil.swift in Sources */,
 				50CFF2672429324D0002FE2C /* UIDeviceExtension.swift in Sources */,
 				116FDD742130A6BD008404D3 /* TransformVisualization.swift in Sources */,
 				C81DA0C61F4CC79A002AF1DA /* FaceOcclusionOverlay.swift in Sources */,
@@ -357,11 +378,14 @@
 				C8904E551F4CFD000089E530 /* VirtualContent.swift in Sources */,
 				11764D981FB1344900D90F75 /* VideoTexturedFace.swift in Sources */,
 				50898E15241FC14D00698608 /* FaceTracker.swift in Sources */,
+				50ECB610242D46060034DC57 /* BathNodes.swift in Sources */,
 				50CFF265242921260002FE2C /* File.swift in Sources */,
 				11EE23D2213479CF00C0DEAD /* Utilities.swift in Sources */,
 				C8904E571F4CFD730089E530 /* TexturedFace.swift in Sources */,
 				50EF76FE2421881400A0B748 /* R.generated.swift in Sources */,
+				50ECB612242D461D0034DC57 /* BathState.swift in Sources */,
 				50CFF2632429209C0002FE2C /* SKPhysicsContactExtension.swift in Sources */,
+				5016D691242D488E00066A31 /* BathAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
