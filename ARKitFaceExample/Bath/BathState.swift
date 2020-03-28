@@ -27,12 +27,24 @@ struct BathState {
     var currentRightHair: SKSpriteNode!
     
     var hairMoveStartLocation: CGPoint?
-    let minDistance: CGFloat = 25
+    var hairMoveStart: (point: CGPoint, time: TimeInterval)?
+    var dirtMoveStart: (point: CGPoint, time: TimeInterval)?
+    let minDistance: CGFloat = 50
+    let minSpeed: CGFloat = 400
     
     var isMouthOpened: Bool = false
     var teethProgress: Int = 6
     var isMouthBusy: Bool = false
     var isMouthFlushing: Bool = false
+    var teethState: TeethState {
+        if teethProgress == 0 {
+            return .needsRinsing
+        }
+        if teethProgress < 0 {
+            return .fixed
+        }
+        return .dirty
+    }
     
     var isMagentaCupFilled: Bool = false
     var isPurpleCupFilled: Bool = false
@@ -41,6 +53,12 @@ struct BathState {
     var rinsingReachedUpperBound: Bool = false
     
     var isToothbrushNotInCup: Bool = false
+    
+    var isTowelWet: Bool = false
+    var dirtProgress: Int = 4
+    var isDirtFixed: Bool {
+        return dirtProgress <= 0
+    }
 }
 
 enum WaterTemprature {
@@ -48,4 +66,10 @@ enum WaterTemprature {
     case hot
     case normal
     case none
+}
+
+enum TeethState {
+    case dirty
+    case needsRinsing
+    case fixed
 }

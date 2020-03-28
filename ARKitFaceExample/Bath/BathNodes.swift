@@ -27,8 +27,10 @@ class BathNodes {
     let pimple1Bleeidng: Node
     let pimple1Fixed: Node
     let pimple2: Node
+    let pimple3: Node
     let pimple1Pinch: Node
     let pimple2Pinch: Node
+    let pimple3Pinch: Node
     let toothBrush: Node
     let razor: Node
     let towel: Node
@@ -62,6 +64,7 @@ class BathNodes {
     var hairPieces: [Node]
     let razorTop: Node
     let toothbrushTop: Node
+    let dirt: Node
     
     init(scene: SKScene?) {
         
@@ -95,8 +98,10 @@ class BathNodes {
         pimple1Bleeidng = setupNode(name: R.string.bath.pimple1_bleedning())
         pimple1Fixed = setupNode(name: R.string.bath.pimple1_fixed())
         pimple2 = setupNode(name: R.string.bath.pimple2())
+        pimple3 = setupNode(name: R.string.bath.pimple3())
         pimple1Pinch = setupNode(name: R.string.bath.pimple1_pinch_zone())
         pimple2Pinch = setupNode(name: R.string.bath.pimple2_pinch_zone())
+        pimple3Pinch = setupNode(name: R.string.bath.pimple3_pinch_zone())
         eyes = setupNode(name: R.string.bath.eyes())
         coldValve = setupNode(name: R.string.bath.cold_valve())
         hotValve = setupNode(name: R.string.bath.hot_valve())
@@ -120,9 +125,10 @@ class BathNodes {
         flyNose = setupNode(name: R.string.bath.fly_nose(), parentNode: fly)
         flyWings = setupNode(name: R.string.bath.fly_wings(), parentNode: fly)
         cupMagenta = setupNode(name: R.string.bath.magenta_cup())
+        dirt = setupNode(name: R.string.bath.dirt())
         
         var hairs: [Node] = []
-        for i in 2...45 {
+        for i in 2...91 {
             hairs.append(setupNode(name: R.string.bath.hair_piece() + String(i)))
         }
         hairPieces = hairs

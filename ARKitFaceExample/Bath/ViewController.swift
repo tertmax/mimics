@@ -88,7 +88,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         physicsUtils.createPhyscisBodies(nodes: nodes)
         
         state.currentRightHair = nodes.hairRightInitial
-        //        skView.showsPhysics = true
+//        skView.showsPhysics = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,6 +100,10 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         // "Reset" to run the AR session for the first time.
         resetTracking()
+    }
+    
+    func addTestEraserView() {
+        let view = UI
     }
     
     func updateWaterState() {
@@ -125,8 +129,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     }
     
     func updateLeftHairState(direction: UISwipeGestureRecognizer.Direction) {
-        guard direction == .down else { return }
-        animator.swapNodes(oldNode: nodes.hairLeftInitial, newNode: nodes.hairLeftFixed)
+        BaseAnimator.swapNodes(oldNode: nodes.hairLeftInitial, newNode: nodes.hairLeftFixed)
     }
     
     func updateRightHairState(direction: UISwipeGestureRecognizer.Direction) {
@@ -143,8 +146,18 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         default:
             print("No such swipe direction for Right Hair node")
         }
-        animator.swapNodes(oldNode: state.currentRightHair, newNode: fixedHair)
+        BaseAnimator.swapNodes(oldNode: state.currentRightHair, newNode: fixedHair)
         state.currentRightHair = fixedHair
+    }
+    
+    func updateDirtState() {
+        if !state.isDirtFixed {
+            animator.runUpdateDirtAlpha()
+            state.dirtProgress -= 1
+        } else {
+            nodes.dirt.removeFromParent()
+        }
+        UIDevice.current.vibrate()
     }
     
     func updateCupDraggability() {
@@ -152,24 +165,29 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     }
     
     func updateTeeth() {
-        guard state.isMouthOpened else { return }
-        if state.teethProgress == 4 {
-            let changeBrush = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_toothbrush.name))
-            nodes.toothBrush.run(changeBrush)
+        guard state.isMouthOpened, state.teethState != .fixed else { return }
+        
+        if state.teethProgress == 5 {
+            animator.runRemovePaste()
         }
         
-        if state.teethProgress == 0 {
-            UIDevice.current.vibrate()
+        if state.teethState == .needsRinsing {
             state.isMouthBusy = true
             updateCheeksAlpha()
-            let topAction = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_jaw_top_fixed.name))
-            let bottomAction = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_jaw_bottom_fixed.name))
-            nodes.jawTop.run(topAction)
-            nodes.jawBottom.run(bottomAction)
-        } else {
-            state.teethProgress -= 1
-            UIDevice.current.vibrate()
+            handleMouth()
+            animator.runCleanTeeth()
         }
+        
+        UIDevice.current.vibrate()
+        state.teethProgress -= 1
+    }
+    
+    func wetTowel() {
+        guard !state.isTowelWet else { return }
+        state.isTowelWet = true
+        animator.runWetTowel()
+        UIDevice.current.vibrate()
+        nodes.towel.initPoint.y += 20
     }
     
     //MARK: Gestures
@@ -212,12 +230,21 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         if firstHitNodes.contains(nodes.pimple1Pinch) && secondHitNodes.contains(nodes.pimple1Pinch) {
             UIDevice.current.vibrate()
             nodes.pimple1Pinch.isHidden = true
-            animator.swapNodes(oldNode: nodes.pimple1Initial, newNode: nodes.pimple1Bleeidng, duration: 0.5)
+            BaseAnimator.swapNodes(oldNode: nodes.pimple1Initial, newNode: nodes.pimple1Bleeidng, duration: 0.5)
             animator.runDamage()
+            return
         } else if firstHitNodes.contains(nodes.pimple2Pinch) && secondHitNodes.contains(nodes.pimple2Pinch) {
             UIDevice.current.vibrate()
             nodes.pimple2Pinch.isHidden = true
-            animator.fadeOut(nodes: [nodes.pimple2], duration: 0.5)
+            BaseAnimator.fadeOut(nodes: [nodes.pimple2], duration: 0.5)
+            return
+        } else if firstHitNodes.contains(nodes.pimple3Pinch) && secondHitNodes.contains(nodes.pimple3Pinch) {
+            if state.currentRightHair == nodes.hairRightFixedUp || state.currentRightHair == nodes.hairRightFixedLeft {
+                UIDevice.current.vibrate()
+                nodes.pimple3Pinch.isHidden = true
+                BaseAnimator.fadeOut(nodes: [nodes.pimple3], duration: 0.5)
+                return
+            }
         }
     }
     
@@ -306,7 +333,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     func fixBleedingPimple() {
         UIDevice.current.vibrate()
-        animator.swapNodes(oldNode: nodes.pimple1Bleeidng, newNode: nodes.pimple1Fixed, duration: 0.5)
+        BaseAnimator.swapNodes(oldNode: nodes.pimple1Bleeidng, newNode: nodes.pimple1Fixed, duration: 0.5)
         nodes.bandage.removeFromParent()
     }
     
@@ -348,6 +375,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     }
     
     func handleCheeks() {
+        guard state.isMouthFlushing else { return }
         let cheeks = face.get(.cheekPuff)
         
         let cheeksUpperThreshold: CGFloat = 0.55
@@ -401,9 +429,14 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         for touch in nodeTouches {
             let point = skView.convert(touch.value.location(in: self.skView), to: skView.scene!)
             touch.key.position = point
-            if let swipeDirection = checkSwipe(touch: touch.value) {
-                updateRightHairState(direction: swipeDirection)
-                updateLeftHairState(direction: swipeDirection)
+            if let hairSwipeDirection = checkSwipe(touch: touch.value, start: state.hairMoveStart) {
+                state.hairMoveStart = nil
+                updateRightHairState(direction: hairSwipeDirection)
+                updateLeftHairState(direction: hairSwipeDirection)
+            }
+            if let dirtSwipeDirection = checkSwipe(touch: touch.value, start: state.dirtMoveStart), state.isTowelWet {
+                state.dirtMoveStart = nil
+                updateDirtState()
             }
         }
     }
@@ -443,7 +476,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             nodes.toothBrush.initRotation = -0.9
             nodes.toothBrush.initPoint = nodes.towel.initPoint
             nodes.toothBrush.initPoint.x *= -1
-            nodes.toothBrush.initPoint.x += 30
+            nodes.toothBrush.initPoint.x += 40
             nodes.cupMagenta.initZPosition = 0
         }
     }
@@ -461,7 +494,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             putWaterInMouth()
         }
         
-        if hitNodes.contains(nodes.bandage) && nodes.bandage.isContactingWith(nodes.pimple1Bleeidng) {
+        if hitNodes.contains(nodes.bandage) && nodes.bandage.isContactingWith(nodes.pimple1Bleeidng) && nodes.pimple1Bleeidng.alpha > 0 {
             fixBleedingPimple()
         }
     }
@@ -470,15 +503,17 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         updateCupDraggability()
     }
     
-    func checkSwipe(touch: UITouch) -> UISwipeGestureRecognizer.Direction? {
-        if let startLocation = state.hairMoveStartLocation {
+    func checkSwipe(touch: UITouch, start: (point: CGPoint, time: TimeInterval)?) -> UISwipeGestureRecognizer.Direction? {
+        if let start = start {
             let location = touch.location(in: skView.scene!)
-            let dx = location.x - startLocation.x
-            let dy = location.y - startLocation.y
+            let dx = location.x - start.point.x
+            let dy = location.y - start.point.y
             let distance = sqrt(dx*dx+dy*dy)
-            self.state.hairMoveStartLocation = nil
+            
+            let deltaTime = NSDate().timeIntervalSince1970 - start.time
+            let speed = distance / CGFloat(deltaTime)
             // Check if the user's finger moved a minimum distance
-            if distance > state.minDistance {
+            if distance > state.minDistance && speed > state.minSpeed {
                 // Determine the direction of the swipe
                 let x = abs(dx/distance) > 0.4 ? Int(sign(Float(dx))) : 0
                 let y = abs(dy/distance) > 0.4 ? Int(sign(Float(dy))) : 0
@@ -545,18 +580,24 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     // MARK: SK Contacts
     
-    func handleHairCombContact(contact: SKPhysicsContact) {
-        guard state.hairMoveStartLocation == nil else { return }
-        state.hairMoveStartLocation = nodeTouches[nodes.comb]!.location(in: skView.scene!)
+    private func handleHairCombContact(contact: OrderedContactBodies<Contact>) {
+        guard state.hairMoveStart == nil else { return }
+        state.hairMoveStart = (point: nodeTouches[nodes.comb]!.location(in: skView.scene!), time: NSDate().timeIntervalSince1970)
     }
     
-    func handleBrushTeethContact(contact: SKPhysicsContact) {
-        
+    private func handleToothbrushTeethContact(contact: OrderedContactBodies<Contact>) {
+        updateTeeth()
     }
     
     private func handleCupWaterContact(contact: OrderedContactBodies<Contact>) {
-        if let node = contact.other.body.node as? Node, node == nodes.cupMagenta {
+     
+        switch state.waterTemprature {
+        case .cold, .hot:
+            animator.runDamage()
+        case .normal:
             fillCupWithWater()
+        case .none:
+            return
         }
     }
     
@@ -565,30 +606,61 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             animator.runFallHairPiece(node: node)
         }
     }
+    
+    private func handleTowelWaterContact(contact: OrderedContactBodies<Contact>) {
+        
+        switch state.waterTemprature {
+        case .cold, .hot:
+            animator.runDamage()
+        case .normal:
+            wetTowel()
+        case .none:
+            return
+        }
+    }
+    
+    private func handleTowelDirtContact(contact: OrderedContactBodies<Contact>) {
+        guard state.dirtMoveStart == nil else { return }
+        state.dirtMoveStart = (point: nodeTouches[nodes.towel]!.location(in: skView.scene!), time: NSDate().timeIntervalSince1970)
+    }
 }
+
+// MARK: - SKPhysicsContactDelegate
 
 extension ViewController: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        if let _ = contact.orderedBodies(for: [Contact.comb, .hair]) {
+        if let contact = contact.orderedBodies(for: [Contact.comb]), contact.other.category == .hair {
             handleHairCombContact(contact: contact)
         }
         
-        if let _ = contact.orderedBodies(for: [Contact.toothBrush, .teeth]) {
-            updateTeeth()
+        if let contact = contact.orderedBodies(for: [Contact.toothBrush]), contact.other.category == .teeth {
+            handleToothbrushTeethContact(contact: contact)
         }
         
-        if let contact = contact.orderedBodies(for: [Contact.cup, .water]) {
+        if let contact = contact.orderedBodies(for: [Contact.cup]), contact.other.category == .water {
             handleCupWaterContact(contact: contact)
         }
         
-        if let contact = contact.orderedBodies(for: [Contact.hairPiece, .razor]) {
+        if let contact = contact.orderedBodies(for: [Contact.hairPiece]), contact.other.category == .razor {
             handleRazorHairContact(contact: contact)
+        }
+        
+        if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .water {
+            handleTowelWaterContact(contact: contact)
+        }
+        
+        if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .dirt {
+            handleTowelDirtContact(contact: contact)
         }
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
-        if let _ = contact.orderedBodies(for: [Contact.comb, .hair]) {
-            state.hairMoveStartLocation = nil
+        if let contact = contact.orderedBodies(for: [Contact.comb]), contact.other.category == .hair {
+            state.hairMoveStart = nil
+        }
+        
+        if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .dirt {
+            state.dirtMoveStart = nil
         }
     }
 }

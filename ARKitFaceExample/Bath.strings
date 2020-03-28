@@ -46,7 +46,9 @@
 "pimple3" = "pimple3";
 "pimple1_pinch_zone" = "pimple1_pinch_zone";
 "pimple2_pinch_zone" = "pimple2_pinch_zone";
+"pimple3_pinch_zone" = "pimple3_pinch_zone";
 "hair_piece" = "hair_piece";
+"dirt" = "dirt";
 
 //MARK: Hair
 

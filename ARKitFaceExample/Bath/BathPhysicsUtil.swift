@@ -30,6 +30,8 @@ enum Contact: UInt32, PhysicsCategory {
     case mouthBrushed = 256
     case pimple = 512
     case bandage = 1024
+    case towel = 2048
+    case dirt = 4096
 }
 
 class BathPhysicsUtil {
@@ -153,7 +155,6 @@ class BathPhysicsUtil {
         
         // Razor
         
-        let razorScale = CGAffineTransform(scaleX: 0.5, y: 0.08)
         let razorRect = nodes.razorTop.size
         
         let razorBlade = SKPhysicsBody(rectangleOf: razorRect)
@@ -183,5 +184,29 @@ class BathPhysicsUtil {
         bandage.collisionBitMask = Contact.other.rawValue
         
         nodes.bandage.physicsBody = bandage
+        
+        // Towel
+        
+        let towelScale = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        
+        let towel = SKPhysicsBody(rectangleOf: nodes.towel.size.applying(towelScale))
+        towel.affectedByGravity = false
+        towel.contactTestBitMask = Contact.dirt.rawValue | Contact.water.rawValue
+        towel.categoryBitMask = Contact.towel.rawValue
+        towel.collisionBitMask = Contact.other.rawValue
+        
+        nodes.towel.physicsBody = towel
+        
+        // Dirt
+        
+        let dirtScale = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        
+        let dirt = SKPhysicsBody(rectangleOf: nodes.dirt.size.applying(dirtScale))
+        dirt.affectedByGravity = false
+        dirt.contactTestBitMask = Contact.towel.rawValue
+        dirt.categoryBitMask = Contact.dirt.rawValue
+        dirt.collisionBitMask = Contact.other.rawValue
+        
+        nodes.dirt.physicsBody = dirt
     }
 }

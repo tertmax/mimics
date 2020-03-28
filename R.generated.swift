@@ -176,7 +176,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 98 images.
+  /// This `R.image` struct is generated, and contains static references to 108 images.
   struct image {
     /// Image `andrii`.
     static let andrii = Rswift.ImageResource(bundle: R.hostingBundle, name: "andrii")
@@ -212,8 +212,28 @@ struct R: Rswift.Validatable {
     static let bath_hair_piece_10 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_10")
     /// Image `bath_hair_piece_11`.
     static let bath_hair_piece_11 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_11")
+    /// Image `bath_hair_piece_12`.
+    static let bath_hair_piece_12 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_12")
+    /// Image `bath_hair_piece_13`.
+    static let bath_hair_piece_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_13")
+    /// Image `bath_hair_piece_14`.
+    static let bath_hair_piece_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_14")
+    /// Image `bath_hair_piece_15`.
+    static let bath_hair_piece_15 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_15")
+    /// Image `bath_hair_piece_16`.
+    static let bath_hair_piece_16 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_16")
+    /// Image `bath_hair_piece_17`.
+    static let bath_hair_piece_17 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_17")
+    /// Image `bath_hair_piece_18`.
+    static let bath_hair_piece_18 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_18")
+    /// Image `bath_hair_piece_19`.
+    static let bath_hair_piece_19 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_19")
     /// Image `bath_hair_piece_1`.
     static let bath_hair_piece_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_1")
+    /// Image `bath_hair_piece_20`.
+    static let bath_hair_piece_20 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_20")
+    /// Image `bath_hair_piece_21`.
+    static let bath_hair_piece_21 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_21")
     /// Image `bath_hair_piece_2`.
     static let bath_hair_piece_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_hair_piece_2")
     /// Image `bath_hair_piece_3`.
@@ -502,9 +522,79 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_12", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_12(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_12, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_13", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_13(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_13, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_14", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_14(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_14, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_15", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_15(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_15, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_16", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_16(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_16, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_17", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_17(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_17, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_18", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_18(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_18, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_19", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_19(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_19, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "bath_hair_piece_2", bundle: ..., traitCollection: ...)`
     static func bath_hair_piece_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_hair_piece_2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_20", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_20(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_20, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_hair_piece_21", bundle: ..., traitCollection: ...)`
+    static func bath_hair_piece_21(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_hair_piece_21, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1066,7 +1156,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.bath` struct is generated, and contains static references to 55 localization keys.
+    /// This `R.string.bath` struct is generated, and contains static references to 57 localization keys.
     struct bath {
       /// Value: bandage
       static let bandage = Rswift.StringResource(key: "bandage", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -1076,6 +1166,8 @@ struct R: Rswift.Validatable {
       static let comb = Rswift.StringResource(key: "comb", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: crane
       static let crane = Rswift.StringResource(key: "crane", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: dirt
+      static let dirt = Rswift.StringResource(key: "dirt", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: eyes
       static let eyes = Rswift.StringResource(key: "eyes", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: fly
@@ -1142,6 +1234,8 @@ struct R: Rswift.Validatable {
       static let pimple2_pinch_zone = Rswift.StringResource(key: "pimple2_pinch_zone", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: pimple3
       static let pimple3 = Rswift.StringResource(key: "pimple3", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: pimple3_pinch_zone
+      static let pimple3_pinch_zone = Rswift.StringResource(key: "pimple3_pinch_zone", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: purple_cup
       static let purple_cup = Rswift.StringResource(key: "purple_cup", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: razor
@@ -1229,6 +1323,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("crane", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: dirt
+      static func dirt(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dirt", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "dirt"
+        }
+
+        return NSLocalizedString("dirt", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: eyes
@@ -1658,6 +1765,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("pimple3", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: pimple3_pinch_zone
+      static func pimple3_pinch_zone(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("pimple3_pinch_zone", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "pimple3_pinch_zone"
+        }
+
+        return NSLocalizedString("pimple3_pinch_zone", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: purple_cup

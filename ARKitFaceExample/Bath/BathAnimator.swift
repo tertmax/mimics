@@ -61,7 +61,7 @@ class BathAnimator {
         
         a.nodes.water.run(SKAction.repeatForever(sequence))
         
-        fadeIn(nodes: [a.nodes.water], duration: 0.3)
+        BaseAnimator.fadeIn(nodes: [a.nodes.water], duration: 0.3)
     }
     
     func stopSinkWater() {
@@ -127,37 +127,33 @@ class BathAnimator {
     }
     
     func runSpitAnimation() {
-        guard let a = animatable else { return }
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         let fadeOut = SKAction.fadeOut(withDuration: 0.3)
         let pause = SKAction.wait(forDuration: 0.3)
         let releaseMouth = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
-            a.state.isMouthBusy = false
+            self.animatable?.state.isMouthBusy = false
         })
         
         let sequence = SKAction.sequence([fadeIn, pause, fadeOut])
         
-        a.nodes.leftCheek.run(fadeOut)
-        a.nodes.rightCheek.run(fadeOut)
-        a.nodes.fallingWater1.run(sequence)
-        a.nodes.fallingWater2.run(SKAction.sequence([pause, sequence]))
-        a.nodes.fallingWater3.run(SKAction.sequence([pause, pause, sequence, releaseMouth]))
+        animatable?.nodes.leftCheek.run(fadeOut)
+        animatable?.nodes.rightCheek.run(fadeOut)
+        animatable?.nodes.fallingWater1.run(sequence)
+        animatable?.nodes.fallingWater2.run(SKAction.sequence([pause, sequence]))
+        animatable?.nodes.fallingWater3.run(SKAction.sequence([pause, pause, sequence, releaseMouth]))
     }
     
     func runRotateColdValve(angle: CGFloat) {
-        guard let a = animatable else { return }
         let rotate = SKAction.rotate(byAngle: angle, duration: 0.5)
-        a.nodes.coldValve.run(rotate)
+        animatable?.nodes.coldValve.run(rotate)
     }
     
     func runRotateHotValve(angle: CGFloat) {
-        guard let a = animatable else { return }
         let rotate = SKAction.rotate(byAngle: angle, duration: 0.5)
-        a.nodes.hotValve.run(rotate)
+        animatable?.nodes.hotValve.run(rotate)
     }
     
     func runSteam() {
-        guard let a = animatable else { return }
         let scale = SKAction.scale(to: 1.5, duration: 2)
         let appear = SKAction.fadeAlpha(to: 1, duration: 0.8)
         let fade = SKAction.fadeAlpha(to: 0, duration: 0.8)
@@ -165,9 +161,9 @@ class BathAnimator {
         let pause = SKAction.wait(forDuration: 2)
         let appearGroup = SKAction.group([scale, appear])
         let sequence = SKAction.sequence([appearGroup,fade, resetScale])
-        a.nodes.steam1.run(SKAction.repeatForever(sequence))
-        a.nodes.steam2.run(SKAction.repeatForever(SKAction.sequence([pause, sequence])))
-        a.nodes.steam3.run(SKAction.repeatForever(SKAction.sequence([pause, pause, sequence])))
+        animatable?.nodes.steam1.run(SKAction.repeatForever(sequence))
+        animatable?.nodes.steam2.run(SKAction.repeatForever(SKAction.sequence([pause, sequence])))
+        animatable?.nodes.steam3.run(SKAction.repeatForever(SKAction.sequence([pause, pause, sequence])))
     }
     
     func stopSteam() {
@@ -184,46 +180,37 @@ class BathAnimator {
     }
     
     func runColdCrane() {
-        guard let a = animatable else { return }
-        let coldCraneAction = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_tap_crane_cold.name))
-        a.nodes.crane.run(coldCraneAction)
+        BaseAnimator.changeTexture(node: animatable?.nodes.crane, textureName: R.image.bath_tap_crane_cold.name)
     }
     
     func runDefaultCrane() {
-        guard let a = animatable else { return }
-        let defaultCraneAction = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_tap_crane_default.name))
-        a.nodes.crane.run(defaultCraneAction)
-    }
-    
-    func swapNodes(oldNode: SKSpriteNode, newNode: SKSpriteNode, duration: TimeInterval = 0.0) {
-        fadeOut(nodes: [oldNode], duration: duration)
-        fadeIn(nodes: [newNode], duration: duration)
-    }
-    
-    func fadeIn(nodes: [SKSpriteNode], duration: TimeInterval) {
-        let fadeIn = SKAction.fadeIn(withDuration: duration)
-        for node in nodes {
-            node.run(fadeIn)
-        }
-    }
-    
-    func fadeOut(nodes: [SKSpriteNode], duration: TimeInterval) {
-        let fadeOut = SKAction.fadeOut(withDuration: duration)
-        for node in nodes {
-            node.run(fadeOut)
-        }
+        BaseAnimator.changeTexture(node: animatable?.nodes.crane, textureName: R.image.bath_tap_crane_default.name)
     }
     
     func runFillCup() {
-        guard let a = animatable else { return }
-        let changeTexture = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_cup_magenta_filled.name))
-        a.nodes.cupMagenta.run(changeTexture)
+        BaseAnimator.changeTexture(node: animatable?.nodes.cupMagenta, textureName: R.image.bath_cup_magenta_filled.name)
     }
     
     func runPutWaterInMouth() {
-        guard let a = animatable else { return }
-        let cupChangeTexture = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_cup_magenta.name))
-        a.nodes.cupMagenta.run(cupChangeTexture)
+        BaseAnimator.changeTexture(node: animatable?.nodes.cupMagenta, textureName: R.image.bath_cup_magenta.name)
     }
     
+    func runRemovePaste() {
+        BaseAnimator.changeTexture(node: animatable?.nodes.toothBrush, textureName: R.image.bath_toothbrush.name)
+    }
+    
+    func runCleanTeeth() {
+        BaseAnimator.changeTexture(node: animatable?.nodes.jawTop, textureName: R.image.bath_jaw_top_fixed.name)
+        BaseAnimator.changeTexture(node: animatable?.nodes.jawBottom, textureName: R.image.bath_jaw_bottom_fixed.name)
+    }
+    
+    func runWetTowel() {
+        BaseAnimator.changeTexture(node: animatable?.nodes.towel, textureName: R.image.bath_towel_wet.name)
+    }
+
+    func runUpdateDirtAlpha() {
+        guard let a = animatable else { return }
+        guard a.nodes.dirt.alpha > 0 else { return }
+        BaseAnimator.changeAlpha(nodes: [a.nodes.dirt], alpha: -0.2, duration: 0.2)
+    }
 }
