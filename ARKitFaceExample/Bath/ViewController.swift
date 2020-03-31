@@ -9,6 +9,8 @@ import ARKit
 import SceneKit
 import UIKit
 import Foundation
+import Sketch
+import UIImageColors
 
 class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
@@ -24,7 +26,12 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     private let physicsUtils = BathPhysicsUtil()
     
     var nodes: BathNodes!
+    var blur: Node!
+    let mirrorCropNode = SKCropNode()
     var state = BathState()
+    
+    var erasePath = CGMutablePath()
+    var timer: Timer?
     
     // MARK: Properties
     
@@ -88,7 +95,12 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         physicsUtils.createPhyscisBodies(nodes: nodes)
         
         state.currentRightHair = nodes.hairRightInitial
-//        skView.showsPhysics = true
+        
+        //        addTestEraserView()
+        addTestEraserSprite()
+        
+        
+        //        skView.showsPhysics = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,8 +114,40 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         resetTracking()
     }
     
-    func addTestEraserView() {
-        let view = UI
+    func addTestEraserSprite() {
+        
+        blur = Node(texture: nodes.mirrorShape.texture)
+        blur.size = nodes.mirrorShape.size
+        blur.position = nodes.mirrorShape.position
+        
+        mirrorCropNode.position = nodes.mirrorShape.position
+        mirrorCropNode.addChild(blur)
+        mirrorCropNode.zPosition = 1
+        skView.scene?.addChild(mirrorCropNode)
+        
+        mirrorCropNode.maskNode = SKSpriteNode(color: .white, size: blur.size)
+        
+    }
+    
+    func eraserDidMove(touch: UITouch) {
+        //        var bigcircle = SKShapeNode(circleOfRadius: 80)
+        //        bigcircle.fillColor = .white
+        
+        //        let littlecircle = SKShapeNode(circleOfRadius: 40)
+        //        littlecircle.position = skView.convert(touch.location(in: skView, to: skView.scene!))
+        //        littlecircle.fillColor = .white
+        //        littlecircle.blendMode = .subtract
+        //        bigcircle.addChild(littlecircle)
+        
+        //        cropNode.maskNode = bigcircle
+    }
+    
+    func imageWithImage(image:UIImage, width: CGFloat, height: CGFloat) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0.0);
+        image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height)))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
     }
     
     func updateWaterState() {
@@ -112,19 +156,23 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             animator.runSinkWater()
             animator.runSteam()
             animator.runDefaultCrane()
+            runBlurViewTimer()
         case .cold:
             animator.runSinkWater()
             animator.stopSteam()
             animator.runColdCrane()
+            stopBlurViewTimer()
         case .normal:
             animator.runSinkWater()
             animator.stopSteam()
             animator.runDefaultCrane()
+            stopBlurViewTimer()
         case .none:
             animator.stopSinkWater()
             animator.stopSteam()
             animator.runDefaultCrane()
             animator.stopSinkWater()
+            stopBlurViewTimer()
         }
     }
     
@@ -285,6 +333,19 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
     }
     
+    func runBlurViewTimer() {
+        guard timer == nil else { return }
+        timer = Timer(timeInterval: 2, repeats: false, block: {_ in
+            self.updateBlurView(show: true)
+        })
+        timer?.fire()
+    }
+    
+    func stopBlurViewTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
     //MARK: Mimics handling
     
     func handleBrows() {
@@ -404,22 +465,27 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     //MARK: Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         for touch in touches {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
-            guard let hitNodes = skView.scene?.nodes(at: point) as? [Node] else { return }
-            updateNodesBeforeStartTouch(hitNodes)
-            if let draggableHitNode = hitNodes.first(where: { $0.draggable }) {
-                draggableHitNode.inUse = true
-                draggableHitNode.xScale = draggableHitNode.initXScale * 1.5
-                draggableHitNode.yScale = draggableHitNode.initYScale * 1.5
-                draggableHitNode.position = point
-                draggableHitNode.zPosition = 10
-                nodeTouches[draggableHitNode] = touch
-                updateNodesAfterStartTouch(hitNodes)
-            } else if hitNodes.contains(nodes.water) && !(state.isHotWaterOn && state.isColdWaterOn) {
-                animator.runDamage()
-            } else if hitNodes.contains(nodes.fly) {
-                tapOnFly()
+            guard let hitSprites = skView.scene?.nodes(at: point) else { return }
+            if let hitNodes = hitSprites as? [Node] {
+                updateNodesBeforeStartTouch(hitNodes)
+                if let draggableHitNode = hitNodes.first(where: { $0.draggable }) {
+                    draggableHitNode.inUse = true
+                    draggableHitNode.xScale = draggableHitNode.initXScale * 1.5
+                    draggableHitNode.yScale = draggableHitNode.initYScale * 1.5
+                    draggableHitNode.position = point
+                    draggableHitNode.zPosition = 10
+                    nodeTouches[draggableHitNode] = touch
+                    updateNodesAfterStartTouch(hitNodes)
+                } else if hitNodes.contains(nodes.water) && !(state.isHotWaterOn && state.isColdWaterOn) {
+                    animator.runDamage()
+                } else if hitNodes.contains(nodes.fly) {
+                    tapOnFly()
+                }
+            } else if hitSprites.contains(mirrorCropNode) {
+                erasePath.move(to: point)
             }
         }
     }
@@ -434,9 +500,17 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
                 updateRightHairState(direction: hairSwipeDirection)
                 updateLeftHairState(direction: hairSwipeDirection)
             }
-            if let dirtSwipeDirection = checkSwipe(touch: touch.value, start: state.dirtMoveStart), state.isTowelWet {
+            if let _ = checkSwipe(touch: touch.value, start: state.dirtMoveStart), state.isTowelWet {
                 state.dirtMoveStart = nil
                 updateDirtState()
+            }
+        }
+        
+        for touch in touches where !nodeTouches.values.contains(touch) {
+            let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
+            guard let hitSprites = skView.scene?.nodes(at: point) else { return }
+            if hitSprites.contains(mirrorCropNode) {
+                eraseBlur(location: point)
             }
         }
     }
@@ -460,6 +534,12 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             guard let hitNodes = skView.scene?.nodes(at: point) as? [Node] else { return }
             updateNodesAfterEndTouch(hitNodes)
         }
+        
+        
+        //        let suk = image.getColors()
+        //        let suk2 = ColorThief.getColor(from: image)
+        //        print("UIColors: \(suk)")
+        //        print("ColorTheft: \(suk2)")
         
     }
     
@@ -503,6 +583,24 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         updateCupDraggability()
     }
     
+    func eraseBlur(location: CGPoint) {
+        
+        let line = SKShapeNode(rectOf: blur.size)
+        erasePath.addLine(to: location)
+        
+        line.path = erasePath
+        line.lineWidth = 80
+        
+        line.fillColor = .clear
+        line.strokeColor = .white
+        line.blendMode = .replace
+        line.alpha = 0.0001
+        line.lineCap = .round
+        
+        mirrorCropNode.maskNode?.removeAllChildren()
+        mirrorCropNode.maskNode?.addChild(line)
+    }
+    
     func checkSwipe(touch: UITouch, start: (point: CGPoint, time: TimeInterval)?) -> UISwipeGestureRecognizer.Direction? {
         if let start = start {
             let location = touch.location(in: skView.scene!)
@@ -533,6 +631,56 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             }
         }
         return nil
+    }
+    
+    func updateBlurView(show: Bool? = nil) {
+//        guard let color = sketch.asImage().getColors() else { return }
+//
+//        let coloredSketch = SketchView(frame: sketch.frame)
+//        coloredSketch.backgroundColor = .black
+//        coloredSketch.loadImage(image: sketch.asImage())
+//        let image2 = coloredSketch.asImage()
+//        let red = color.background.rgba.red
+        //        print("background: \(color.background!)")
+        //        print("primary: \(color.primary!)")
+        //        print("secondary: \(color.secondary!)")
+        //        print("detail: \(color.detail!)")
+        //        print("--------")
+        
+        //        let imageView = UIImageView(frame: sketch.frame)
+        //        imageView.image = image2
+        //        self.skView.addSubview(imageView)
+        //        imageView.center = sketch.center
+        //
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+        //            imageView.removeFromSuperview()
+        //        })
+        //
+//        makePretty(image: image2)
+    }
+    
+    func makePretty(image : UIImage) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let smallImage = image.resized(to: CGSize(width: 100, height: 100))
+            let kMeans = KMeansClusterer()
+            let points = smallImage.getPixels().map({KMeansClusterer.Point(from: $0)})
+            let clusters = kMeans.cluster(points: points, into: 3).sorted(by: {$0.points.count > $1.points.count})
+            let colors = clusters.map(({$0.center.toUIColor()}))
+            guard let mainColor = colors.first else {
+                return
+            }
+            print(mainColor)
+        }
+    }
+    
+    func animateBlurAlpha(alpha: CGFloat) {
+//        UIView.animate(withDuration: 1, animations: {
+//            self.sketch.alpha = alpha
+//        }, completion: { _ in
+//            if alpha == 0 {
+//                self.setImageToBlurView()
+//            }
+//        })
     }
     
     func tapOnFly() {
@@ -590,7 +738,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     }
     
     private func handleCupWaterContact(contact: OrderedContactBodies<Contact>) {
-     
+        
         switch state.waterTemprature {
         case .cold, .hot:
             animator.runDamage()
@@ -712,3 +860,73 @@ extension ViewController: UIGestureRecognizerDelegate {
     }
 }
 
+extension ViewController: SketchViewDelegate {
+    func drawView(_ view: SketchView, didEndDrawUsingTool tool: AnyObject) {
+        updateBlurView()
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let d = segue.destination as? SketchViewController {
+            d.image = sender as! UIImage
+        }
+    }
+}
+
+extension UIView {
+    
+    // Using a function since `var image` might conflict with an existing variable
+    // (like on `UIImageView`)
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        }
+    }
+}
+
+public extension UIImage {
+    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+    }
+}
+
+
+extension SKView {
+    func convertNodeRect(node: SKSpriteNode, to view: UIView) -> CGRect {
+        guard let scene = self.scene else { return CGRect.zero }
+        let topLeft = CGPoint(x: node.position.x - node.size.width / 2, y: node.position.y - node.size.height / 2)
+        let topRight = CGPoint(x: node.position.x + node.size.width / 2, y: node.position.y - node.size.height / 2)
+        let bottomLeft = CGPoint(x: node.position.x - node.size.width / 2, y: node.position.y + node.size.height / 2)
+        
+        let convertedTopLeft = convert(topLeft, from: scene)
+        let convertedTopRight = convert(topRight, from: scene)
+        let convertedBottomLeft = convert(bottomLeft, from: scene)
+        
+        let width = (convertedTopRight.x - convertedTopLeft.x) * 1.008
+        let height = (convertedBottomLeft.y - convertedTopLeft.y) * 1.008
+        
+        return CGRect(origin: convertedTopLeft, size: CGSize(width: width, height: height))
+    }
+    
+}
+
+extension UIColor {
+    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        return (red, green, blue, alpha)
+    }
+}

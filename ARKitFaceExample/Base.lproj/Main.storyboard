@@ -8,6 +8,55 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Sketch View Controller-->
+        <scene sceneID="ZQH-eF-Tk1">
+            <objects>
+                <viewController id="I3L-2x-d5X" customClass="SketchViewController" customModule="ARKitFaceExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e9m-rR-6vj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GbG-1u-3qp" customClass="SketchView" customModule="Sketch">
+                                <rect key="frame" x="67" y="211" width="240" height="292"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a7k-Ck-8Cu">
+                                <rect key="frame" x="67" y="211" width="240" height="292"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6O-id-8TA">
+                                <rect key="frame" x="100" y="569" width="175" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="a7k-Ck-8Cu" firstAttribute="centerY" secondItem="GbG-1u-3qp" secondAttribute="centerY" id="8Ii-h9-WFl"/>
+                            <constraint firstItem="GbG-1u-3qp" firstAttribute="top" secondItem="gy3-91-lkh" secondAttribute="top" constant="211" id="Cvi-Zm-Tgx"/>
+                            <constraint firstItem="R6O-id-8TA" firstAttribute="centerY" secondItem="gy3-91-lkh" secondAttribute="centerY" multiplier="1.6" id="Glt-K7-QTv"/>
+                            <constraint firstItem="R6O-id-8TA" firstAttribute="leading" secondItem="gy3-91-lkh" secondAttribute="leading" constant="100" id="HCR-1M-HWu"/>
+                            <constraint firstItem="a7k-Ck-8Cu" firstAttribute="width" secondItem="GbG-1u-3qp" secondAttribute="width" id="OCh-WJ-6Mf"/>
+                            <constraint firstItem="GbG-1u-3qp" firstAttribute="leading" secondItem="gy3-91-lkh" secondAttribute="leading" constant="67" id="Qnc-nO-4fG"/>
+                            <constraint firstItem="gy3-91-lkh" firstAttribute="bottom" secondItem="GbG-1u-3qp" secondAttribute="bottom" constant="221" id="lMX-qB-FHC"/>
+                            <constraint firstItem="a7k-Ck-8Cu" firstAttribute="centerX" secondItem="GbG-1u-3qp" secondAttribute="centerX" id="qtx-QL-aYJ"/>
+                            <constraint firstItem="a7k-Ck-8Cu" firstAttribute="height" secondItem="GbG-1u-3qp" secondAttribute="height" id="sN2-P9-r5T"/>
+                            <constraint firstItem="gy3-91-lkh" firstAttribute="trailing" secondItem="GbG-1u-3qp" secondAttribute="trailing" constant="68" id="zFS-G9-673"/>
+                            <constraint firstItem="R6O-id-8TA" firstAttribute="centerX" secondItem="gy3-91-lkh" secondAttribute="centerX" id="zqd-aT-pqK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gy3-91-lkh"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Uub-DM-X0b"/>
+                    <connections>
+                        <outlet property="imageView" destination="a7k-Ck-8Cu" id="Ln6-MY-vQI"/>
+                        <outlet property="sketchView" destination="GbG-1u-3qp" id="VQN-vr-Hic"/>
+                        <outlet property="uiColorswLabel" destination="R6O-id-8TA" id="Tf5-GS-yby"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1qD-pY-YxP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-863.20000000000005" y="97.536945812807886"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -57,6 +106,7 @@
                         <outlet property="sceneView" destination="E6c-py-dvH" id="Gr4-Uw-Z4A"/>
                         <outlet property="skView" destination="cI3-PS-fCC" id="TBl-bc-Tvh"/>
                         <outlet property="tabBar" destination="d27-hx-eNe" id="wGk-cE-feE"/>
+                        <segue destination="I3L-2x-d5X" kind="show" identifier="toSketch" id="pAb-r0-zR7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

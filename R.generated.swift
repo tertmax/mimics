@@ -89,6 +89,30 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
+  /// This `R.segue` struct is generated, and contains static references to 1 view controllers.
+  struct segue {
+    /// This struct is generated for `ViewController`, and contains static references to 1 segues.
+    struct viewController {
+      /// Segue identifier `toSketch`.
+      static let toSketch: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, ViewController, SketchViewController> = Rswift.StoryboardSegueIdentifier(identifier: "toSketch")
+
+      #if os(iOS) || os(tvOS)
+      /// Optionally returns a typed version of segue `toSketch`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func toSketch(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, ViewController, SketchViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.viewController.toSketch, segue: segue)
+      }
+      #endif
+
+      fileprivate init() {}
+    }
+
+    fileprivate init() {}
+  }
+  #endif
+
+  #if os(iOS) || os(tvOS)
   /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
   struct storyboard {
     /// Storyboard `LaunchScreen`.
@@ -176,12 +200,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 108 images.
+  /// This `R.image` struct is generated, and contains static references to 109 images.
   struct image {
     /// Image `andrii`.
     static let andrii = Rswift.ImageResource(bundle: R.hostingBundle, name: "andrii")
     /// Image `bath_background`.
     static let bath_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_background")
+    /// Image `bath_blur`.
+    static let bath_blur = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_blur")
     /// Image `bath_cheek_left_blown`.
     static let bath_cheek_left_blown = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_cheek_left_blown")
     /// Image `bath_cheek_right_blown`.
@@ -406,6 +432,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bath_background", bundle: ..., traitCollection: ...)`
     static func bath_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_background, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_blur", bundle: ..., traitCollection: ...)`
+    static func bath_blur(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_blur, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1156,7 +1189,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.bath` struct is generated, and contains static references to 57 localization keys.
+    /// This `R.string.bath` struct is generated, and contains static references to 58 localization keys.
     struct bath {
       /// Value: bandage
       static let bandage = Rswift.StringResource(key: "bandage", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -1212,6 +1245,8 @@ struct R: Rswift.Validatable {
       static let lip_top = Rswift.StringResource(key: "lip_top", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: magenta_cup
       static let magenta_cup = Rswift.StringResource(key: "magenta_cup", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror_shape
+      static let mirror_shape = Rswift.StringResource(key: "mirror_shape", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_brushed
       static let mouth_brushed = Rswift.StringResource(key: "mouth_brushed", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_brushed_water
@@ -1622,6 +1657,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("magenta_cup", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror_shape
+      static func mirror_shape(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror_shape", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror_shape"
+        }
+
+        return NSLocalizedString("mirror_shape", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: mouth_brushed

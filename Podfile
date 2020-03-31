@@ -7,5 +7,8 @@ target 'ARKitFaceExample' do
 
   # Pods for LoadModel
   pod 'R.swift'
-
+  pod 'Sketch'
+  pod 'UIImageColors'
+  pod 'ColorsTheft'
+  
 end

@@ -2,19 +2,27 @@ PODS:
   - R.swift (5.1.0):
     - R.swift.Library (~> 5.1.0)
   - R.swift.Library (5.1.0)
+  - Sketch (3.0)
+  - UIImageColors (2.1.0)
 
 DEPENDENCIES:
   - R.swift
+  - Sketch
+  - UIImageColors
 
 SPEC REPOS:
   trunk:
     - R.swift
     - R.swift.Library
+    - Sketch
+    - UIImageColors
 
 SPEC CHECKSUMS:
   R.swift: 8cbc4fc69b740305b6a17c8a8ed968eb788962d9
   R.swift.Library: fa85ce1e0d0b7e818cd9e080df910ba54d2776cc
+  Sketch: 49a4b71f7bc77316ed5f75ee79dedaa2b844d5e7
+  UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
 
-PODFILE CHECKSUM: 74918c2e4945b14dd19826a292208548222b349f
+PODFILE CHECKSUM: 40a853ec3b2c0c3663c2d2f589fbcd95ec86a7e4
 
 COCOAPODS: 1.8.4

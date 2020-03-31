@@ -80,3 +80,6 @@
 "fly_wings" = "fly_wings";
 
 
+//MARK: Mirror
+
+"mirror_shape" = "mirror_shape";

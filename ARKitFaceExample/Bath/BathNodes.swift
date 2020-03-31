@@ -65,6 +65,7 @@ class BathNodes {
     let razorTop: Node
     let toothbrushTop: Node
     let dirt: Node
+    let mirrorShape: Node
     
     init(scene: SKScene?) {
         
@@ -126,6 +127,7 @@ class BathNodes {
         flyWings = setupNode(name: R.string.bath.fly_wings(), parentNode: fly)
         cupMagenta = setupNode(name: R.string.bath.magenta_cup())
         dirt = setupNode(name: R.string.bath.dirt())
+        mirrorShape = setupNode(name: R.string.bath.mirror_shape())
         
         var hairs: [Node] = []
         for i in 2...91 {
