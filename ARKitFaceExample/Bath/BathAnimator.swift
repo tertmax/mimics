@@ -213,4 +213,16 @@ class BathAnimator {
         guard a.nodes.dirt.alpha > 0 else { return }
         BaseAnimator.changeAlpha(nodes: [a.nodes.dirt], alpha: -0.2, duration: 0.2)
     }
+    
+    func runShowBlur(node: SKCropNode) {
+        guard let a = animatable else { return }
+        guard node.alpha == 0 else { return }
+        BaseAnimator.fadeIn(nodes: [node], duration: 2)
+    }
+    
+    func runHideBlur(node: SKCropNode) {
+        guard let a = animatable else { return }
+        guard node.alpha == 1 else { return }
+        BaseAnimator.fadeOut(nodes: [node], duration: 1)
+    }
 }

@@ -9,7 +9,6 @@ import ARKit
 import SceneKit
 import UIKit
 import Foundation
-import Sketch
 import UIImageColors
 
 class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
@@ -27,10 +26,15 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     var nodes: BathNodes!
     var blur: Node!
-    let mirrorCropNode = SKCropNode()
+    var blur2: Node!
+    var mirrorCropNode = SKCropNode()
+    var currentMirrorNode = SKCropNode()
     var state = BathState()
     
     var erasePath = CGMutablePath()
+    var erasePath2 = CGMutablePath()
+    var currentErasePath = CGMutablePath()
+    
     var timer: Timer?
     
     // MARK: Properties
@@ -95,11 +99,10 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         physicsUtils.createPhyscisBodies(nodes: nodes)
         
         state.currentRightHair = nodes.hairRightInitial
-        
-        //        addTestEraserView()
-        addTestEraserSprite()
-        
-        
+        let tuple = createBlur()
+        mirrorCropNode = tuple.crop
+        skView.scene?.addChild(mirrorCropNode)
+        resetBlur(initial: true)
         //        skView.showsPhysics = true
     }
     
@@ -114,34 +117,37 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         resetTracking()
     }
     
-    func addTestEraserSprite() {
+    func createBlur() -> (crop: SKCropNode, sprite: SKSpriteNode, path: CGMutablePath) {
+        let crop = SKCropNode()
+        let path = CGMutablePath()
         
-        blur = Node(texture: nodes.mirrorShape.texture)
-        blur.size = nodes.mirrorShape.size
-        blur.position = nodes.mirrorShape.position
+        let sprite = Node(texture: nodes.mirrorShape.texture)
+        sprite.size = nodes.mirrorShape.size
+        sprite.position = nodes.mirrorShape.position
         
-        mirrorCropNode.position = nodes.mirrorShape.position
-        mirrorCropNode.addChild(blur)
-        mirrorCropNode.zPosition = 1
-        skView.scene?.addChild(mirrorCropNode)
+        crop.position = nodes.mirrorShape.position
+        crop.zPosition = 1
+        crop.addChild(sprite)
         
-        mirrorCropNode.maskNode = SKSpriteNode(color: .white, size: blur.size)
+        crop.maskNode = SKSpriteNode(color: .white, size: nodes.mirrorShape.size)
         
+        return (crop, sprite, path)
     }
     
-    func eraserDidMove(touch: UITouch) {
-        //        var bigcircle = SKShapeNode(circleOfRadius: 80)
-        //        bigcircle.fillColor = .white
+    func resetBlur(initial: Bool = false) {
+                
+        let fadeIn = SKAction.fadeIn(withDuration: 0.5)
+        let changeBlendMode = SKAction.customAction(withDuration: 0, actionBlock: {_,_ in
+            let mask = self.mirrorCropNode.maskNode?.children.first as? SKShapeNode
+            mask?.blendMode = .subtract
+        })
+        let erasePath = SKAction.customAction(withDuration: 0, actionBlock: {_,_ in
+            self.erasePath = CGMutablePath()
+        })
+        mirrorCropNode.maskNode?.children.first?.run(SKAction.sequence([fadeIn, changeBlendMode, erasePath]))
         
-        //        let littlecircle = SKShapeNode(circleOfRadius: 40)
-        //        littlecircle.position = skView.convert(touch.location(in: skView, to: skView.scene!))
-        //        littlecircle.fillColor = .white
-        //        littlecircle.blendMode = .subtract
-        //        bigcircle.addChild(littlecircle)
-        
-        //        cropNode.maskNode = bigcircle
     }
-    
+
     func imageWithImage(image:UIImage, width: CGFloat, height: CGFloat) -> UIImage{
         UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0.0);
         image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height)))
@@ -335,10 +341,11 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     func runBlurViewTimer() {
         guard timer == nil else { return }
-        timer = Timer(timeInterval: 2, repeats: false, block: {_ in
-            self.updateBlurView(show: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
+            self.showBlur(show: true)
+            self.timer?.invalidate()
+            self.timer = nil
         })
-        timer?.fire()
     }
     
     func stopBlurViewTimer() {
@@ -486,6 +493,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
                 }
             } else if hitSprites.contains(mirrorCropNode) {
                 erasePath.move(to: point)
+                stopBlurViewTimer()
             }
         }
     }
@@ -510,7 +518,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
             guard let hitSprites = skView.scene?.nodes(at: point) else { return }
             if hitSprites.contains(mirrorCropNode) {
-                eraseBlur(location: point)
+                eraseBlur(location: point, isSecond: false)
             }
         }
     }
@@ -531,10 +539,14 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         for touch in touches {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
-            guard let hitNodes = skView.scene?.nodes(at: point) as? [Node] else { return }
-            updateNodesAfterEndTouch(hitNodes)
+            if let hitNodes = skView.scene?.nodes(at: point) as? [Node] {
+                updateNodesAfterEndTouch(hitNodes)
+            }
         }
         
+        if mirrorCropNode.children.first?.alpha == 1 {
+            checkBlurProgress()
+        }
         
         //        let suk = image.getColors()
         //        let suk2 = ColorThief.getColor(from: image)
@@ -583,13 +595,13 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         updateCupDraggability()
     }
     
-    func eraseBlur(location: CGPoint) {
+    func eraseBlur(location: CGPoint, isSecond: Bool) {
         
-        let line = SKShapeNode(rectOf: blur.size)
+        let line = SKShapeNode(rectOf: nodes.mirrorShape.size)
+        
         erasePath.addLine(to: location)
-        
         line.path = erasePath
-        line.lineWidth = 80
+        line.lineWidth = 120
         
         line.fillColor = .clear
         line.strokeColor = .white
@@ -599,6 +611,19 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         mirrorCropNode.maskNode?.removeAllChildren()
         mirrorCropNode.maskNode?.addChild(line)
+        
+    }
+    
+    func checkBlurProgress() {
+        guard state.waterTemprature != .hot  else {
+            runBlurViewTimer()
+            return
+        }
+//        guard let cgImage = skView.texture(from: mirrorCropNode)?.cgImage() else { return }
+//        let image = UIImage(cgImage: cgImage)
+//        if let color = image.getColors() {
+//            makePretty(image: image)
+//        }
     }
     
     func checkSwipe(touch: UITouch, start: (point: CGPoint, time: TimeInterval)?) -> UISwipeGestureRecognizer.Direction? {
@@ -633,32 +658,6 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         return nil
     }
     
-    func updateBlurView(show: Bool? = nil) {
-//        guard let color = sketch.asImage().getColors() else { return }
-//
-//        let coloredSketch = SketchView(frame: sketch.frame)
-//        coloredSketch.backgroundColor = .black
-//        coloredSketch.loadImage(image: sketch.asImage())
-//        let image2 = coloredSketch.asImage()
-//        let red = color.background.rgba.red
-        //        print("background: \(color.background!)")
-        //        print("primary: \(color.primary!)")
-        //        print("secondary: \(color.secondary!)")
-        //        print("detail: \(color.detail!)")
-        //        print("--------")
-        
-        //        let imageView = UIImageView(frame: sketch.frame)
-        //        imageView.image = image2
-        //        self.skView.addSubview(imageView)
-        //        imageView.center = sketch.center
-        //
-        //        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-        //            imageView.removeFromSuperview()
-        //        })
-        //
-//        makePretty(image: image2)
-    }
-    
     func makePretty(image : UIImage) {
         DispatchQueue.global(qos: .userInitiated).async {
             let smallImage = image.resized(to: CGSize(width: 100, height: 100))
@@ -673,14 +672,14 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
     }
     
-    func animateBlurAlpha(alpha: CGFloat) {
-//        UIView.animate(withDuration: 1, animations: {
-//            self.sketch.alpha = alpha
-//        }, completion: { _ in
-//            if alpha == 0 {
-//                self.setImageToBlurView()
-//            }
-//        })
+    func showBlur(show: Bool) {
+        if show {
+            resetBlur()
+            animator.runShowBlur(node: mirrorCropNode)
+        } else {
+            resetBlur()
+            animator.runHideBlur(node: mirrorCropNode)
+        }
     }
     
     func tapOnFly() {
@@ -857,19 +856,6 @@ extension ViewController: ARSCNViewDelegate {
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
-    }
-}
-
-extension ViewController: SketchViewDelegate {
-    func drawView(_ view: SketchView, didEndDrawUsingTool tool: AnyObject) {
-        updateBlurView()
-        
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let d = segue.destination as? SketchViewController {
-            d.image = sender as! UIImage
-        }
     }
 }
 

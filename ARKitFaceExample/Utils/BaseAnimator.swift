@@ -10,26 +10,26 @@ import SpriteKit
 
 class BaseAnimator {
     
-    class func swapNodes(oldNode: SKSpriteNode, newNode: SKSpriteNode, duration: TimeInterval = 0.0) {
+    class func swapNodes(oldNode: SKNode, newNode: SKNode, duration: TimeInterval = 0.0) {
         fadeOut(nodes: [oldNode], duration: duration)
         fadeIn(nodes: [newNode], duration: duration)
     }
     
-    class func fadeIn(nodes: [SKSpriteNode], duration: TimeInterval) {
-        let fadeIn = AnimationActions.fadeIn(duration: duration).action
+    class func fadeIn(nodes: [SKNode], duration: TimeInterval, completion: (() -> Void)? = nil) {
+        let fadeIn = AnimationActions.fadeIn(duration: duration, completion: completion).action
         for node in nodes {
             node.run(fadeIn)
         }
     }
     
-    class func fadeOut(nodes: [SKSpriteNode], duration: TimeInterval) {
-        let fadeOut = AnimationActions.fadeOut(duration: duration).action
+    class func fadeOut(nodes: [SKNode], duration: TimeInterval, completion: (() -> Void)? = nil) {
+        let fadeOut = AnimationActions.fadeOut(duration: duration, completion: completion).action
         for node in nodes {
             node.run(fadeOut)
         }
     }
     
-    class func changeAlpha(nodes: [SKSpriteNode], alpha: CGFloat, duration: TimeInterval) {
+    class func changeAlpha(nodes: [SKNode], alpha: CGFloat, duration: TimeInterval) {
         let changeAlpha = AnimationActions.changeAlpha(by: alpha, duration: duration).action
         for node in nodes {
             node.run(changeAlpha)
@@ -44,18 +44,26 @@ class BaseAnimator {
 
 private extension BaseAnimator {
     enum AnimationActions {
-        case fadeIn(duration: TimeInterval)
-        case fadeOut(duration: TimeInterval)
+        case fadeIn(duration: TimeInterval, completion: (() -> Void)? = nil)
+        case fadeOut(duration: TimeInterval, completion: (() -> Void)? = nil)
         case changeAlpha(by: CGFloat, duration: TimeInterval)
         case setTexture(textureName: String)
         case rotateBy(angle: CGFloat, duration: TimeInterval)
         
         var action: SKAction {
             switch self {
-            case .fadeIn(let duration):
-                return SKAction.fadeIn(withDuration: duration)
-            case .fadeOut(let duration):
-                return SKAction.fadeOut(withDuration: duration)
+            case .fadeIn(let duration, let completion):
+                let fadeIn = SKAction.fadeIn(withDuration: duration)
+                let completion = SKAction.customAction(withDuration: 0, actionBlock: { _, _ in
+                    completion?()
+                })
+                return SKAction.sequence([fadeIn, completion])
+            case .fadeOut(let duration, let completion):
+                let fadeOut = SKAction.fadeOut(withDuration: duration)
+                let completion = SKAction.customAction(withDuration: 0, actionBlock: { _, _ in
+                    completion?()
+                })
+                return SKAction.sequence([fadeOut, completion])
             case .changeAlpha(let step, let duration):
                 return SKAction.fadeAlpha(by: step, duration: duration)
             case .setTexture(let textureName):
