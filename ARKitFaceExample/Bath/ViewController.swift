@@ -25,15 +25,13 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     private let physicsUtils = BathPhysicsUtil()
     
     var nodes: BathNodes!
-    var blur: Node!
-    var blur2: Node!
-    var mirrorCropNode = SKCropNode()
-    var currentMirrorNode = SKCropNode()
     var state = BathState()
     
+    var blur: Node!
+    var mirrorCropNode = SKCropNode()
     var erasePath = CGMutablePath()
-    var erasePath2 = CGMutablePath()
-    var currentErasePath = CGMutablePath()
+    
+    var blurDict: [UITouch: (path: CGMutablePath, node: SKShapeNode?, timer: Timer?)] = [:]
     
     var timer: Timer?
     
@@ -102,7 +100,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         let tuple = createBlur()
         mirrorCropNode = tuple.crop
         skView.scene?.addChild(mirrorCropNode)
-        resetBlur(initial: true)
+//        resetBlur()
         //        skView.showsPhysics = true
     }
     
@@ -133,19 +131,16 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         return (crop, sprite, path)
     }
-    
-    func resetBlur(initial: Bool = false) {
-                
-        let fadeIn = SKAction.fadeIn(withDuration: 0.5)
-        let changeBlendMode = SKAction.customAction(withDuration: 0, actionBlock: {_,_ in
-            let mask = self.mirrorCropNode.maskNode?.children.first as? SKShapeNode
-            mask?.blendMode = .subtract
-        })
+
+    func resetBlur2(touch: UITouch) {
+        guard let node = blurDict[touch]?.node else { return }
+        guard state.waterTemprature == .hot else { return }
+        let fadeIn = SKAction.fadeIn(withDuration: 0.7)
         let erasePath = SKAction.customAction(withDuration: 0, actionBlock: {_,_ in
-            self.erasePath = CGMutablePath()
+            self.mirrorCropNode.maskNode?.removeChildren(in: [node])
+            self.blurDict[touch] = nil
         })
-        mirrorCropNode.maskNode?.children.first?.run(SKAction.sequence([fadeIn, changeBlendMode, erasePath]))
-        
+        node.run(SKAction.sequence([fadeIn, erasePath]))
     }
 
     func imageWithImage(image:UIImage, width: CGFloat, height: CGFloat) -> UIImage{
@@ -162,23 +157,20 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             animator.runSinkWater()
             animator.runSteam()
             animator.runDefaultCrane()
-            runBlurViewTimer()
+            runBlurViewTimer2()
         case .cold:
             animator.runSinkWater()
             animator.stopSteam()
             animator.runColdCrane()
-            stopBlurViewTimer()
         case .normal:
             animator.runSinkWater()
             animator.stopSteam()
             animator.runDefaultCrane()
-            stopBlurViewTimer()
         case .none:
             animator.stopSinkWater()
             animator.stopSteam()
             animator.runDefaultCrane()
             animator.stopSinkWater()
-            stopBlurViewTimer()
         }
     }
     
@@ -339,18 +331,14 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
     }
     
-    func runBlurViewTimer() {
-        guard timer == nil else { return }
-        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
-            self.showBlur(show: true)
-            self.timer?.invalidate()
-            self.timer = nil
-        })
-    }
-    
-    func stopBlurViewTimer() {
-        timer?.invalidate()
-        timer = nil
+    func runBlurViewTimer2() {
+        for var (k, v) in blurDict where v.timer == nil {
+            v.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
+                self.resetBlur2(touch: k)
+                v.timer?.invalidate()
+                v.timer = nil
+            })
+        }
     }
     
     //MARK: Mimics handling
@@ -475,8 +463,13 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         for touch in touches {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
-            guard let hitSprites = skView.scene?.nodes(at: point) else { return }
-            if let hitNodes = hitSprites as? [Node] {
+            let hitNodes = skView.scene?.nodes(at: point)
+            let hitSprites = hitNodes?.filter({ $0 as? Node != nil}) as? [Node]
+            if hitNodes?.contains(mirrorCropNode) ?? false {
+                let path = CGMutablePath()
+                path.move(to: point)
+                blurDict[touch] = (path, nil, nil)
+            } else if let hitNodes = hitSprites {
                 updateNodesBeforeStartTouch(hitNodes)
                 if let draggableHitNode = hitNodes.first(where: { $0.draggable }) {
                     draggableHitNode.inUse = true
@@ -491,9 +484,6 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
                 } else if hitNodes.contains(nodes.fly) {
                     tapOnFly()
                 }
-            } else if hitSprites.contains(mirrorCropNode) {
-                erasePath.move(to: point)
-                stopBlurViewTimer()
             }
         }
     }
@@ -518,7 +508,9 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
             guard let hitSprites = skView.scene?.nodes(at: point) else { return }
             if hitSprites.contains(mirrorCropNode) {
-                eraseBlur(location: point, isSecond: false)
+//                eraseBlur(location: point)
+                    eraseBlur2(touch: touch, location: point)
+                
             }
         }
     }
@@ -527,9 +519,8 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         for touch in touches {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
-            if let hitNodes = skView.scene?.nodes(at: point) as? [Node] {
-                updateNodesBeforeEndTouch(hitNodes)
-            }
+            let hitNodes = skView.scene?.nodes(at: point).filter({ $0 as? Node != nil}) as? [Node]
+            updateNodesBeforeEndTouch(hitNodes)
         }
         
         for (node, touch) in nodeTouches where touches.contains(touch) {
@@ -539,37 +530,28 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         for touch in touches {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
-            if let hitNodes = skView.scene?.nodes(at: point) as? [Node] {
-                updateNodesAfterEndTouch(hitNodes)
-            }
+            let hitNodes = skView.scene?.nodes(at: point) as? [Node]
+            updateNodesAfterEndTouch(hitNodes)
         }
         
-        if mirrorCropNode.children.first?.alpha == 1 {
+        if !blurDict.isEmpty {
             checkBlurProgress()
         }
-        
-        //        let suk = image.getColors()
-        //        let suk2 = ColorThief.getColor(from: image)
-        //        print("UIColors: \(suk)")
-        //        print("ColorTheft: \(suk2)")
-        
     }
     
-    func updateNodesBeforeStartTouch(_ hitNodes: [Node] = []) {
-        if hitNodes.contains(nodes.razor) {
-            let changeTexture = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_razor_inuse.name))
-            let rotate = SKAction.rotate(toAngle: 0, duration: 0)
-            nodes.razor.run(changeTexture)
-            nodes.razor.run(rotate)
-        }
-        
-        if hitNodes.contains(nodes.cupMagenta) && nodes.toothBrush.inUse {
-            state.isToothbrushNotInCup = true
-            nodes.toothBrush.initRotation = -0.9
-            nodes.toothBrush.initPoint = nodes.towel.initPoint
-            nodes.toothBrush.initPoint.x *= -1
-            nodes.toothBrush.initPoint.x += 40
-            nodes.cupMagenta.initZPosition = 0
+    func updateNodesBeforeStartTouch(_ hitNodes: [Node]? = nil) {
+        if let hitNodes = hitNodes {
+            if hitNodes.contains(nodes.razor) {
+                animator.runRazorInUse()
+            }
+            
+            if hitNodes.contains(nodes.cupMagenta) && nodes.toothBrush.inUse {
+                state.isToothbrushNotInCup = true
+                nodes.toothBrush.initRotation = -0.9
+                nodes.toothBrush.initPoint = nodes.towel.initPoint
+                nodes.toothBrush.initPoint.x *= -1
+                nodes.toothBrush.initPoint.x += 40
+            }
         }
     }
     
@@ -577,30 +559,37 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         updateCupDraggability()
     }
     
-    func updateNodesBeforeEndTouch(_ hitNodes: [Node] = []) {
-        
-        if hitNodes.contains(nodes.cupMagenta) &&
-            nodes.cupMagenta.isContactingWith(nodes.mouthBrushed) &&
-            state.isMouthBusy &&
-            state.isMagentaCupFilled {
-            putWaterInMouth()
-        }
-        
-        if hitNodes.contains(nodes.bandage) && nodes.bandage.isContactingWith(nodes.pimple1Bleeidng) && nodes.pimple1Bleeidng.alpha > 0 {
-            fixBleedingPimple()
+    func updateNodesBeforeEndTouch(_ hitNodes: [Node]? = nil) {
+        if let hitNodes = hitNodes {
+            if hitNodes.contains(nodes.cupMagenta) &&
+                nodes.cupMagenta.isContactingWith(nodes.mouthBrushed) &&
+                state.isMouthBusy &&
+                state.isMagentaCupFilled {
+                putWaterInMouth()
+            }
+            
+            if hitNodes.contains(nodes.bandage) && nodes.bandage.isContactingWith(nodes.pimple1Bleeidng) && nodes.pimple1Bleeidng.alpha > 0 {
+                fixBleedingPimple()
+            }
         }
     }
     
-    func updateNodesAfterEndTouch(_ hitNodes: [Node] = []) {
+    func updateNodesAfterEndTouch(_ hitNodes: [Node]? = nil) {
         updateCupDraggability()
     }
     
-    func eraseBlur(location: CGPoint, isSecond: Bool) {
+    func eraseBlur2(touch: UITouch, location: CGPoint) {
+        guard let path = blurDict[touch]?.path else { return }
+        var line: SKShapeNode
         
-        let line = SKShapeNode(rectOf: nodes.mirrorShape.size)
+        if let node = blurDict[touch]?.node {
+            line = node
+        } else {
+            line = SKShapeNode(rectOf: nodes.mirrorShape.size)
+        }
         
-        erasePath.addLine(to: location)
-        line.path = erasePath
+        path.addLine(to: location)
+        line.path = path
         line.lineWidth = 120
         
         line.fillColor = .clear
@@ -609,14 +598,17 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         line.alpha = 0.0001
         line.lineCap = .round
         
-        mirrorCropNode.maskNode?.removeAllChildren()
-        mirrorCropNode.maskNode?.addChild(line)
+        if blurDict[touch]?.node == nil {
+            mirrorCropNode.maskNode?.addChild(line)
+        }
         
+        blurDict[touch]?.node = line
     }
     
     func checkBlurProgress() {
         guard state.waterTemprature != .hot  else {
-            runBlurViewTimer()
+//            runBlurViewTimer()
+            runBlurViewTimer2()
             return
         }
 //        guard let cgImage = skView.texture(from: mirrorCropNode)?.cgImage() else { return }
@@ -671,17 +663,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             print(mainColor)
         }
     }
-    
-    func showBlur(show: Bool) {
-        if show {
-            resetBlur()
-            animator.runShowBlur(node: mirrorCropNode)
-        } else {
-            resetBlur()
-            animator.runHideBlur(node: mirrorCropNode)
-        }
-    }
-    
+
     func tapOnFly() {
         print("You tapped on the fly :)")
     }

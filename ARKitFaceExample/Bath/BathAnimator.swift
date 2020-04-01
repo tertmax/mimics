@@ -215,14 +215,21 @@ class BathAnimator {
     }
     
     func runShowBlur(node: SKCropNode) {
-        guard let a = animatable else { return }
         guard node.alpha == 0 else { return }
         BaseAnimator.fadeIn(nodes: [node], duration: 2)
     }
     
     func runHideBlur(node: SKCropNode) {
-        guard let a = animatable else { return }
         guard node.alpha == 1 else { return }
         BaseAnimator.fadeOut(nodes: [node], duration: 1)
+    }
+    
+    func runRazorInUse() {
+        guard let a = animatable else { return }
+        let changeTexture = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_razor_inuse.name))
+        let rotate = SKAction.rotate(toAngle: 0, duration: 0)
+        
+        a.nodes.razor.run(changeTexture)
+        a.nodes.razor.run(rotate)
     }
 }
