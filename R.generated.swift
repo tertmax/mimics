@@ -200,7 +200,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 109 images.
+  /// This `R.image` struct is generated, and contains static references to 113 images.
   struct image {
     /// Image `andrii`.
     static let andrii = Rswift.ImageResource(bundle: R.hostingBundle, name: "andrii")
@@ -212,6 +212,12 @@ struct R: Rswift.Validatable {
     static let bath_cheek_left_blown = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_cheek_left_blown")
     /// Image `bath_cheek_right_blown`.
     static let bath_cheek_right_blown = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_cheek_right_blown")
+    /// Image `bath_coldeffect_head1`.
+    static let bath_coldeffect_head1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_coldeffect_head1")
+    /// Image `bath_coldeffect_head2`.
+    static let bath_coldeffect_head2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_coldeffect_head2")
+    /// Image `bath_coldeffect_nose`.
+    static let bath_coldeffect_nose = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_coldeffect_nose")
     /// Image `bath_cup_magenta_filled`.
     static let bath_cup_magenta_filled = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_cup_magenta_filled")
     /// Image `bath_cup_magenta`.
@@ -314,6 +320,8 @@ struct R: Rswift.Validatable {
     static let bath_mouth_brushed = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_brushed")
     /// Image `bath_mouth_closed`.
     static let bath_mouth_closed = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_closed")
+    /// Image `bath_mouth_cold`.
+    static let bath_mouth_cold = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_cold")
     /// Image `bath_mouth_inside`.
     static let bath_mouth_inside = Rswift.ImageResource(bundle: R.hostingBundle, name: "bath_mouth_inside")
     /// Image `bath_nose`.
@@ -453,6 +461,27 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bath_cheek_right_blown", bundle: ..., traitCollection: ...)`
     static func bath_cheek_right_blown(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_cheek_right_blown, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_coldeffect_head1", bundle: ..., traitCollection: ...)`
+    static func bath_coldeffect_head1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_coldeffect_head1, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_coldeffect_head2", bundle: ..., traitCollection: ...)`
+    static func bath_coldeffect_head2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_coldeffect_head2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_coldeffect_nose", bundle: ..., traitCollection: ...)`
+    static func bath_coldeffect_nose(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_coldeffect_nose, compatibleWith: traitCollection)
     }
     #endif
 
@@ -810,6 +839,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bath_mouth_closed", bundle: ..., traitCollection: ...)`
     static func bath_mouth_closed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bath_mouth_closed, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bath_mouth_cold", bundle: ..., traitCollection: ...)`
+    static func bath_mouth_cold(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bath_mouth_cold, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1189,12 +1225,16 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.bath` struct is generated, and contains static references to 58 localization keys.
+    /// This `R.string.bath` struct is generated, and contains static references to 61 localization keys.
     struct bath {
       /// Value: bandage
       static let bandage = Rswift.StringResource(key: "bandage", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: cold_valve
       static let cold_valve = Rswift.StringResource(key: "cold_valve", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: coldeffect_head
+      static let coldeffect_head = Rswift.StringResource(key: "coldeffect_head", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: coldeffect_nose
+      static let coldeffect_nose = Rswift.StringResource(key: "coldeffect_nose", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: comb
       static let comb = Rswift.StringResource(key: "comb", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: crane
@@ -1251,6 +1291,8 @@ struct R: Rswift.Validatable {
       static let mouth_brushed = Rswift.StringResource(key: "mouth_brushed", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_brushed_water
       static let mouth_brushed_water = Rswift.StringResource(key: "mouth_brushed_water", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mouth_cold
+      static let mouth_cold = Rswift.StringResource(key: "mouth_cold", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_default
       static let mouth_default = Rswift.StringResource(key: "mouth_default", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_inside
@@ -1332,6 +1374,32 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("cold_valve", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: coldeffect_head
+      static func coldeffect_head(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("coldeffect_head", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "coldeffect_head"
+        }
+
+        return NSLocalizedString("coldeffect_head", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: coldeffect_nose
+      static func coldeffect_nose(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("coldeffect_nose", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "coldeffect_nose"
+        }
+
+        return NSLocalizedString("coldeffect_nose", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: comb
@@ -1696,6 +1764,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("mouth_brushed_water", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mouth_cold
+      static func mouth_cold(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mouth_cold", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mouth_cold"
+        }
+
+        return NSLocalizedString("mouth_cold", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: mouth_default

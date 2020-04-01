@@ -126,12 +126,12 @@ class BathAnimator {
         node.run(SKAction.group([moveGroup, fadeSequence]))
     }
     
-    func runSpitAnimation() {
+    func runSpitAnimation(completion: @escaping(() -> Void)) {
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         let fadeOut = SKAction.fadeOut(withDuration: 0.3)
         let pause = SKAction.wait(forDuration: 0.3)
         let releaseMouth = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
-            self.animatable?.state.isMouthBusy = false
+            completion()
         })
         
         let sequence = SKAction.sequence([fadeIn, pause, fadeOut])
@@ -231,5 +231,25 @@ class BathAnimator {
         
         a.nodes.razor.run(changeTexture)
         a.nodes.razor.run(rotate)
+    }
+    
+    func runHeatCharacter(completion: @escaping (() -> Void)) {
+        guard let a = animatable else { return }
+        var coldNodes = a.nodes.coldEffectsHead
+        coldNodes.append(a.nodes.coldEffectNose)
+        BaseAnimator.fadeOut(nodes: coldNodes, duration: 1)
+        BaseAnimator.fadeOut(nodes: [a.nodes.mouthCold], duration: 0)
+        BaseAnimator.fadeIn(nodes: [a.nodes.mouthDefault], duration: 0, completion: completion)
+    }
+    
+    func runFreezeEffects() {
+        guard let a = animatable else { return }
+        let scaleDown = BaseAnimator.AnimationActions.scale(to: 0.8, duration: 0.5).action
+        let scaleUp = BaseAnimator.AnimationActions.scale(to: 1.2, duration: 0.5).action
+        let sequence = SKAction.sequence([scaleDown, scaleUp])
+        let repeatSequence = SKAction.repeatForever(sequence)
+        for node in a.nodes.coldEffectsHead {
+            node.run(repeatSequence)
+        }
     }
 }

@@ -40,15 +40,23 @@ class BaseAnimator {
         let changeTexture = AnimationActions.setTexture(textureName: textureName).action
         node?.run(changeTexture)
     }
+    
+    class func scale(nodes: [SKNode], to scale: CGFloat, duration: TimeInterval) {
+        let scale = AnimationActions.scale(to: scale, duration: duration).action
+        for node in nodes {
+            node.run(scale)
+        }
+    }
 }
 
-private extension BaseAnimator {
+extension BaseAnimator {
     enum AnimationActions {
         case fadeIn(duration: TimeInterval, completion: (() -> Void)? = nil)
         case fadeOut(duration: TimeInterval, completion: (() -> Void)? = nil)
         case changeAlpha(by: CGFloat, duration: TimeInterval)
         case setTexture(textureName: String)
         case rotateBy(angle: CGFloat, duration: TimeInterval)
+        case scale(to: CGFloat, duration: TimeInterval)
         
         var action: SKAction {
             switch self {
@@ -70,6 +78,8 @@ private extension BaseAnimator {
                 return SKAction.setTexture(SKTexture(imageNamed: textureName))
             case .rotateBy(let angle, let duration):
                 return SKAction.rotate(byAngle: angle, duration: duration)
+            case .scale(let scale, let duration):
+                return SKAction.scale(to: scale, duration: duration)
             }
         }
     }

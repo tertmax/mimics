@@ -66,6 +66,9 @@ class BathNodes {
     let toothbrushTop: Node
     let dirt: Node
     let mirrorShape: Node
+    let coldEffectsHead: [Node]
+    let coldEffectNose: Node
+    let mouthCold: Node
     
     init(scene: SKScene?) {
         
@@ -128,12 +131,21 @@ class BathNodes {
         cupMagenta = setupNode(name: R.string.bath.magenta_cup())
         dirt = setupNode(name: R.string.bath.dirt())
         mirrorShape = setupNode(name: R.string.bath.mirror_shape())
+        mouthCold = setupNode(name: R.string.bath.mouth_cold())
         
         var hairs: [Node] = []
         for i in 2...91 {
             hairs.append(setupNode(name: R.string.bath.hair_piece() + String(i)))
         }
         hairPieces = hairs
+        
+        var coldEffects: [Node] = []
+        for i in 1...4 {
+            coldEffects.append(setupNode(name: R.string.bath.coldeffect_head() + String(i)))
+        }
+        coldEffectsHead = coldEffects
+        
+        coldEffectNose = setupNode(name: R.string.bath.coldeffect_nose())
         
         toothBrush = setupNode(name: R.string.bath.toothbrush(), draggable: true)
         razor = setupNode(name: R.string.bath.razor(), draggable: true)

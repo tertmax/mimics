@@ -34,6 +34,7 @@
 "mouth_default" = "mouth_default";
 "mouth_brushed" = "mouth_brushed";
 "mouth_brushed_water" = "mouth_brushed_water";
+"mouth_cold" = "mouth_cold";
 "water_falling1" = "water_falling1";
 "water_falling2" = "water_falling2";
 "water_falling3" = "water_falling3";
@@ -83,3 +84,8 @@
 //MARK: Mirror
 
 "mirror_shape" = "mirror_shape";
+
+//MARK: Cold effects
+
+"coldeffect_head" = "coldeffect_head";
+"coldeffect_nose" = "coldeffect_nose";

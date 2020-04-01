@@ -30,6 +30,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     var blur: Node!
     var mirrorCropNode = SKCropNode()
     var erasePath = CGMutablePath()
+    var initialMask: SKShapeNode?
     
     var blurDict: [UITouch: (path: CGMutablePath, node: SKShapeNode?, timer: Timer?)] = [:]
     
@@ -100,7 +101,9 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         let tuple = createBlur()
         mirrorCropNode = tuple.crop
         skView.scene?.addChild(mirrorCropNode)
-//        resetBlur()
+        
+        showFreezeAnimation()
+
         //        skView.showsPhysics = true
     }
     
@@ -129,28 +132,30 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         crop.maskNode = SKSpriteNode(color: .white, size: nodes.mirrorShape.size)
         
+        sprite.alpha = 0
+        
         return (crop, sprite, path)
     }
-
-    func resetBlur2(touch: UITouch) {
-        guard let node = blurDict[touch]?.node else { return }
+    
+    func resetBlur(touch: UITouch) {
         guard state.waterTemprature == .hot else { return }
+        let node = blurDict[touch]?.node
         let fadeIn = SKAction.fadeIn(withDuration: 0.7)
         let erasePath = SKAction.customAction(withDuration: 0, actionBlock: {_,_ in
-            self.mirrorCropNode.maskNode?.removeChildren(in: [node])
+            node?.removeFromParent()
             self.blurDict[touch] = nil
         })
-        node.run(SKAction.sequence([fadeIn, erasePath]))
+        let heatUpCharacter = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            self.heatUpCharacter()
+        })
+        if state.isBlurInitiallySetUp {
+            node?.run(SKAction.sequence([fadeIn, erasePath, heatUpCharacter]))
+        } else {
+            state.isBlurInitiallySetUp = true
+            mirrorCropNode.children.first?.run(SKAction.sequence([fadeIn, heatUpCharacter]))
+        }
     }
 
-    func imageWithImage(image:UIImage, width: CGFloat, height: CGFloat) -> UIImage{
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0.0);
-        image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height)))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-    
     func updateWaterState() {
         switch state.waterTemprature {
         case .hot:
@@ -212,20 +217,17 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     func updateTeeth() {
         guard state.isMouthOpened, state.teethState != .fixed else { return }
+        UIDevice.current.vibrate()
+        state.teethProgress -= 1
         
         if state.teethProgress == 5 {
             animator.runRemovePaste()
         }
         
         if state.teethState == .needsRinsing {
-            state.isMouthBusy = true
-            updateCheeksAlpha()
             handleMouth()
             animator.runCleanTeeth()
         }
-        
-        UIDevice.current.vibrate()
-        state.teethProgress -= 1
     }
     
     func wetTowel() {
@@ -234,6 +236,17 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         animator.runWetTowel()
         UIDevice.current.vibrate()
         nodes.towel.initPoint.y += 20
+    }
+    
+    func heatUpCharacter() {
+        guard state.isCharacterFreezing else { return }
+        animator.runHeatCharacter {
+            self.state.isCharacterFreezing = false
+        }
+    }
+    
+    func showFreezeAnimation() {
+        animator.runFreezeEffects()
     }
     
     //MARK: Gestures
@@ -332,9 +345,13 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     }
     
     func runBlurViewTimer2() {
+        if !state.isBlurInitiallySetUp {
+            let touch = UITouch()
+            blurDict[touch] = (CGMutablePath(), nil, nil)
+        }
         for var (k, v) in blurDict where v.timer == nil {
             v.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
-                self.resetBlur2(touch: k)
+                self.resetBlur(touch: k)
                 v.timer?.invalidate()
                 v.timer = nil
             })
@@ -404,8 +421,9 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         
         let showTeeth = show && !state.isMouthBusy
         state.isMouthOpened = showTeeth
-        nodes.mouthBrushed.alpha = state.isMouthBusy ? 1 : 0
+        nodes.mouthBrushed.alpha = state.teethState == .needsRinsing ? 1 : 0
         nodes.mouthDefault.alpha = (state.isMouthBusy || show) ? 0 : 1
+        nodes.mouthCold.alpha = state.isCharacterFreezing ? 1 : 0
         
         for item in mouthItems {
             item.alpha = showTeeth ? 1 : 0
@@ -452,7 +470,9 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             }
         } else if state.rinsingProgress == 0 {
             state.rinsingProgress -= 1
-            animator.runSpitAnimation()
+            animator.runSpitAnimation {
+                self.state.teethProgress -= 1
+            }
         }
     }
     
@@ -465,7 +485,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
             let hitNodes = skView.scene?.nodes(at: point)
             let hitSprites = hitNodes?.filter({ $0 as? Node != nil}) as? [Node]
-            if hitNodes?.contains(mirrorCropNode) ?? false {
+            if (hitNodes?.contains(mirrorCropNode) ?? false) && state.isBlurInitiallySetUp {
                 let path = CGMutablePath()
                 path.move(to: point)
                 blurDict[touch] = (path, nil, nil)
@@ -563,7 +583,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         if let hitNodes = hitNodes {
             if hitNodes.contains(nodes.cupMagenta) &&
                 nodes.cupMagenta.isContactingWith(nodes.mouthBrushed) &&
-                state.isMouthBusy &&
+                state.teethState == .needsRinsing &&
                 state.isMagentaCupFilled {
                 putWaterInMouth()
             }
@@ -831,70 +851,5 @@ extension ViewController: ARSCNViewDelegate {
         handleEyes()
         handleMouth()
         handleCheeks()
-    }
-}
-
-
-extension ViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
-    }
-}
-
-extension UIView {
-    
-    // Using a function since `var image` might conflict with an existing variable
-    // (like on `UIImageView`)
-    func asImage() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in
-            layer.render(in: rendererContext.cgContext)
-        }
-    }
-}
-
-public extension UIImage {
-    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
-        let rect = CGRect(origin: .zero, size: size)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        color.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        guard let cgImage = image?.cgImage else { return nil }
-        self.init(cgImage: cgImage)
-    }
-}
-
-
-extension SKView {
-    func convertNodeRect(node: SKSpriteNode, to view: UIView) -> CGRect {
-        guard let scene = self.scene else { return CGRect.zero }
-        let topLeft = CGPoint(x: node.position.x - node.size.width / 2, y: node.position.y - node.size.height / 2)
-        let topRight = CGPoint(x: node.position.x + node.size.width / 2, y: node.position.y - node.size.height / 2)
-        let bottomLeft = CGPoint(x: node.position.x - node.size.width / 2, y: node.position.y + node.size.height / 2)
-        
-        let convertedTopLeft = convert(topLeft, from: scene)
-        let convertedTopRight = convert(topRight, from: scene)
-        let convertedBottomLeft = convert(bottomLeft, from: scene)
-        
-        let width = (convertedTopRight.x - convertedTopLeft.x) * 1.008
-        let height = (convertedBottomLeft.y - convertedTopLeft.y) * 1.008
-        
-        return CGRect(origin: convertedTopLeft, size: CGSize(width: width, height: height))
-    }
-    
-}
-
-extension UIColor {
-    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        
-        return (red, green, blue, alpha)
     }
 }
