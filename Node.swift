@@ -18,6 +18,7 @@ class Node: SKSpriteNode {
     var draggable: Bool = false
     var inUse: Bool = false
     var additionalResetLogic: ((Node) -> Void)?
+    var needsReset: Bool = true
     
     func setup(draggable: Bool) {
         self.initPoint = self.position
@@ -35,6 +36,10 @@ class Node: SKSpriteNode {
     }
     
     func reset() {
+        guard needsReset else {
+            needsReset.toggle()
+            return
+        }
         xScale = initXScale
         yScale = initYScale
         position = initPoint

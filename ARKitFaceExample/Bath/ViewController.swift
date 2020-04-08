@@ -10,6 +10,7 @@ import SceneKit
 import UIKit
 import Foundation
 import UIImageColors
+import CoreMotion
 
 class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
@@ -23,6 +24,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     private var nodeTouches: [Node: UITouch] = [:]
     private let face = FaceTracker()
     private let physicsUtils = BathPhysicsUtil()
+    private let motion = BathMotion()
     
     var nodes: BathNodes!
     var state = BathState()
@@ -72,14 +74,14 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        becomeFirstResponder()
         sceneView.delegate = self
         sceneView.session.delegate = self
         sceneView.automaticallyUpdatesLighting = true
         
         // Set the initial face content.
-        tabBar.selectedItem = tabBar.items!.first!
-        selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
+//        tabBar.selectedItem = tabBar.items!.first!
+//        selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
         
         // Load the SKScene from 'GameScene.sks'
         if let scene = SKScene(fileNamed: "GameScene") {
@@ -91,7 +93,14 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         animator = BathAnimator(animatable: self)
         
         nodes = BathNodes(scene: skView.scene)
-        animator.runFlyMovement()
+        animator.runFlyMovement {
+            guard self.state.isSmellFixed else { return }
+            self.animator.runFlyMoveToRazor {
+                self.state.flyState = .onRazor
+                self.motion.start(rotationCallback: self.handleRazorMotion(data:),
+                                  accelerometerCallback: self.handleRazorAcceleration(data:))
+            }
+        }
         createGestures()
         
         skView.scene?.physicsWorld.contactDelegate = self
@@ -115,7 +124,20 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         UIApplication.shared.isIdleTimerDisabled = true
         
         // "Reset" to run the AR session for the first time.
-        resetTracking()
+//        resetTracking()
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake && nodeTouches.keys.contains(nodes.toiletWater) {
+            UIDevice.current.vibrate()
+            state.isDeodorantFixed = true
+        }
     }
     
     func createBlur() -> (crop: SKCropNode, sprite: SKSpriteNode, path: CGMutablePath) {
@@ -430,6 +452,30 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
     }
     
+    func handleRazorMotion(data: CMDeviceMotion) {
+        let rotation = data.gravity.x
+        let razor = nodes.razor
+        var newNodeRotation = razor.initRotation - CGFloat(rotation)
+        let maxRotation: CGFloat = razor.initRotation
+        let minRotation: CGFloat = maxRotation - 0.7
+        if newNodeRotation > maxRotation {
+            newNodeRotation = maxRotation
+        } else if newNodeRotation < minRotation {
+            newNodeRotation = minRotation
+        }
+        razor.zRotation = newNodeRotation
+    }
+    
+    func handleRazorAcceleration(data: CMAccelerometerData) {
+        guard data.acceleration.x < -2 else { return }
+        motion.stop()
+        animator.runDropRazor{
+            self.nodes.razor.initPoint = self.nodes.razor.position
+            self.nodes.razor.draggable = true
+        }
+        
+    }
+    
     func handleMouth() {
         
         let jawValue = face.get(.jawOpen)
@@ -561,10 +607,6 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     func updateNodesBeforeStartTouch(_ hitNodes: [Node]? = nil) {
         if let hitNodes = hitNodes {
-            if hitNodes.contains(nodes.razor) {
-                animator.runRazorInUse()
-            }
-            
             if hitNodes.contains(nodes.cupMagenta) && nodes.toothBrush.inUse {
                 state.isToothbrushNotInCup = true
                 nodes.toothBrush.initRotation = -0.9
@@ -577,6 +619,9 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     func updateNodesAfterStartTouch(_ hitNodes: [Node] = []) {
         updateCupDraggability()
+        if self.nodeTouches.keys.contains(nodes.razor) {
+            animator.runRazorInUse()
+        }
     }
     
     func updateNodesBeforeEndTouch(_ hitNodes: [Node]? = nil) {
@@ -590,6 +635,18 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             
             if hitNodes.contains(nodes.bandage) && nodes.bandage.isContactingWith(nodes.pimple1Bleeidng) && nodes.pimple1Bleeidng.alpha > 0 {
                 fixBleedingPimple()
+            }
+            if hitNodes.contains(nodes.toiletWater) &&
+                nodes.toiletWater.isContactingWith(nodes.shirtZone) {
+                if !state.isSmellFixed && !state.isDeodorantFixed && !state.isShirtFixed {
+                    nodes.toiletWater.needsReset = false
+                    animator.runBadSpray {
+                        nodes.toiletWater.needsReset = false
+                        nodes.toiletWater.reset()
+                    }
+                } else {
+                    animator.stopGoodSpray()
+                }
             }
         }
     }
@@ -670,19 +727,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         return nil
     }
     
-    func makePretty(image : UIImage) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let smallImage = image.resized(to: CGSize(width: 100, height: 100))
-            let kMeans = KMeansClusterer()
-            let points = smallImage.getPixels().map({KMeansClusterer.Point(from: $0)})
-            let clusters = kMeans.cluster(points: points, into: 3).sorted(by: {$0.points.count > $1.points.count})
-            let colors = clusters.map(({$0.center.toUIColor()}))
-            guard let mainColor = colors.first else {
-                return
-            }
-            print(mainColor)
-        }
-    }
+    
 
     func tapOnFly() {
         print("You tapped on the fly :)")
@@ -772,6 +817,14 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         guard state.dirtMoveStart == nil else { return }
         state.dirtMoveStart = (point: nodeTouches[nodes.towel]!.location(in: skView.scene!), time: NSDate().timeIntervalSince1970)
     }
+    
+    private func handleDeodorantShirtContact(contact: OrderedContactBodies<Contact>) {
+        guard !state.isShirtFixed && state.isDeodorantFixed && !state.isSmellFixed else { return }
+        animator.runGoodSpray {
+            self.state.isSmellFixed = true
+            UIDevice.current.vibrate()
+        }
+    }
 }
 
 // MARK: - SKPhysicsContactDelegate
@@ -801,6 +854,10 @@ extension ViewController: SKPhysicsContactDelegate {
         if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .dirt {
             handleTowelDirtContact(contact: contact)
         }
+        
+        if let contact = contact.orderedBodies(for: [Contact.toiletWater]), contact.other.category == .shirt {
+            handleDeodorantShirtContact(contact: contact)
+        }
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
@@ -810,6 +867,10 @@ extension ViewController: SKPhysicsContactDelegate {
         
         if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .dirt {
             state.dirtMoveStart = nil
+        }
+        
+        if let contact = contact.orderedBodies(for: [Contact.toiletWater]), contact.other.category == .shirt {
+            animator.stopGoodSpray()
         }
     }
 }

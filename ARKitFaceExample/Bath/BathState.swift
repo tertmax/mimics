@@ -64,6 +64,10 @@ struct BathState {
     var isDirtFixed: Bool {
         return dirtProgress <= 0
     }
+    var isSmellFixed: Bool = false
+    var isDeodorantFixed: Bool = false
+    var isShirtFixed: Bool = false
+    var flyState: FlyState = .flying
 }
 
 enum WaterTemprature {
@@ -77,4 +81,10 @@ enum TeethState {
     case dirty
     case needsRinsing
     case fixed
+}
+
+enum FlyState {
+    case flying
+    case onRazor
+    case onStick
 }

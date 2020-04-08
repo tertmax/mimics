@@ -68,36 +68,19 @@
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cI3-PS-fCC">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                             </skView>
-                            <tabBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="d27-hx-eNe">
-                                <rect key="frame" x="0.0" y="729" width="375" height="83"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <tabBarItem title="Transforms" image="transforms" id="E1z-NA-Fpn"/>
-                                    <tabBarItem tag="1" title="Texture" image="texture" id="ojh-No-ZFu"/>
-                                    <tabBarItem tag="2" title="3D Overlay" image="geometry" id="KfS-zA-F51"/>
-                                    <tabBarItem tag="3" title="Video Texture" image="videoTexture" id="BVU-uW-xoW"/>
-                                    <tabBarItem tag="4" title="Blend Shapes" image="blendShapes" id="zTx-ta-V3U"/>
-                                </items>
-                                <connections>
-                                    <outlet property="delegate" destination="BV1-FR-VrT" id="DBZ-Ne-uk1"/>
-                                </connections>
-                            </tabBar>
                             <sceneKitView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6c-py-dvH" customClass="ARSCNView">
-                                <rect key="frame" x="258" y="546" width="117" height="183"/>
+                                <rect key="frame" x="258" y="595" width="117" height="183"/>
                             </sceneKitView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="E6c-py-dvH" firstAttribute="trailing" secondItem="d27-hx-eNe" secondAttribute="trailing" id="7sF-as-KLl"/>
-                            <constraint firstAttribute="trailing" secondItem="d27-hx-eNe" secondAttribute="trailing" id="AG4-v4-dES"/>
-                            <constraint firstItem="d27-hx-eNe" firstAttribute="top" secondItem="E6c-py-dvH" secondAttribute="bottom" id="Bun-o9-2qN"/>
+                            <constraint firstItem="GBj-4O-Whc" firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="KJE-WH-4V5"/>
                             <constraint firstItem="cI3-PS-fCC" firstAttribute="top" secondItem="GBj-4O-Whc" secondAttribute="top" id="RQv-ur-y1O"/>
                             <constraint firstItem="cI3-PS-fCC" firstAttribute="bottom" secondItem="GBj-4O-Whc" secondAttribute="bottom" id="XvC-9E-dbX"/>
+                            <constraint firstItem="E6c-py-dvH" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="b5C-vr-o5t"/>
                             <constraint firstItem="cI3-PS-fCC" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="ckE-8C-oDO"/>
-                            <constraint firstItem="d27-hx-eNe" firstAttribute="bottom" secondItem="RLh-bf-1c3" secondAttribute="bottom" symbolic="YES" id="gEr-ol-2EN"/>
                             <constraint firstItem="E6c-py-dvH" firstAttribute="height" secondItem="RLh-bf-1c3" secondAttribute="height" multiplier="0.225369" id="p3c-pG-CYr"/>
                             <constraint firstItem="E6c-py-dvH" firstAttribute="width" secondItem="RLh-bf-1c3" secondAttribute="width" multiplier="0.312" id="riU-m2-Fsi"/>
-                            <constraint firstItem="d27-hx-eNe" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="txU-4e-gMI"/>
                             <constraint firstItem="cI3-PS-fCC" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="ycg-kf-6NQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GBj-4O-Whc"/>
@@ -105,7 +88,6 @@
                     <connections>
                         <outlet property="sceneView" destination="E6c-py-dvH" id="Gr4-Uw-Z4A"/>
                         <outlet property="skView" destination="cI3-PS-fCC" id="TBl-bc-Tvh"/>
-                        <outlet property="tabBar" destination="d27-hx-eNe" id="wGk-cE-feE"/>
                         <segue destination="I3L-2x-d5X" kind="show" identifier="toSketch" id="pAb-r0-zR7"/>
                     </connections>
                 </viewController>
@@ -155,11 +137,4 @@ Shipping apps must support devices without face tracking. In your app, offer UI 
             <point key="canvasLocation" x="980" y="97.536945812807886"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="blendShapes" width="28" height="28"/>
-        <image name="geometry" width="28" height="28"/>
-        <image name="texture" width="28" height="28"/>
-        <image name="transforms" width="28" height="28"/>
-        <image name="videoTexture" width="28" height="28"/>
-    </resources>
 </document>

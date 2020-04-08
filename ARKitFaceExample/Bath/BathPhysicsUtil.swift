@@ -32,6 +32,8 @@ enum Contact: UInt32, PhysicsCategory {
     case bandage = 1024
     case towel = 2048
     case dirt = 4096
+    case shirt = 8196
+    case toiletWater = 16384
 }
 
 class BathPhysicsUtil {
@@ -208,5 +210,28 @@ class BathPhysicsUtil {
         dirt.collisionBitMask = Contact.other.rawValue
         
         nodes.dirt.physicsBody = dirt
+        
+        // Toilet water
+        
+        let toiletWaterScale = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        
+        let toiletWater = SKPhysicsBody(rectangleOf: nodes.toiletWater.size.applying(toiletWaterScale))
+        toiletWater.affectedByGravity = false
+        toiletWater.contactTestBitMask = Contact.shirt.rawValue
+        toiletWater.categoryBitMask = Contact.toiletWater.rawValue
+        toiletWater.collisionBitMask = Contact.other.rawValue
+        toiletWater.usesPreciseCollisionDetection = true
+        
+        nodes.toiletWater.physicsBody = toiletWater
+        
+        // Shirt
+        
+        let shirt = SKPhysicsBody(rectangleOf: nodes.shirtZone.size)
+        shirt.affectedByGravity = false
+        shirt.contactTestBitMask = Contact.toiletWater.rawValue
+        shirt.categoryBitMask = Contact.shirt.rawValue
+        shirt.collisionBitMask = Contact.other.rawValue
+        
+        nodes.shirtZone.physicsBody = shirt
     }
 }

@@ -74,7 +74,7 @@ class BathAnimator {
         a.nodes.water.run(SKAction.sequence([fadeOut, removeActions]))
     }
     
-    func runFlyMovement() {
+    func runFlyMovement(fixedSmellCallback: @escaping(() -> Void)) {
         guard let a = animatable else { return }
         let changeWings1 = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_fly_wings_2.name))
         let changeWings2 = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_fly_wings_1.name))
@@ -95,6 +95,8 @@ class BathAnimator {
         let moveLeft = SKAction.move(to: leftPointFinish, duration: 2)
         let moveUp = SKAction.move(to: leftPointStart, duration: 4)
         
+//        let pause = SKAction.wait(forDuration: 4)
+        
         let flip = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
             a.nodes.fly.xScale *= -1
         })
@@ -103,7 +105,11 @@ class BathAnimator {
             a.nodes.fly.zPosition = a.nodes.fly.zPosition == 0 ? -2 : 0
         })
         
-        let flySequence = SKAction.sequence([moveRight, moveDown, changeZPos, flip,
+        let check = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            fixedSmellCallback()
+        })
+        
+        let flySequence = SKAction.sequence([moveRight, moveDown, changeZPos, flip, check,
                                              moveLeft, moveUp, flip, changeZPos])
         
         a.nodes.flyWings.run(SKAction.repeatForever(wingsSequence))
@@ -251,5 +257,119 @@ class BathAnimator {
         for node in a.nodes.coldEffectsHead {
             node.run(repeatSequence)
         }
+    }
+    
+    func runBadSpray(completion: (() -> Void)) {
+        guard let a = animatable else { return }
+        let deodorantNode = a.nodes.toiletWater
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 0.2)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+        let pause = SKAction.wait(forDuration: 0.2)
+        
+        let sequence = SKAction.sequence([fadeIn, pause, fadeOut])
+        
+        let reset = SKAction.customAction(withDuration: 0, actionBlock: {_,_ in
+            deodorantNode.needsReset = true
+            deodorantNode.reset()
+        })
+        
+        a.nodes.badSpray1.run(sequence)
+        a.nodes.badSpray2.run(SKAction.sequence([pause, sequence]))
+        a.nodes.badSpray3.run(SKAction.sequence([pause, pause, sequence, reset]))
+
+    }
+    
+    func runGoodSpray(completion: @escaping(() -> Void)) {
+        guard let a = animatable else { return }
+        var count = 1
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 0.15)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.15)
+        let pause = SKAction.wait(forDuration: 0.15)
+        let check = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            if !a.nodes.toiletWater.isContactingWith(a.nodes.shirtZone) {
+                self.stopGoodSpray()
+            } else if count > 0 {
+                count -= 1
+            } else if count == 0 {
+                self.stopGoodSpray()
+                completion()
+            }
+        })
+
+        let sequence = SKAction.sequence([fadeIn, pause, fadeOut])
+        
+        a.nodes.goodSpray1.run(SKAction.repeatForever(SKAction.sequence([sequence, pause, pause, pause, pause])))
+        a.nodes.goodSpray2.run(SKAction.repeatForever(SKAction.sequence([pause, pause, sequence, pause, pause])))
+        a.nodes.goodSpray3.run(SKAction.repeatForever(SKAction.sequence([pause, pause, pause, pause, sequence, check])))
+    }
+    
+    func stopGoodSpray() {
+        guard let a = animatable else { return }
+        a.nodes.goodSpray1.removeAllActions()
+        a.nodes.goodSpray2.removeAllActions()
+        a.nodes.goodSpray3.removeAllActions()
+        
+        BaseAnimator.fadeOut(nodes: [a.nodes.goodSpray1, a.nodes.goodSpray2, a.nodes.goodSpray3], duration: 0.1)
+    }
+    
+    func runFlyMoveToRazor(reachedRazorCallback: @escaping(() -> Void)) {
+        guard let a = animatable else { return }
+        let endPoint = a.nodes.razor.position
+        
+        let firstRoutePointY = endPoint.y / 3
+        let secondRoutePointY = endPoint.y / 4
+        
+        a.nodes.fly.removeAllActions()
+        a.nodes.fly.zPosition = 4
+        
+        let firstMove = SKAction.moveTo(y: firstRoutePointY, duration: 1)
+        firstMove.timingMode = .easeInEaseOut
+        
+        let secondMove = SKAction.moveTo(y: secondRoutePointY, duration: 0.5)
+        secondMove.timingMode = .easeInEaseOut
+        
+        let thirdMove = SKAction.moveTo(y: endPoint.y, duration: 1)
+        thirdMove.timingMode = .easeInEaseOut
+        
+        let ySequence = SKAction.sequence([firstMove, secondMove, thirdMove])
+        
+        let xAction = SKAction.moveTo(x: endPoint.x + 100, duration: 2.5)
+        
+        let attachToRazor = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            let fly = a.nodes.fly
+            fly.removeFromParent()
+            a.nodes.razor.addChild(fly)
+            fly.position = .zero
+            fly.position.x = -70
+            fly.position.y = -a.nodes.razor.size.height * 1.5
+            fly.xScale = fly.initXScale * 3
+            fly.yScale = fly.initYScale * 3
+            fly.zRotation = -1.5
+            reachedRazorCallback()
+        })
+        
+        a.nodes.fly.run(SKAction.sequence([SKAction.group([xAction, ySequence]), attachToRazor]))
+    }
+    
+    func runDropRazor(completion: @escaping(() -> Void)) {
+        guard let a = animatable else { return }
+        let razor = a.nodes.razor
+        let endY = a.nodes.bandage.position.y
+        
+        let moveDown1 = SKAction.move(to: CGPoint(x: a.nodes.bandage.position.x / 2, y: endY + 10), duration: 1)
+        let rotate1 = SKAction.rotate(byAngle: -6.2, duration: 1)
+        
+        let pause = SKAction.wait(forDuration: 0.3)
+        
+        
+        let completion = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            completion()
+        })
+        
+        let dropGroup = SKAction.group([moveDown1, rotate1])
+        
+        razor.run(SKAction.sequence([dropGroup, pause, completion]))
     }
 }

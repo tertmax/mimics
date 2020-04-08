@@ -16,8 +16,26 @@
 "toothbrush" = "toothbrush";
 "toothbrush_top" = "toothbrush_top";
 "toilet_water" = "toilet_water";
+"bad_spray1" = "bad_spray1";
+"bad_spray2" = "bad_spray2";
+"bad_spray3" = "bad_spray3";
+"good_spray1" = "good_spray1";
+"good_spray2" = "good_spray2";
+"good_spray3" = "good_spray3";
 "magenta_cup" = "magenta_cup";
 "purple_cup" = "purple_cup";
+
+//MARK: Spider
+
+"ear_stick" = "ear_stick";
+"stick_left" = "stick_left";
+"stick_right" = "stick_right";
+"web" = "web";
+"spider" = "spider";
+"spider_hands" = "spider_hands";
+"spider_legs" = "spider_legs";
+"spider_face" = "spider_face";
+"spider_body" = "spider_body";
 
 //MARK: Face
 
@@ -89,3 +107,7 @@
 
 "coldeffect_head" = "coldeffect_head";
 "coldeffect_nose" = "coldeffect_nose";
+
+//MARK: Shirt
+
+"shirt_zone" = "shirt_zone";

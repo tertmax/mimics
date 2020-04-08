@@ -69,6 +69,22 @@ class BathNodes {
     let coldEffectsHead: [Node]
     let coldEffectNose: Node
     let mouthCold: Node
+    let shirtZone: Node
+    let badSpray1: Node
+    let badSpray2: Node
+    let badSpray3: Node
+    let goodSpray1: Node
+    let goodSpray2: Node
+    let goodSpray3: Node
+    let stick: Node
+    let stickLeft: Node
+    let stickRight: Node
+    let spider: Node
+    let spiderHands: Node
+    let spiderLegs: Node
+    let spiderFace: Node
+    let spiderBody: Node
+    let web: Node
     
     init(scene: SKScene?) {
         
@@ -132,6 +148,8 @@ class BathNodes {
         dirt = setupNode(name: R.string.bath.dirt())
         mirrorShape = setupNode(name: R.string.bath.mirror_shape())
         mouthCold = setupNode(name: R.string.bath.mouth_cold())
+        shirtZone = setupNode(name: R.string.bath.shirt_zone())
+        web = setupNode(name: R.string.bath.web())
         
         var hairs: [Node] = []
         for i in 2...91 {
@@ -148,7 +166,7 @@ class BathNodes {
         coldEffectNose = setupNode(name: R.string.bath.coldeffect_nose())
         
         toothBrush = setupNode(name: R.string.bath.toothbrush(), draggable: true)
-        razor = setupNode(name: R.string.bath.razor(), draggable: true)
+        razor = setupNode(name: R.string.bath.razor(), draggable: false)
         razor.additionalResetLogic = { razorNode in
             let changeTexture = SKAction.setTexture(SKTexture(imageNamed: R.image.bath_razor.name))
             razorNode.run(changeTexture)
@@ -162,5 +180,22 @@ class BathNodes {
         razorTop = setupNode(name: R.string.bath.razor_top(), parentNode: razor)
         toothbrushTop = setupNode(name: R.string.bath.toothbrush_top(), parentNode: toothBrush)
         
+        badSpray1 = setupNode(name: R.string.bath.bad_spray1(), parentNode: toiletWater)
+        badSpray2 = setupNode(name: R.string.bath.bad_spray2(), parentNode: toiletWater)
+        badSpray3 = setupNode(name: R.string.bath.bad_spray3(), parentNode: toiletWater)
+        
+        goodSpray1 = setupNode(name: R.string.bath.good_spray1(), parentNode: toiletWater)
+        goodSpray2 = setupNode(name: R.string.bath.good_spray2(), parentNode: toiletWater)
+        goodSpray3 = setupNode(name: R.string.bath.good_spray3(), parentNode: toiletWater)
+        
+        stick = setupNode(name: R.string.bath.ear_stick())
+        stickLeft = setupNode(name: R.string.bath.stick_left(), parentNode: stick)
+        stickRight = setupNode(name: R.string.bath.stick_right(), parentNode: stick)
+        
+        spider = setupNode(name: R.string.bath.spider())
+        spiderLegs = setupNode(name: R.string.bath.spider_legs(), parentNode: spider)
+        spiderHands = setupNode(name: R.string.bath.spider_hands(), parentNode: spider)
+        spiderFace = setupNode(name: R.string.bath.spider_face(), parentNode: spider)
+        spiderBody = setupNode(name: R.string.bath.spider_body(), parentNode: spider)
     }
 }

@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        if !ARFaceTrackingConfiguration.isSupported {
+//        if !ARFaceTrackingConfiguration.isSupported {
             /*
              Shipping apps cannot require a face-tracking-compatible device, and thus must
              offer face tracking AR as a secondary feature. In a shipping app, use the
@@ -22,9 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              it replaces the AR view (the initial storyboard in the view controller) with
              an alternate view controller containing a static error message.
              */
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "unsupportedDeviceMessage")
-        }
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "unsupportedDeviceMessage")
+//        }
         
         return true
     }
