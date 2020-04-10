@@ -24,6 +24,7 @@
 "good_spray3" = "good_spray3";
 "magenta_cup" = "magenta_cup";
 "purple_cup" = "purple_cup";
+"thermometer" = "thermometer";
 
 //MARK: Spider
 
@@ -36,6 +37,9 @@
 "spider_legs" = "spider_legs";
 "spider_face" = "spider_face";
 "spider_body" = "spider_body";
+"heart1" = "heart1";
+"heart2" = "heart2";
+"heart3" = "heart3";
 
 //MARK: Face
 
@@ -68,6 +72,12 @@
 "pimple3_pinch_zone" = "pimple3_pinch_zone";
 "hair_piece" = "hair_piece";
 "dirt" = "dirt";
+"ear_left" = "ear_left";
+"ear_right" = "ear_right";
+"earpiece_left" = "earpiece_left";
+"earpiece_right" = "earpiece_right";
+"stick_right_swipe" = "stick_right_swipe";
+"stick_left_swipe" = "stick_left_swipe";
 
 //MARK: Hair
 
@@ -111,3 +121,5 @@
 //MARK: Shirt
 
 "shirt_zone" = "shirt_zone";
+"shirt_fixed" = "shirt_fixed";
+"shirt_initial" = "shirt_initial";

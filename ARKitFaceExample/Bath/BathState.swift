@@ -9,6 +9,15 @@
 import SpriteKit
 
 struct BathState {
+    
+    var winCondition: Bool {
+        return isSmellFixed &&
+        teethState == .fixed &&
+        leftEarProgress <= 0 &&
+        rightEarProgress <= 0 &&
+        !isCharacterFreezing
+    }
+    
     var isBlurInitiallySetUp: Bool = false
     var isTakingDamage: Bool = false
     var isColdWaterOn: Bool = false
@@ -65,9 +74,18 @@ struct BathState {
         return dirtProgress <= 0
     }
     var isSmellFixed: Bool = false
+    
+    var deodorantReachedLowerBound = false
+    var deodorantFixingProgress = 1
+    
     var isDeodorantFixed: Bool = false
     var isShirtFixed: Bool = false
     var flyState: FlyState = .flying
+    
+    var leftEarProgress = 1
+    var rightEarProgress = 1
+    var stickState: StickState = .reseted
+    
 }
 
 enum WaterTemprature {
@@ -86,5 +104,12 @@ enum TeethState {
 enum FlyState {
     case flying
     case onRazor
-    case onStick
+    case onWeb
+}
+
+enum StickState {
+    case reseted
+    case readyToReset
+    case inLeftEar
+    case inRightEar
 }

@@ -85,6 +85,18 @@ class BathNodes {
     let spiderFace: Node
     let spiderBody: Node
     let web: Node
+    let earLeft: Node
+    let earRight: Node
+    let earpieceLeft: Node
+    let earpieceRight: Node
+    let stickLeftSwipe: Node
+    let stickRightSwipe: Node
+    let heart1: Node
+    let heart2: Node
+    let heart3: Node
+    let thermometer: Node
+    let shirtInitial: Node
+    let shirtFixed: Node
     
     init(scene: SKScene?) {
         
@@ -150,6 +162,18 @@ class BathNodes {
         mouthCold = setupNode(name: R.string.bath.mouth_cold())
         shirtZone = setupNode(name: R.string.bath.shirt_zone())
         web = setupNode(name: R.string.bath.web())
+        earLeft = setupNode(name: R.string.bath.ear_left())
+        earRight = setupNode(name: R.string.bath.ear_right())
+        earpieceLeft = setupNode(name: R.string.bath.earpiece_left())
+        earpieceRight = setupNode(name: R.string.bath.earpiece_right())
+        stickRightSwipe = setupNode(name: R.string.bath.stick_right_swipe())
+        stickLeftSwipe = setupNode(name: R.string.bath.stick_left_swipe())
+        heart1 = setupNode(name: R.string.bath.heart1())
+        heart2 = setupNode(name: R.string.bath.heart2())
+        heart3 = setupNode(name: R.string.bath.heart3())
+        thermometer = setupNode(name: R.string.bath.thermometer())
+        shirtInitial = setupNode(name: R.string.bath.shirt_initial())
+        shirtFixed = setupNode(name: R.string.bath.shirt_fixed())
         
         var hairs: [Node] = []
         for i in 2...91 {

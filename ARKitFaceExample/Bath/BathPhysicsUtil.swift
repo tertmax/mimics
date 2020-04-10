@@ -33,7 +33,11 @@ enum Contact: UInt32, PhysicsCategory {
     case towel = 2048
     case dirt = 4096
     case shirt = 8196
-    case toiletWater = 16384
+    case toiletWater = 16392
+    case leftEar = 32784
+    case rightEar = 65568
+    case stickLeft = 131136
+    case stickRight = 262272
 }
 
 class BathPhysicsUtil {
@@ -233,5 +237,45 @@ class BathPhysicsUtil {
         shirt.collisionBitMask = Contact.other.rawValue
         
         nodes.shirtZone.physicsBody = shirt
+        
+        // Left stick
+        
+        let leftStick = SKPhysicsBody(rectangleOf: nodes.stickLeft.size)
+        leftStick.affectedByGravity = false
+        leftStick.contactTestBitMask = Contact.rightEar.rawValue
+        leftStick.categoryBitMask = Contact.stickLeft.rawValue
+        leftStick.collisionBitMask = Contact.other.rawValue
+        
+        nodes.stickLeft.physicsBody = leftStick
+        
+        // Right stick
+        
+        let rightStick = SKPhysicsBody(rectangleOf: nodes.stickRight.size)
+        rightStick.affectedByGravity = false
+        rightStick.contactTestBitMask = Contact.leftEar.rawValue
+        rightStick.categoryBitMask = Contact.stickRight.rawValue
+        rightStick.collisionBitMask = Contact.other.rawValue
+        
+        nodes.stickRight.physicsBody = rightStick
+        
+        // Left ear
+        
+        let leftEar = SKPhysicsBody(rectangleOf: nodes.earLeft.size)
+        leftEar.affectedByGravity = false
+        leftEar.contactTestBitMask = Contact.stickRight.rawValue
+        leftEar.categoryBitMask = Contact.leftEar.rawValue
+        leftEar.collisionBitMask = Contact.other.rawValue
+        
+        nodes.earLeft.physicsBody = leftEar
+        
+        // Right ear
+        
+        let rightEar = SKPhysicsBody(rectangleOf: nodes.earRight.size)
+        rightEar.affectedByGravity = false
+        rightEar.contactTestBitMask = Contact.stickLeft.rawValue
+        rightEar.categoryBitMask = Contact.rightEar.rawValue
+        rightEar.collisionBitMask = Contact.other.rawValue
+        
+        nodes.earRight.physicsBody = rightEar
     }
 }

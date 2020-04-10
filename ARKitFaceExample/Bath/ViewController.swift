@@ -25,6 +25,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     private let face = FaceTracker()
     private let physicsUtils = BathPhysicsUtil()
     private let motion = BathMotion()
+    private let deodorantMotion = BathMotion()
     
     var nodes: BathNodes!
     var state = BathState()
@@ -40,34 +41,6 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     // MARK: Properties
     
-    var contentControllers: [VirtualContentType: VirtualContentController] = [:]
-    
-    var selectedVirtualContent: VirtualContentType! {
-        didSet {
-            guard oldValue != nil, oldValue != selectedVirtualContent
-                else { return }
-            // Remove existing content when switching types.
-            contentControllers[oldValue]?.contentNode?.removeFromParentNode()
-            
-            // If there's an anchor already (switching content), get the content controller to place initial content.
-            // Otherwise, the content controller will place it in `renderer(_:didAdd:for:)`.
-            if let anchor = currentFaceAnchor, let node = sceneView.node(for: anchor),
-                let newContent = selectedContentController.renderer(sceneView, nodeFor: anchor) {
-                node.addChildNode(newContent)
-            }
-        }
-    }
-    var selectedContentController: VirtualContentController {
-        if let controller = contentControllers[selectedVirtualContent] {
-            return controller
-        } else {
-            
-            let controller = selectedVirtualContent.makeController()
-            contentControllers[selectedVirtualContent] = controller
-            return controller
-        }
-    }
-    
     var currentFaceAnchor: ARFaceAnchor?
     
     // MARK: - View Controller Life Cycle
@@ -80,8 +53,8 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         sceneView.automaticallyUpdatesLighting = true
         
         // Set the initial face content.
-//        tabBar.selectedItem = tabBar.items!.first!
-//        selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
+        //        tabBar.selectedItem = tabBar.items!.first!
+        //        selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
         
         // Load the SKScene from 'GameScene.sks'
         if let scene = SKScene(fileNamed: "GameScene") {
@@ -111,8 +84,11 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         mirrorCropNode = tuple.crop
         skView.scene?.addChild(mirrorCropNode)
         
+        nodes.stickRightSwipe.isHidden = true
+        nodes.stickLeftSwipe.isHidden = true
+        
         showFreezeAnimation()
-
+        
         //        skView.showsPhysics = true
     }
     
@@ -124,7 +100,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         UIApplication.shared.isIdleTimerDisabled = true
         
         // "Reset" to run the AR session for the first time.
-//        resetTracking()
+        resetTracking()
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -132,13 +108,16 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             return true
         }
     }
-    
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake && nodeTouches.keys.contains(nodes.toiletWater) {
-            UIDevice.current.vibrate()
-            state.isDeodorantFixed = true
-        }
-    }
+//
+//    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+//        if motion == .motionShake && nodeTouches.keys.contains(nodes.toiletWater) {
+//            UIDevice.current.vibrate()
+//            state.isDeodorantFixed = true
+//            if nodes.toiletWater.isContactingWith(nodes.shirtZone) {
+//                handleDeodorantShirtContact()
+//            }
+//        }
+//    }
     
     func createBlur() -> (crop: SKCropNode, sprite: SKSpriteNode, path: CGMutablePath) {
         let crop = SKCropNode()
@@ -177,7 +156,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             mirrorCropNode.children.first?.run(SKAction.sequence([fadeIn, heatUpCharacter]))
         }
     }
-
+    
     func updateWaterState() {
         switch state.waterTemprature {
         case .hot:
@@ -302,29 +281,46 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     @objc
     func pinchPimple(sender: UIPinchGestureRecognizer) {
-        
         guard sender.numberOfTouches > 1, nodeTouches.isEmpty else { return }
         let firstPoint = skView.convert(sender.location(ofTouch: 0, in: self.skView), to: skView.scene!)
         let secondPoint = skView.convert(sender.location(ofTouch: 1, in: self.skView), to: skView.scene!)
         guard let firstHitNodes = skView.scene?.nodes(at: firstPoint),
             let secondHitNodes = skView.scene?.nodes(at: secondPoint) else { return }
-        if firstHitNodes.contains(nodes.pimple1Pinch) && secondHitNodes.contains(nodes.pimple1Pinch) {
+        if firstHitNodes.contains(nodes.pimple1Pinch) &&
+            secondHitNodes.contains(nodes.pimple1Pinch) &&
+        sender.velocity < -2 {
             UIDevice.current.vibrate()
             nodes.pimple1Pinch.isHidden = true
             BaseAnimator.swapNodes(oldNode: nodes.pimple1Initial, newNode: nodes.pimple1Bleeidng, duration: 0.5)
             animator.runDamage()
             return
-        } else if firstHitNodes.contains(nodes.pimple2Pinch) && secondHitNodes.contains(nodes.pimple2Pinch) {
+        } else if firstHitNodes.contains(nodes.pimple2Pinch) &&
+            secondHitNodes.contains(nodes.pimple2Pinch) &&
+        sender.velocity < -2 {
             UIDevice.current.vibrate()
             nodes.pimple2Pinch.isHidden = true
             BaseAnimator.fadeOut(nodes: [nodes.pimple2], duration: 0.5)
             return
-        } else if firstHitNodes.contains(nodes.pimple3Pinch) && secondHitNodes.contains(nodes.pimple3Pinch) {
+        } else if firstHitNodes.contains(nodes.pimple3Pinch) &&
+            secondHitNodes.contains(nodes.pimple3Pinch) &&
+        sender.velocity < -2  {
             if state.currentRightHair == nodes.hairRightFixedUp || state.currentRightHair == nodes.hairRightFixedLeft {
                 UIDevice.current.vibrate()
                 nodes.pimple3Pinch.isHidden = true
                 BaseAnimator.fadeOut(nodes: [nodes.pimple3], duration: 0.5)
                 return
+            }
+        } else if firstHitNodes.contains(nodes.shirtInitial) &&
+            secondHitNodes.contains(nodes.shirtInitial) {
+            if !state.isShirtFixed && sender.velocity < -5 {
+                animator.runCloseShirt()
+                state.isShirtFixed = true
+            }
+        } else if firstHitNodes.contains(nodes.shirtFixed) &&
+            secondHitNodes.contains(nodes.shirtFixed) {
+            if state.isShirtFixed && sender.velocity > 5 {
+                animator.runOpenShirt()
+                state.isShirtFixed = false
             }
         }
     }
@@ -363,6 +359,42 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
                 print("no such direction for cold valve")
             }
             updateWaterState()
+        }
+        
+        if hitNodes.contains(nodes.stickLeftSwipe) {
+            switch sender.direction {
+            case .down, .up:
+                UIDevice.current.vibrate()
+                animator.runCleanEar(left: true, completion: {
+                    if self.state.leftEarProgress == 0 {
+                        self.nodes.stick.draggable = true
+                        self.nodes.stickLeftSwipe.isHidden = true
+                        self.state.stickState = .readyToReset
+                    } else {
+                        self.state.leftEarProgress -= 1
+                    }
+                })
+            default:
+                print("no such direction for left stick")
+            }
+        }
+        
+        if hitNodes.contains(nodes.stickRightSwipe) {
+            switch sender.direction {
+            case .down, .up:
+                UIDevice.current.vibrate()
+                animator.runCleanEar(left: false, completion: {
+                    if self.state.rightEarProgress == 0 {
+                        self.nodes.stick.draggable = true
+                        self.nodes.stickRightSwipe.isHidden = true
+                        self.state.stickState = .readyToReset
+                    } else {
+                        self.state.rightEarProgress -= 1
+                    }
+                })
+            default:
+                print("no such direction for right stick")
+            }
         }
     }
     
@@ -467,13 +499,31 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     }
     
     func handleRazorAcceleration(data: CMAccelerometerData) {
-        guard data.acceleration.x < -2 else { return }
+        guard data.acceleration.x < -1.3 else { return }
         motion.stop()
         animator.runDropRazor{
             self.nodes.razor.initPoint = self.nodes.razor.position
             self.nodes.razor.draggable = true
         }
         
+        let fly = nodes.fly
+        
+        fly.removeFromParent()
+        skView.scene?.addChild(fly)
+        fly.xScale = fly.initXScale
+        fly.yScale = fly.initYScale
+        fly.position = nodes.razor.position
+        fly.zRotation = fly.initRotation
+        animator.runFlyMoveToSpider {
+            self.nodes.flyWings.removeAllActions()
+            self.state.flyState = .onWeb
+            self.animator.runHeart()
+            self.animator.runFallStick {
+                self.nodes.stick.draggable = true
+                self.nodes.stick.initPoint = self.nodes.stick.position
+                self.nodes.stick.reset()
+            }
+        }
     }
     
     func handleMouth() {
@@ -535,7 +585,8 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
                 let path = CGMutablePath()
                 path.move(to: point)
                 blurDict[touch] = (path, nil, nil)
-            } else if let hitNodes = hitSprites {
+            }
+            if let hitNodes = hitSprites {
                 updateNodesBeforeStartTouch(hitNodes)
                 if let draggableHitNode = hitNodes.first(where: { $0.draggable }) {
                     draggableHitNode.inUse = true
@@ -547,8 +598,13 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
                     updateNodesAfterStartTouch(hitNodes)
                 } else if hitNodes.contains(nodes.water) && !(state.isHotWaterOn && state.isColdWaterOn) {
                     animator.runDamage()
-                } else if hitNodes.contains(nodes.fly) {
-                    tapOnFly()
+                } else if hitNodes.contains(nodes.spider) {
+                    if state.flyState == .onWeb {
+                        animator.runHeart()
+                    } else {
+                        animator.runAngrySpider()
+                        animator.runDamage()
+                    }
                 }
             }
         }
@@ -574,8 +630,8 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
             guard let hitSprites = skView.scene?.nodes(at: point) else { return }
             if hitSprites.contains(mirrorCropNode) {
-//                eraseBlur(location: point)
-                    eraseBlur2(touch: touch, location: point)
+                //                eraseBlur(location: point)
+                eraseBlur2(touch: touch, location: point)
                 
             }
         }
@@ -586,7 +642,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         for touch in touches {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
             let hitNodes = skView.scene?.nodes(at: point).filter({ $0 as? Node != nil}) as? [Node]
-            updateNodesBeforeEndTouch(hitNodes)
+            updateNodesBeforeEndTouch(hitNodes, touch: touch)
         }
         
         for (node, touch) in nodeTouches where touches.contains(touch) {
@@ -609,10 +665,12 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         if let hitNodes = hitNodes {
             if hitNodes.contains(nodes.cupMagenta) && nodes.toothBrush.inUse {
                 state.isToothbrushNotInCup = true
-                nodes.toothBrush.initRotation = -0.9
-                nodes.toothBrush.initPoint = nodes.towel.initPoint
-                nodes.toothBrush.initPoint.x *= -1
-                nodes.toothBrush.initPoint.x += 40
+                let brush = nodes.toothBrush
+                brush.initPoint = nodes.towel.initPoint
+                brush.initPoint.y += 5
+                brush.initPoint.x *= -1
+                brush.initPoint.x += 20
+                brush.initRotation += -0.9
             }
         }
     }
@@ -622,14 +680,21 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         if self.nodeTouches.keys.contains(nodes.razor) {
             animator.runRazorInUse()
         }
+        if self.nodeTouches.keys.contains(nodes.toiletWater) && !state.isDeodorantFixed {
+            deodorantMotion.start(rotationCallback: {_ in},
+                                  accelerometerCallback: { data in
+                                    self.startDeodorantAccelerationMonitoring(yAcceleration: data.acceleration.y)
+            })
+        }
     }
     
-    func updateNodesBeforeEndTouch(_ hitNodes: [Node]? = nil) {
+    func updateNodesBeforeEndTouch(_ hitNodes: [Node]? = nil, touch: UITouch) {
         if let hitNodes = hitNodes {
             if hitNodes.contains(nodes.cupMagenta) &&
                 nodes.cupMagenta.isContactingWith(nodes.mouthBrushed) &&
                 state.teethState == .needsRinsing &&
-                state.isMagentaCupFilled {
+                state.isMagentaCupFilled &&
+                !state.isMouthFlushing {
                 putWaterInMouth()
             }
             
@@ -638,21 +703,77 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             }
             if hitNodes.contains(nodes.toiletWater) &&
                 nodes.toiletWater.isContactingWith(nodes.shirtZone) {
-                if !state.isSmellFixed && !state.isDeodorantFixed && !state.isShirtFixed {
-                    nodes.toiletWater.needsReset = false
-                    animator.runBadSpray {
-                        nodes.toiletWater.needsReset = false
-                        nodes.toiletWater.reset()
-                    }
+                spray()
+            }
+            if hitNodes.contains(nodes.stick) {
+                if nodes.stickLeft.isContactingWith(nodes.earRight) &&
+                    state.rightEarProgress > 0 &&
+                    state.stickState == .reseted {
+                    cleanEar(left: false)
+                } else if nodes.stickRight.isContactingWith(nodes.earLeft) &&
+                    state.leftEarProgress > 0 &&
+                    state.stickState == .reseted {
+                    cleanEar(left: true)
                 } else {
-                    animator.stopGoodSpray()
+                    nodes.stick.needsReset = true
+                    state.stickState = .reseted
                 }
+            }
+            if nodeTouches[nodes.toiletWater] == touch {
+                if !state.isDeodorantFixed {
+                    state.deodorantFixingProgress = 1
+                }
+                deodorantMotion.stop()
             }
         }
     }
     
     func updateNodesAfterEndTouch(_ hitNodes: [Node]? = nil) {
         updateCupDraggability()
+    }
+    
+    func cleanEar(left: Bool) {
+        let stick = nodes.stick
+        stick.needsReset = false
+        stick.zRotation = -0.25
+        stick.xScale *= 0.7
+        stick.yScale *= 0.7
+        stick.zPosition = 0
+        stick.draggable = false
+        state.stickState = left ? .inLeftEar : .inRightEar
+        if left {
+            stick.position.y = nodes.earpieceLeft.position.y
+            stick.position.x = nodes.earpieceLeft.position.x - stick.size.width / 2
+            nodes.stickLeftSwipe.isHidden = false
+        } else {
+            stick.position.y = nodes.earpieceRight.position.y
+            stick.position.x = nodes.earpieceRight.position.x + stick.size.width / 2
+            nodes.stickRightSwipe.isHidden = false
+        }
+    }
+    
+    func spray() {
+        guard !state.isShirtFixed && !state.isSmellFixed else { return }
+        let deodorant = nodes.toiletWater
+        deodorant.needsReset = false
+        deodorant.position = nodes.shirtZone.position
+        deodorant.position.x -= 100
+        deodorant.draggable = false
+        if !state.isDeodorantFixed {
+            animator.runBadSpray {
+                deodorant.needsReset = true
+                deodorant.draggable = true
+                deodorant.reset()
+            }
+        } else {
+            animator.runGoodSpray {
+                self.state.isSmellFixed = true
+                deodorant.needsReset = true
+                deodorant.draggable = true
+                deodorant.reset()
+                UIDevice.current.vibrate()
+            }
+        }
     }
     
     func eraseBlur2(touch: UITouch, location: CGPoint) {
@@ -684,15 +805,30 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     func checkBlurProgress() {
         guard state.waterTemprature != .hot  else {
-//            runBlurViewTimer()
             runBlurViewTimer2()
             return
         }
-//        guard let cgImage = skView.texture(from: mirrorCropNode)?.cgImage() else { return }
-//        let image = UIImage(cgImage: cgImage)
-//        if let color = image.getColors() {
-//            makePretty(image: image)
-//        }
+    }
+    
+    func startDeodorantAccelerationMonitoring(yAcceleration: Double) {
+        
+        if self.state.deodorantFixingProgress > 0 {
+            if state.deodorantReachedLowerBound &&
+                yAcceleration > 1.3 {
+                UIDevice.current.vibrate()
+                state.deodorantFixingProgress -= 1
+                state.deodorantReachedLowerBound.toggle()
+            } else if !state.deodorantReachedLowerBound &&
+                yAcceleration < -1.3 {
+                UIDevice.current.vibrate()
+                state.deodorantFixingProgress -= 1
+                state.deodorantReachedLowerBound.toggle()
+            }
+        } else {
+            UIDevice.current.vibrate()
+            deodorantMotion.stop()
+            state.isDeodorantFixed = true
+        }
     }
     
     func checkSwipe(touch: UITouch, start: (point: CGPoint, time: TimeInterval)?) -> UISwipeGestureRecognizer.Direction? {
@@ -728,7 +864,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     }
     
     
-
+    
     func tapOnFly() {
         print("You tapped on the fly :)")
     }
@@ -818,12 +954,8 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         state.dirtMoveStart = (point: nodeTouches[nodes.towel]!.location(in: skView.scene!), time: NSDate().timeIntervalSince1970)
     }
     
-    private func handleDeodorantShirtContact(contact: OrderedContactBodies<Contact>) {
-        guard !state.isShirtFixed && state.isDeodorantFixed && !state.isSmellFixed else { return }
-        animator.runGoodSpray {
-            self.state.isSmellFixed = true
-            UIDevice.current.vibrate()
-        }
+    private func handleDeodorantShirtContact(contact: OrderedContactBodies<Contact>? = nil) {
+        
     }
 }
 
@@ -854,10 +986,6 @@ extension ViewController: SKPhysicsContactDelegate {
         if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .dirt {
             handleTowelDirtContact(contact: contact)
         }
-        
-        if let contact = contact.orderedBodies(for: [Contact.toiletWater]), contact.other.category == .shirt {
-            handleDeodorantShirtContact(contact: contact)
-        }
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
@@ -868,18 +996,6 @@ extension ViewController: SKPhysicsContactDelegate {
         if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .dirt {
             state.dirtMoveStart = nil
         }
-        
-        if let contact = contact.orderedBodies(for: [Contact.toiletWater]), contact.other.category == .shirt {
-            animator.stopGoodSpray()
-        }
-    }
-}
-
-extension ViewController: UITabBarDelegate {
-    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        guard let contentType = VirtualContentType(rawValue: item.tag)
-            else { fatalError("unexpected virtual content tag") }
-        selectedVirtualContent = contentType
     }
 }
 
@@ -891,20 +1007,18 @@ extension ViewController: ARSCNViewDelegate {
         
         // If this is the first time with this anchor, get the controller to create content.
         // Otherwise (switching content), will change content when setting `selectedVirtualContent`.
-        if node.childNodes.isEmpty, let contentNode = selectedContentController.renderer(renderer, nodeFor: faceAnchor) {
-            node.addChildNode(contentNode)
-        }
+        
     }
     
     /// - Tag: ARFaceGeometryUpdate
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard anchor == currentFaceAnchor,
-            let contentNode = selectedContentController.contentNode,
-            contentNode.parent == node,
+            //            let contentNode = selectedContentController.contentNode,
+            //            contentNode.parent == node,
             let faceAnchor = anchor as? ARFaceAnchor
             else { return }
         
-        selectedContentController.renderer(renderer, didUpdate: contentNode, for: anchor)
+        //        selectedContentController.renderer(renderer, didUpdate: contentNode, for: anchor)
         
         face.update(faceAnchor)
         

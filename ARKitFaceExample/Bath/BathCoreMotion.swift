@@ -12,13 +12,10 @@ class BathMotion {
     
     let motionManager = CMMotionManager()
     
-    init() {
-        motionManager.deviceMotionUpdateInterval = 0.1
-        motionManager.accelerometerUpdateInterval = 0.1
-    }
-    
     func start(rotationCallback: @escaping((CMDeviceMotion) -> Void),
                accelerometerCallback: @escaping((CMAccelerometerData) -> Void)) {
+        motionManager.deviceMotionUpdateInterval = 0.1
+        motionManager.accelerometerUpdateInterval = 0.1
         motionManager.startDeviceMotionUpdates(to: .main, withHandler: { data, error in
             guard let data = data else { return }
             rotationCallback(data)
