@@ -47,6 +47,11 @@ class BaseAnimator {
             node.run(scale)
         }
     }
+    
+    class func playSound(name: String, node: SKNode) {
+        let sound = AnimationActions.sound(name: name).action
+        node.run(sound)
+    }
 }
 
 extension BaseAnimator {
@@ -57,6 +62,7 @@ extension BaseAnimator {
         case setTexture(textureName: String)
         case rotateBy(angle: CGFloat, duration: TimeInterval)
         case scale(to: CGFloat, duration: TimeInterval)
+        case sound(name: String)
         
         var action: SKAction {
             switch self {
@@ -80,6 +86,8 @@ extension BaseAnimator {
                 return SKAction.rotate(byAngle: angle, duration: duration)
             case .scale(let scale, let duration):
                 return SKAction.scale(to: scale, duration: duration)
+            case .sound(let name):
+                return SKAction.playSoundFileNamed(name, waitForCompletion: false)
             }
         }
     }

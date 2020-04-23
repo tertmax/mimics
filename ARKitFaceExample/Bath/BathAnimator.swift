@@ -96,7 +96,13 @@ class BathAnimator {
         let moveUp = SKAction.move(to: leftPointStart, duration: 0)
         let flipPause = SKAction.wait(forDuration: 2, withRange: 0)
         
-//        let pause = SKAction.wait(forDuration: 4)
+        let playSound = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            self.runFlySound()
+        })
+        
+        let pauseSound = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            self.pauseFlySound()
+        })
         
         let flip = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
             a.nodes.fly.xScale *= -1
@@ -110,19 +116,37 @@ class BathAnimator {
             fixedSmellCallback()
         })
         
-        let flySequence = SKAction.sequence([moveRight, flip, check,
+        let flySequence = SKAction.sequence([playSound, moveRight, pauseSound, flip, check,
                                              moveDown, flipPause, check,
-                                             flipPause, changeZPos, check,
-                                             moveLeft, flip, check, moveUp,
-                                             flipPause, check, flipPause, check, changeZPos])
+                                             flipPause, changeZPos, check, playSound,
+                                             moveLeft, pauseSound, flip, changeZPos, check, moveUp,
+                                             flipPause, check, flipPause, check])
         
         a.nodes.flyWings.run(SKAction.repeatForever(wingsSequence))
         a.nodes.flyNose.run(SKAction.repeatForever(noseSequence))
         a.nodes.fly.run(SKAction.repeatForever(flySequence))
     }
     
+    func runFlySound() {
+        let increaseVolume = SKAction.changeVolume(to: 0.02, duration: 0.5)
+        let play = SKAction.play()
+        animatable?.nodes.flyAudio.run(SKAction.sequence([play, increaseVolume]))
+    }
+    
+    func pauseFlySound() {
+        let reduceVolume = SKAction.changeVolume(to: 0, duration: 0.5)
+        let pause = SKAction.pause()
+        animatable?.nodes.flyAudio.run(SKAction.sequence([reduceVolume, pause]))
+    }
+    
     func runFallHairPiece(node: Node) {
         guard !node.inUse else { return }
+        let sounds = [
+            R.string.bath.shave_sound2(),
+            R.string.bath.shave_sound5(),
+            R.string.bath.shave_sound6()
+        ]
+        let randomSound = sounds[Int.random(in: 0...2)]
         node.inUse = true
         let randomX = CGFloat.random(in: -50...50)
         let randomAngle = CGFloat.random(in: -4...4)
@@ -133,6 +157,9 @@ class BathAnimator {
         let fade = SKAction.fadeOut(withDuration: 0.5)
         let fadeSequence = SKAction.sequence([pause, fade])
         
+        if Bool.random() && Bool.random() {
+            BaseAnimator.playSound(name: randomSound, node: node)
+        }
         node.run(SKAction.group([moveGroup, fadeSequence]))
     }
     
@@ -198,7 +225,9 @@ class BathAnimator {
     }
     
     func runFillCup() {
-        BaseAnimator.changeTexture(node: animatable?.nodes.cupMagenta, textureName: R.image.bath_cup_magenta_filled.name)
+        guard let node = animatable?.nodes.cupMagenta else { return }
+        BaseAnimator.changeTexture(node: node, textureName: R.image.bath_cup_magenta_filled.name)
+        BaseAnimator.playSound(name: R.string.bath.fill_cup_sound(), node: node)
     }
     
     func runPutWaterInMouth() {
@@ -250,7 +279,10 @@ class BathAnimator {
         BaseAnimator.fadeOut(nodes: coldNodes, duration: 1)
         BaseAnimator.fadeOut(nodes: [a.nodes.mouthCold], duration: 0)
         BaseAnimator.fadeIn(nodes: [a.nodes.mouthDefault], duration: 0, completion: completion)
-        BaseAnimator.changeTexture(node: a.nodes.thermometer, textureName: R.image.bath_thermometer.name)
+
+        let height = SKAction.resize(toHeight: a.nodes.thermometer.size.height / 1.2, duration: 0.5)
+        let moveUp = SKAction.moveBy(x: 0, y: a.nodes.thermometer.size.height / 6, duration: 0.5)
+        a.nodes.redLine.run(SKAction.group([height,  moveUp]))
     }
     
     func runFreezeEffects() {
@@ -280,7 +312,8 @@ class BathAnimator {
         a.nodes.badSpray1.run(sequence)
         a.nodes.badSpray2.run(SKAction.sequence([pause, sequence]))
         a.nodes.badSpray3.run(SKAction.sequence([pause, pause, sequence, reset]))
-
+        
+        BaseAnimator.playSound(name: R.string.bath.bad_spray_sound(), node: a.nodes.badSpray1)
     }
     
     func runGoodSpray(completion: @escaping(() -> Void)) {
@@ -369,8 +402,16 @@ class BathAnimator {
         
         let xSequence = SKAction.sequence([firstMoveXFromLeft, flip, secondMoveXFromLeft])
         
-        let moveFromRight = SKAction.sequence([SKAction.group([xAction, ySequence]), attachToRazor])
-        let moveFromLeft = SKAction.sequence([SKAction.group([yAction, xSequence]), attachToRazor])
+        let playSound = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            self.runFlySound()
+        })
+        
+        let pauseSound = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            self.pauseFlySound()
+        })
+        
+        let moveFromRight = SKAction.sequence([playSound, SKAction.group([xAction, ySequence]), attachToRazor, pauseSound])
+        let moveFromLeft = SKAction.sequence([playSound, SKAction.group([yAction, xSequence]), attachToRazor, pauseSound])
         
         if fly.position.x > 0 {
             fly.run(moveFromRight)
@@ -426,9 +467,17 @@ class BathAnimator {
             completion()
         })
         
+        let playSound = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            self.runFlySound()
+        })
+        
+        let pauseSound = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
+            self.pauseFlySound()
+        })
+        
         let moveYSequence = SKAction.sequence([moveY1, moveY2, moveY3, completion])
         
-        fly.run(SKAction.group([moveX, moveYSequence]))
+        fly.run(SKAction.sequence([playSound, SKAction.group([moveX, moveYSequence]), pauseSound]) )
     }
     
     func runFallStick(completion: @escaping(() -> Void)) {
@@ -499,6 +548,10 @@ class BathAnimator {
         a.nodes.spiderFace.run(texture)
         a.nodes.spiderFace.run(face)
         a.nodes.spiderHands.run(hands)
+        
+        if !angry {
+            BaseAnimator.playSound(name: R.string.bath.angry_spider_sound(), node: a.nodes.spider)
+        }
     }
     
     func runCleanEar(left: Bool, completion: @escaping(() -> Void)) {
@@ -531,5 +584,24 @@ class BathAnimator {
         guard let a = animatable else { return }
         BaseAnimator.fadeOut(nodes: [a.nodes.shirtFixed], duration: 0)
         BaseAnimator.fadeIn(nodes: [a.nodes.shirtInitial], duration: 0)
+    }
+    
+    func runPinchPimple1() {
+        guard let a = animatable else { return }
+        BaseAnimator.swapNodes(oldNode: a.nodes.pimple1Initial, newNode: a.nodes.pimple1Bleeidng, duration: 0.5)
+        runDamage()
+        BaseAnimator.playSound(name: R.string.bath.pimple1_sound(), node: a.nodes.pimple1Bleeidng)
+    }
+    
+    func runPinchPimple2() {
+        guard let a = animatable else { return }
+        BaseAnimator.fadeOut(nodes: [a.nodes.pimple2], duration: 0.5)
+        BaseAnimator.playSound(name: R.string.bath.pimple2_sound(), node: a.nodes.pimple2)
+    }
+    
+    func runPinchPimple3() {
+        guard let a = animatable else { return }
+        BaseAnimator.fadeOut(nodes: [a.nodes.pimple3], duration: 0.5)
+        BaseAnimator.playSound(name: R.string.bath.pimple2_sound(), node: a.nodes.pimple3)
     }
 }

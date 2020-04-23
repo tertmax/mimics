@@ -87,9 +87,15 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         nodes.stickRightSwipe.isHidden = true
         nodes.stickLeftSwipe.isHidden = true
         
+        state.winCallback = {
+            let winLabel = UILabel()
+            winLabel.text = "You won"
+            self.view.addSubview(winLabel)
+        }
+        
         showFreezeAnimation()
         
-        //        skView.showsPhysics = true
+                skView.showsPhysics = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -122,7 +128,6 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     func createBlur() -> (crop: SKCropNode, sprite: SKSpriteNode, path: CGMutablePath) {
         let crop = SKCropNode()
         let path = CGMutablePath()
-        
         let sprite = Node(texture: nodes.mirrorShape.texture)
         sprite.size = nodes.mirrorShape.size
         sprite.position = nodes.mirrorShape.position
@@ -185,21 +190,28 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     }
     
     func updateRightHairState(direction: UISwipeGestureRecognizer.Direction) {
+        state.isHairFixed = true
         var fixedHair = nodes.hairRightFixedDown
+        var sound = R.string.bath.comb1_sound()
         switch direction {
         case .down:
             fixedHair = nodes.hairRightFixedDown
+            sound = R.string.bath.comb2_sound()
         case .up:
             fixedHair = nodes.hairRightFixedUp
         case .left:
             fixedHair = nodes.hairRightFixedLeft
         case .right:
             fixedHair = nodes.hairRightFixedRight
+            sound = R.string.bath.comb2_sound()
         default:
             print("No such swipe direction for Right Hair node")
         }
-        BaseAnimator.swapNodes(oldNode: state.currentRightHair, newNode: fixedHair)
-        state.currentRightHair = fixedHair
+        if state.currentRightHair != fixedHair {
+            BaseAnimator.swapNodes(oldNode: state.currentRightHair, newNode: fixedHair)
+            state.currentRightHair = fixedHair
+            BaseAnimator.playSound(name: sound, node: state.currentRightHair)
+        }
     }
     
     func updateDirtState() {
@@ -220,6 +232,18 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         guard state.isMouthOpened, state.teethState != .fixed else { return }
         UIDevice.current.vibrate()
         state.teethProgress -= 1
+        
+        if !nodes.mouthInside.hasActions() {
+            let sounds = [
+                R.string.bath.teeth3_sounds(),
+                R.string.bath.teeth2_sounds(),
+                R.string.bath.teeth1_sounds(),
+                R.string.bath.teeth3_sounds(),
+                R.string.bath.teeth2_sounds(),
+                R.string.bath.teeth1_sounds()
+            ]
+            BaseAnimator.playSound(name: sounds[state.teethProgress], node: nodes.mouthInside)
+        }
         
         if state.teethProgress == 5 {
             animator.runRemovePaste()
@@ -291,15 +315,15 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         sender.velocity < -2 {
             UIDevice.current.vibrate()
             nodes.pimple1Pinch.isHidden = true
-            BaseAnimator.swapNodes(oldNode: nodes.pimple1Initial, newNode: nodes.pimple1Bleeidng, duration: 0.5)
-            animator.runDamage()
+            animator.runPinchPimple1()
             return
         } else if firstHitNodes.contains(nodes.pimple2Pinch) &&
             secondHitNodes.contains(nodes.pimple2Pinch) &&
         sender.velocity < -2 {
             UIDevice.current.vibrate()
             nodes.pimple2Pinch.isHidden = true
-            BaseAnimator.fadeOut(nodes: [nodes.pimple2], duration: 0.5)
+            animator.runPinchPimple2()
+            state.pimple2Fixed = true
             return
         } else if firstHitNodes.contains(nodes.pimple3Pinch) &&
             secondHitNodes.contains(nodes.pimple3Pinch) &&
@@ -307,7 +331,8 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             if state.currentRightHair == nodes.hairRightFixedUp || state.currentRightHair == nodes.hairRightFixedLeft {
                 UIDevice.current.vibrate()
                 nodes.pimple3Pinch.isHidden = true
-                BaseAnimator.fadeOut(nodes: [nodes.pimple3], duration: 0.5)
+                animator.runPinchPimple3()
+                state.pimple3Fixed = true
                 return
             }
         } else if firstHitNodes.contains(nodes.shirtInitial) &&
@@ -367,9 +392,11 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
                 UIDevice.current.vibrate()
                 animator.runCleanEar(left: true, completion: {
                     if self.state.leftEarProgress == 0 {
+                        self.state.isLeftEarCleaned = true
                         self.nodes.stick.draggable = true
                         self.nodes.stickLeftSwipe.isHidden = true
-                        self.state.stickState = .readyToReset
+                        self.nodes.stick.needsReset = true
+                        self.state.stickState = .reseted
                     } else {
                         self.state.leftEarProgress -= 1
                     }
@@ -385,9 +412,11 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
                 UIDevice.current.vibrate()
                 animator.runCleanEar(left: false, completion: {
                     if self.state.rightEarProgress == 0 {
+                        self.state.isRightEarCleaned = true
                         self.nodes.stick.draggable = true
                         self.nodes.stickRightSwipe.isHidden = true
-                        self.state.stickState = .readyToReset
+                        self.nodes.stick.needsReset = true
+                        self.state.stickState = .reseted
                     } else {
                         self.state.rightEarProgress -= 1
                     }
@@ -462,6 +491,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         UIDevice.current.vibrate()
         BaseAnimator.swapNodes(oldNode: nodes.pimple1Bleeidng, newNode: nodes.pimple1Fixed, duration: 0.5)
         nodes.bandage.removeFromParent()
+        state.pimple1Fixed = true
     }
     
     func updateMouthAlpha(show: Bool) {
@@ -563,11 +593,18 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             } else if !state.rinsingReachedUpperBound && cheeks > cheeksUpperThreshold {
                 state.rinsingReachedUpperBound = true
                 state.rinsingProgress -= 1
+                if state.rinsingProgress < 4 {
+                    BaseAnimator.playSound(name: R.string.bath.rinsing2_sound(), node: nodes.leftCheek)
+                } else {
+                    BaseAnimator.playSound(name: R.string.bath.rinsing1_sound(), node: nodes.leftCheek)
+                }
             }
         } else if state.rinsingProgress == 0 {
             state.rinsingProgress -= 1
+            BaseAnimator.playSound(name: R.string.bath.spit_sound(), node: nodes.leftCheek)
             animator.runSpitAnimation {
                 self.state.teethProgress -= 1
+                self.state.teethFixed = true
             }
         }
     }
@@ -584,6 +621,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             if (hitNodes?.contains(mirrorCropNode) ?? false) && state.isBlurInitiallySetUp {
                 let path = CGMutablePath()
                 path.move(to: point)
+                checkBlurSound(point: point)
                 blurDict[touch] = (path, nil, nil)
             }
             if let hitNodes = hitSprites {
@@ -630,9 +668,10 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             let point = skView.convert(touch.location(in: self.skView), to: skView.scene!)
             guard let hitSprites = skView.scene?.nodes(at: point) else { return }
             if hitSprites.contains(mirrorCropNode) {
-                //                eraseBlur(location: point)
+                if blurDict[touch] != nil {
+                    checkBlurSound(point: point)
+                }
                 eraseBlur2(touch: touch, location: point)
-                
             }
         }
     }
@@ -663,7 +702,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     func updateNodesBeforeStartTouch(_ hitNodes: [Node]? = nil) {
         if let hitNodes = hitNodes {
-            if hitNodes.contains(nodes.cupMagenta) && nodes.toothBrush.inUse {
+            if hitNodes.contains(nodes.cupMagenta) && nodes.toothBrush.inUse && !state.isToothbrushNotInCup {
                 state.isToothbrushNotInCup = true
                 let brush = nodes.toothBrush
                 brush.initPoint = nodes.towel.initPoint
@@ -707,11 +746,11 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             }
             if hitNodes.contains(nodes.stick) {
                 if nodes.stickLeft.isContactingWith(nodes.earRight) &&
-                    state.rightEarProgress > 0 &&
+                    !state.isRightEarCleaned &&
                     state.stickState == .reseted {
                     cleanEar(left: false)
                 } else if nodes.stickRight.isContactingWith(nodes.earLeft) &&
-                    state.leftEarProgress > 0 &&
+                    !state.isLeftEarCleaned &&
                     state.stickState == .reseted {
                     cleanEar(left: true)
                 } else {
@@ -810,19 +849,49 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
     }
     
+    func checkBlurSound(point: CGPoint) {
+        guard let nodesAtPoint = skView.scene?.nodes(at: point) else { return }
+        guard !state.isBlurSoundPlaying &&
+            state.isBlurInitiallySetUp &&
+            (nodesAtPoint.contains(nodes.mirrorZone1) ||
+            nodesAtPoint.contains(nodes.mirrorZone2) ||
+            nodesAtPoint.contains(nodes.mirrorZone3)) else { return }
+        var hitPaths: [CGPoint] = []
+        for blurPoints in blurDict.values {
+
+            for blurPoint in blurPoints.path.getPathElementsPoints() {
+                if blurPoint.x - 35...blurPoint.x + 35 ~= point.x &&
+                    blurPoint.y - 35...blurPoint.y + 35 ~= point.y {
+                    hitPaths.append(point)
+                }
+            }
+        }
+        if hitPaths.isEmpty {
+            state.isBlurSoundPlaying = true
+//            let sound = state.mirrorSounds[Int.random(in: 0...5)]
+            let sound = state.mirrorSounds.remove(at: 0)
+            state.mirrorSounds.insert(sound, at: state.mirrorSounds.count)
+            BaseAnimator.playSound(name: sound, node: nodes.mirrorShape)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: {
+                self.state.isBlurSoundPlaying = false
+            })
+        }
+    }
+    
     func startDeodorantAccelerationMonitoring(yAcceleration: Double) {
         
         if self.state.deodorantFixingProgress > 0 {
             if state.deodorantReachedLowerBound &&
-                yAcceleration > 1.3 {
+                yAcceleration > 3 {
                 UIDevice.current.vibrate()
                 state.deodorantFixingProgress -= 1
                 state.deodorantReachedLowerBound.toggle()
             } else if !state.deodorantReachedLowerBound &&
-                yAcceleration < -1.3 {
+                yAcceleration < -3 {
                 UIDevice.current.vibrate()
                 state.deodorantFixingProgress -= 1
                 state.deodorantReachedLowerBound.toggle()
+                BaseAnimator.playSound(name: R.string.bath.fixing_spray_sound(), node: nodes.toiletWater)
             }
         } else {
             UIDevice.current.vibrate()
@@ -934,6 +1003,10 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     private func handleRazorHairContact(contact: OrderedContactBodies<Contact>) {
         if let node = contact.main.body.node as? Node, nodes.hairPieces.contains(node) {
             animator.runFallHairPiece(node: node)
+            nodes.hairPieces.removeAll(where: { $0 == node })
+            if nodes.hairPieces.isEmpty {
+                state.isShaved = true
+            }
         }
     }
     

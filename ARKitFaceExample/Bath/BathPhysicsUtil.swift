@@ -45,23 +45,20 @@ class BathPhysicsUtil {
         
         // Hair
         let hairScale = CGAffineTransform(scaleX: 0.4, y: 0.35)
-        let leftHairInitial = SKPhysicsBody(rectangleOf: nodes.hairLeftInitial.size.applying(hairScale))
-        let leftHairFixed = SKPhysicsBody(rectangleOf: nodes.hairLeftFixed.size.applying(hairScale))
-        let rightHairInitial = SKPhysicsBody(rectangleOf: nodes.hairRightInitial.size.applying(hairScale))
-        let rightHairFixedRight = SKPhysicsBody(rectangleOf: nodes.hairRightFixedRight.size.applying(hairScale))
-        let rightHairFixedLeft = SKPhysicsBody(rectangleOf: nodes.hairRightFixedLeft.size.applying(hairScale))
-        let rightHairFixedUp = SKPhysicsBody(rectangleOf: nodes.hairRightFixedUp.size.applying(hairScale))
-        let rightHairFixedDown = SKPhysicsBody(rectangleOf: nodes.hairRightFixedDown.size.applying(hairScale))
-        
-        let hairBodies: [SKPhysicsBody] = [leftHairInitial, leftHairFixed,
-                                           rightHairInitial, rightHairFixedRight,
-                                           rightHairFixedLeft, rightHairFixedUp, rightHairFixedDown]
-        for body in hairBodies {
-            body.affectedByGravity = false
-            body.contactTestBitMask = Contact.comb.rawValue
-            body.categoryBitMask = Contact.hair.rawValue
-            body.collisionBitMask = Contact.other.rawValue
-        }
+        let leftHairInitial = makeRectBody(size: nodes.hairLeftInitial.size.applying(hairScale),
+                                           contact: .comb, categoty: .hair)
+        let leftHairFixed = makeRectBody(size: nodes.hairLeftFixed.size.applying(hairScale),
+                                         contact: .comb, categoty: .hair)
+        let rightHairInitial = makeRectBody(size: nodes.hairRightInitial.size.applying(hairScale),
+                                            contact: .comb, categoty: .hair)
+        let rightHairFixedRight = makeRectBody(size: nodes.hairRightFixedRight.size.applying(hairScale),
+                                               contact: .comb, categoty: .hair)
+        let rightHairFixedLeft = makeRectBody(size: nodes.hairRightFixedLeft.size.applying(hairScale),
+                                              contact: .comb, categoty: .hair)
+        let rightHairFixedUp = makeRectBody(size: nodes.hairRightFixedUp.size.applying(hairScale),
+                                            contact: .comb, categoty: .hair)
+        let rightHairFixedDown = makeRectBody(size: nodes.hairRightFixedDown.size.applying(hairScale),
+                                              contact: .comb, categoty: .hair)
         
         nodes.hairLeftInitial.physicsBody = leftHairInitial
         nodes.hairLeftFixed.physicsBody = leftHairFixed
@@ -74,121 +71,62 @@ class BathPhysicsUtil {
         // Comb
         
         let combScale = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        let comb = SKPhysicsBody(rectangleOf: nodes.comb.size.applying(combScale))
-        comb.affectedByGravity = false
-        comb.contactTestBitMask = Contact.hair.rawValue
-        comb.categoryBitMask = Contact.comb.rawValue
-        comb.collisionBitMask = Contact.other.rawValue
-        
+        let comb = makeRectBody(size: nodes.comb.size.applying(combScale), contact: .hair, categoty: .comb)
         nodes.comb.physicsBody = comb
         
         // Toothbrush
         
-        let toothBrush = SKPhysicsBody(rectangleOf: nodes.toothbrushTop.size)
-        toothBrush.affectedByGravity = false
-        toothBrush.contactTestBitMask = Contact.teeth.rawValue
-        toothBrush.categoryBitMask = Contact.toothBrush.rawValue
-        toothBrush.collisionBitMask = Contact.other.rawValue
-        
+        let toothBrush = makeRectBody(size: nodes.toothbrushTop.size, contact: .teeth, categoty: .toothBrush)
         nodes.toothbrushTop.physicsBody = toothBrush
         
         // Teeth
         let teethScale = CGAffineTransform(scaleX: 0.7, y: 0.7)
         
-        let jawTop = SKPhysicsBody(rectangleOf: nodes.jawTop.size.applying(teethScale))
-        jawTop.affectedByGravity = false
-        jawTop.contactTestBitMask = Contact.toothBrush.rawValue
-        jawTop.categoryBitMask = Contact.teeth.rawValue
-        jawTop.collisionBitMask = Contact.other.rawValue
-        
+        let jawTop = makeRectBody(size: nodes.jawTop.size.applying(teethScale), contact: .toothBrush, categoty: .teeth)
         nodes.jawTop.physicsBody = jawTop
         
-        let jawBottom = SKPhysicsBody(rectangleOf: nodes.jawBottom.size.applying(teethScale))
-        jawBottom.affectedByGravity = false
-        jawBottom.contactTestBitMask = Contact.toothBrush.rawValue
-        jawBottom.categoryBitMask = Contact.teeth.rawValue
-        jawBottom.collisionBitMask = Contact.other.rawValue
-        
+        let jawBottom = makeRectBody(size: nodes.jawBottom.size.applying(teethScale), contact: .toothBrush, categoty: .teeth)
         nodes.jawBottom.physicsBody = jawBottom
         
         // Mouth brushed
+        
         let brushedMouthScale = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        
-        let mouthBrushed = SKPhysicsBody(rectangleOf: nodes.mouthBrushed.size.applying(brushedMouthScale))
-        mouthBrushed.affectedByGravity = false
-        mouthBrushed.contactTestBitMask = Contact.cup.rawValue
-        mouthBrushed.categoryBitMask = Contact.mouthBrushed.rawValue
-        mouthBrushed.collisionBitMask = Contact.other.rawValue
-        
+        let mouthBrushed = makeRectBody(size: nodes.mouthBrushed.size.applying(brushedMouthScale), contact: .cup, categoty: .mouthBrushed)
         nodes.mouthBrushed.physicsBody = mouthBrushed
         
         // Water
         
         let waterScale = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        
-        let water = SKPhysicsBody(rectangleOf: nodes.water.size.applying(waterScale))
-        water.affectedByGravity = false
-        water.contactTestBitMask = Contact.cup.rawValue
-        water.categoryBitMask = Contact.water.rawValue
-        water.collisionBitMask = Contact.other.rawValue
-        
+        let water = makeRectBody(size: nodes.water.size.applying(waterScale), contact: .cup, categoty: .water)
         nodes.water.physicsBody = water
         
         // Cups
         
         let cupScale = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        
-        let cupMagenta = SKPhysicsBody(rectangleOf: nodes.cupMagenta.size.applying(cupScale))
-        cupMagenta.affectedByGravity = false
-        cupMagenta.contactTestBitMask = Contact.water.rawValue
-        cupMagenta.categoryBitMask = Contact.cup.rawValue
-        cupMagenta.collisionBitMask = Contact.other.rawValue
-        
+        let cupMagenta = makeRectBody(size: nodes.cupMagenta.size.applying(cupScale), contact: .water, categoty: .cup)
         nodes.cupMagenta.physicsBody = cupMagenta
         
         // Hair pieces
         
         let hairPieceScale = CGAffineTransform(scaleX: 0.3, y: 0.7)
         for hairNode in nodes.hairPieces {
-            let hairPiece = SKPhysicsBody(rectangleOf: hairNode.size.applying(hairPieceScale))
-            hairPiece.affectedByGravity = false
-            hairPiece.contactTestBitMask = Contact.razor.rawValue
-            hairPiece.categoryBitMask = Contact.hairPiece.rawValue
-            hairPiece.collisionBitMask = Contact.other.rawValue
-            
+            let hairPiece = makeRectBody(size: hairNode.size.applying(hairPieceScale), contact: .razor, categoty: .hairPiece)
             hairNode.physicsBody = hairPiece
         }
         
         // Razor
         
-        let razorRect = nodes.razorTop.size
-        
-        let razorBlade = SKPhysicsBody(rectangleOf: razorRect)
-        razorBlade.affectedByGravity = false
-        razorBlade.contactTestBitMask = Contact.hairPiece.rawValue
-        razorBlade.categoryBitMask = Contact.razor.rawValue
-        razorBlade.collisionBitMask = Contact.other.rawValue
-        
+        let razorBlade = makeRectBody(size: nodes.razorTop.size, contact: .hairPiece, categoty: .razor)
         nodes.razorTop.physicsBody = razorBlade
         
         // Pimple1
         
-        let pimple1 = SKPhysicsBody(rectangleOf: nodes.pimple1Bleeidng.size)
-        pimple1.affectedByGravity = false
-        pimple1.contactTestBitMask = Contact.bandage.rawValue
-        pimple1.categoryBitMask = Contact.pimple.rawValue
-        pimple1.collisionBitMask = Contact.other.rawValue
-        
+        let pimple1 = makeRectBody(size: nodes.pimple1Bleeidng.size, contact: .bandage, categoty: .pimple)
         nodes.pimple1Bleeidng.physicsBody = pimple1
         
         // Bandage
-        
-        let bandage = SKPhysicsBody(rectangleOf: nodes.bandage.size)
-        bandage.affectedByGravity = false
-        bandage.contactTestBitMask = Contact.pimple.rawValue
-        bandage.categoryBitMask = Contact.bandage.rawValue
-        bandage.collisionBitMask = Contact.other.rawValue
-        
+         
+        let bandage = makeRectBody(size: nodes.bandage.size, contact: .pimple, categoty: .bandage)
         nodes.bandage.physicsBody = bandage
         
         // Towel
@@ -206,76 +144,50 @@ class BathPhysicsUtil {
         // Dirt
         
         let dirtScale = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        
-        let dirt = SKPhysicsBody(rectangleOf: nodes.dirt.size.applying(dirtScale))
-        dirt.affectedByGravity = false
-        dirt.contactTestBitMask = Contact.towel.rawValue
-        dirt.categoryBitMask = Contact.dirt.rawValue
-        dirt.collisionBitMask = Contact.other.rawValue
-        
+        let dirt = makeRectBody(size: nodes.dirt.size.applying(dirtScale), contact: .towel, categoty: .dirt)
         nodes.dirt.physicsBody = dirt
         
         // Toilet water
         
         let toiletWaterScale = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        
-        let toiletWater = SKPhysicsBody(rectangleOf: nodes.toiletWater.size.applying(toiletWaterScale))
-        toiletWater.affectedByGravity = false
-        toiletWater.contactTestBitMask = Contact.shirt.rawValue
-        toiletWater.categoryBitMask = Contact.toiletWater.rawValue
-        toiletWater.collisionBitMask = Contact.other.rawValue
+        let toiletWater = makeRectBody(size: nodes.toiletWater.size.applying(toiletWaterScale),
+                                       contact: .shirt, categoty: .toiletWater)
         toiletWater.usesPreciseCollisionDetection = true
-        
         nodes.toiletWater.physicsBody = toiletWater
         
         // Shirt
         
-        let shirt = SKPhysicsBody(rectangleOf: nodes.shirtZone.size)
-        shirt.affectedByGravity = false
-        shirt.contactTestBitMask = Contact.toiletWater.rawValue
-        shirt.categoryBitMask = Contact.shirt.rawValue
-        shirt.collisionBitMask = Contact.other.rawValue
-        
+        let shirt = makeRectBody(size: nodes.shirtZone.size, contact: .toiletWater, categoty: .shirt)
         nodes.shirtZone.physicsBody = shirt
         
         // Left stick
         
-        let leftStick = SKPhysicsBody(rectangleOf: nodes.stickLeft.size)
-        leftStick.affectedByGravity = false
-        leftStick.contactTestBitMask = Contact.rightEar.rawValue
-        leftStick.categoryBitMask = Contact.stickLeft.rawValue
-        leftStick.collisionBitMask = Contact.other.rawValue
-        
+        let leftStick = makeRectBody(size: nodes.stickLeft.size, contact: .rightEar, categoty: .stickLeft)
         nodes.stickLeft.physicsBody = leftStick
         
         // Right stick
         
-        let rightStick = SKPhysicsBody(rectangleOf: nodes.stickRight.size)
-        rightStick.affectedByGravity = false
-        rightStick.contactTestBitMask = Contact.leftEar.rawValue
-        rightStick.categoryBitMask = Contact.stickRight.rawValue
-        rightStick.collisionBitMask = Contact.other.rawValue
-        
+        let rightStick = makeRectBody(size: nodes.stickRight.size, contact: .leftEar, categoty: .stickRight)
         nodes.stickRight.physicsBody = rightStick
         
         // Left ear
         
-        let leftEar = SKPhysicsBody(rectangleOf: nodes.earLeft.size)
-        leftEar.affectedByGravity = false
-        leftEar.contactTestBitMask = Contact.stickRight.rawValue
-        leftEar.categoryBitMask = Contact.leftEar.rawValue
-        leftEar.collisionBitMask = Contact.other.rawValue
-        
+        let leftEar = makeRectBody(size: nodes.earLeft.size, contact: .stickRight, categoty: .leftEar)
         nodes.earLeft.physicsBody = leftEar
         
         // Right ear
         
-        let rightEar = SKPhysicsBody(rectangleOf: nodes.earRight.size)
-        rightEar.affectedByGravity = false
-        rightEar.contactTestBitMask = Contact.stickLeft.rawValue
-        rightEar.categoryBitMask = Contact.rightEar.rawValue
-        rightEar.collisionBitMask = Contact.other.rawValue
-        
+        let rightEar = makeRectBody(size: nodes.earRight.size, contact: .stickLeft, categoty: .rightEar)
         nodes.earRight.physicsBody = rightEar
+    }
+
+    private func makeRectBody(size: CGSize, contact: Contact, categoty: Contact) -> SKPhysicsBody {
+        let body = SKPhysicsBody(rectangleOf: size)
+        body.affectedByGravity = false
+        body.contactTestBitMask = contact.rawValue
+        body.categoryBitMask = categoty.rawValue
+        body.collisionBitMask = Contact.other.rawValue
+        
+        return body
     }
 }

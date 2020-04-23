@@ -138,7 +138,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.file` struct is generated, and contains static references to 7 files.
+  /// This `R.file` struct is generated, and contains static references to 36 files.
   struct file {
     /// Resource file `20200306_161439.obj`.
     static let _161439Obj = Rswift.FileResource(bundle: R.hostingBundle, name: "20200306_161439", pathExtension: "obj")
@@ -152,8 +152,66 @@ struct R: Rswift.Validatable {
     static let andriiPng = Rswift.FileResource(bundle: R.hostingBundle, name: "andrii", pathExtension: "png")
     /// Resource file `andrii.scn`.
     static let andriiScn = Rswift.FileResource(bundle: R.hostingBundle, name: "andrii", pathExtension: "scn")
+    /// Resource file `angry_spider.mp3`.
+    static let angry_spiderMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "angry_spider", pathExtension: "mp3")
+    /// Resource file `bad_spray.mp3`.
+    static let bad_sprayMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "bad_spray", pathExtension: "mp3")
+    /// Resource file `comb1.mp3`.
+    static let comb1Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "comb1", pathExtension: "mp3")
+    /// Resource file `comb2.mp3`.
+    static let comb2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "comb2", pathExtension: "mp3")
+    /// Resource file `ding.mp3`.
+    static let dingMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "ding", pathExtension: "mp3")
+    /// Resource file `filling_glass.mp3`.
+    static let filling_glassMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "filling_glass", pathExtension: "mp3")
+    /// Resource file `fixing_spray.mp3`.
+    static let fixing_sprayMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "fixing_spray", pathExtension: "mp3")
+    /// Resource file `fly.mp3`.
+    static let flyMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "fly", pathExtension: "mp3")
+    /// Resource file `item_land.mp3`.
+    static let item_landMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "item_land", pathExtension: "mp3")
+    /// Resource file `mirror1.mp3`.
+    static let mirror1Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "mirror1", pathExtension: "mp3")
+    /// Resource file `mirror2.mp3`.
+    static let mirror2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "mirror2", pathExtension: "mp3")
+    /// Resource file `mirror3.mp3`.
+    static let mirror3Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "mirror3", pathExtension: "mp3")
+    /// Resource file `mirror4.mp3`.
+    static let mirror4Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "mirror4", pathExtension: "mp3")
+    /// Resource file `mirror5.mp3`.
+    static let mirror5Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "mirror5", pathExtension: "mp3")
+    /// Resource file `mirror6.mp3`.
+    static let mirror6Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "mirror6", pathExtension: "mp3")
     /// Resource file `model.mtl`.
     static let modelMtl = Rswift.FileResource(bundle: R.hostingBundle, name: "model", pathExtension: "mtl")
+    /// Resource file `pimple1.mp3`.
+    static let pimple1Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "pimple1", pathExtension: "mp3")
+    /// Resource file `pimple2.mp3`.
+    static let pimple2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "pimple2", pathExtension: "mp3")
+    /// Resource file `pimple3.mp3`.
+    static let pimple3Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "pimple3", pathExtension: "mp3")
+    /// Resource file `rinsing1.m4a`.
+    static let rinsing1M4a = Rswift.FileResource(bundle: R.hostingBundle, name: "rinsing1", pathExtension: "m4a")
+    /// Resource file `rinsing1.mp3`.
+    static let rinsing1Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "rinsing1", pathExtension: "mp3")
+    /// Resource file `rinsing2.m4a`.
+    static let rinsing2M4a = Rswift.FileResource(bundle: R.hostingBundle, name: "rinsing2", pathExtension: "m4a")
+    /// Resource file `rinsing2.mp3`.
+    static let rinsing2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "rinsing2", pathExtension: "mp3")
+    /// Resource file `shave2.m4a`.
+    static let shave2M4a = Rswift.FileResource(bundle: R.hostingBundle, name: "shave2", pathExtension: "m4a")
+    /// Resource file `shave5.m4a`.
+    static let shave5M4a = Rswift.FileResource(bundle: R.hostingBundle, name: "shave5", pathExtension: "m4a")
+    /// Resource file `shave6.m4a`.
+    static let shave6M4a = Rswift.FileResource(bundle: R.hostingBundle, name: "shave6", pathExtension: "m4a")
+    /// Resource file `spit.mp3`.
+    static let spitMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "spit", pathExtension: "mp3")
+    /// Resource file `teeth1.mp3`.
+    static let teeth1Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "teeth1", pathExtension: "mp3")
+    /// Resource file `teeth2.mp3`.
+    static let teeth2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "teeth2", pathExtension: "mp3")
+    /// Resource file `teeth3.mp3`.
+    static let teeth3Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "teeth3", pathExtension: "mp3")
 
     /// `bundle.url(forResource: "20200306_161439", withExtension: "obj")`
     static func _161439Obj(_: Void = ()) -> Foundation.URL? {
@@ -191,9 +249,183 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
+    /// `bundle.url(forResource: "angry_spider", withExtension: "mp3")`
+    static func angry_spiderMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.angry_spiderMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "bad_spray", withExtension: "mp3")`
+    static func bad_sprayMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.bad_sprayMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "comb1", withExtension: "mp3")`
+    static func comb1Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.comb1Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "comb2", withExtension: "mp3")`
+    static func comb2Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.comb2Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "ding", withExtension: "mp3")`
+    static func dingMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.dingMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "filling_glass", withExtension: "mp3")`
+    static func filling_glassMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.filling_glassMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "fixing_spray", withExtension: "mp3")`
+    static func fixing_sprayMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.fixing_sprayMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "fly", withExtension: "mp3")`
+    static func flyMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.flyMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "item_land", withExtension: "mp3")`
+    static func item_landMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.item_landMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "mirror1", withExtension: "mp3")`
+    static func mirror1Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.mirror1Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "mirror2", withExtension: "mp3")`
+    static func mirror2Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.mirror2Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "mirror3", withExtension: "mp3")`
+    static func mirror3Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.mirror3Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "mirror4", withExtension: "mp3")`
+    static func mirror4Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.mirror4Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "mirror5", withExtension: "mp3")`
+    static func mirror5Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.mirror5Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "mirror6", withExtension: "mp3")`
+    static func mirror6Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.mirror6Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
     /// `bundle.url(forResource: "model", withExtension: "mtl")`
     static func modelMtl(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.modelMtl
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "pimple1", withExtension: "mp3")`
+    static func pimple1Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pimple1Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "pimple2", withExtension: "mp3")`
+    static func pimple2Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pimple2Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "pimple3", withExtension: "mp3")`
+    static func pimple3Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pimple3Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "rinsing1", withExtension: "m4a")`
+    static func rinsing1M4a(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.rinsing1M4a
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "rinsing1", withExtension: "mp3")`
+    static func rinsing1Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.rinsing1Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "rinsing2", withExtension: "m4a")`
+    static func rinsing2M4a(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.rinsing2M4a
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "rinsing2", withExtension: "mp3")`
+    static func rinsing2Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.rinsing2Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "shave2", withExtension: "m4a")`
+    static func shave2M4a(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shave2M4a
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "shave5", withExtension: "m4a")`
+    static func shave5M4a(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shave5M4a
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "shave6", withExtension: "m4a")`
+    static func shave6M4a(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shave6M4a
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "spit", withExtension: "mp3")`
+    static func spitMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.spitMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "teeth1", withExtension: "mp3")`
+    static func teeth1Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.teeth1Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "teeth2", withExtension: "mp3")`
+    static func teeth2Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.teeth2Mp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "teeth3", withExtension: "mp3")`
+    static func teeth3Mp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.teeth3Mp3
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -1450,8 +1682,12 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.bath` struct is generated, and contains static references to 89 localization keys.
+    /// This `R.string.bath` struct is generated, and contains static references to 121 localization keys.
     struct bath {
+      /// Value: angry_spider.mp3
+      static let angry_spider_sound = Rswift.StringResource(key: "angry_spider_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: bad_spray.mp3
+      static let bad_spray_sound = Rswift.StringResource(key: "bad_spray_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: bad_spray1
       static let bad_spray1 = Rswift.StringResource(key: "bad_spray1", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: bad_spray2
@@ -1468,6 +1704,10 @@ struct R: Rswift.Validatable {
       static let coldeffect_nose = Rswift.StringResource(key: "coldeffect_nose", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: comb
       static let comb = Rswift.StringResource(key: "comb", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: comb1.mp3
+      static let comb1_sound = Rswift.StringResource(key: "comb1_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: comb2.mp3
+      static let comb2_sound = Rswift.StringResource(key: "comb2_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: crane
       static let crane = Rswift.StringResource(key: "crane", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: dirt
@@ -1484,8 +1724,14 @@ struct R: Rswift.Validatable {
       static let earpiece_right = Rswift.StringResource(key: "earpiece_right", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: eyes
       static let eyes = Rswift.StringResource(key: "eyes", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: filling_glass.mp3
+      static let fill_cup_sound = Rswift.StringResource(key: "fill_cup_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: fixing_spray.mp3
+      static let fixing_spray_sound = Rswift.StringResource(key: "fixing_spray_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: fly
       static let fly = Rswift.StringResource(key: "fly", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: fly.mp3
+      static let fly_sound = Rswift.StringResource(key: "fly_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: fly_body
       static let fly_body = Rswift.StringResource(key: "fly_body", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: fly_nose
@@ -1538,8 +1784,26 @@ struct R: Rswift.Validatable {
       static let lip_top = Rswift.StringResource(key: "lip_top", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: magenta_cup
       static let magenta_cup = Rswift.StringResource(key: "magenta_cup", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror1.mp3
+      static let mirror1_sound = Rswift.StringResource(key: "mirror1_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror2.mp3
+      static let mirror2_sound = Rswift.StringResource(key: "mirror2_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror3.mp3
+      static let mirror3_sound = Rswift.StringResource(key: "mirror3_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror4.mp3
+      static let mirror4_sound = Rswift.StringResource(key: "mirror4_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror5.mp3
+      static let mirror5_sound = Rswift.StringResource(key: "mirror5_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror6.mp3
+      static let mirror6_sound = Rswift.StringResource(key: "mirror6_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mirror_shape
       static let mirror_shape = Rswift.StringResource(key: "mirror_shape", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror_zone1
+      static let mirror_zone1 = Rswift.StringResource(key: "mirror_zone1", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror_zone2
+      static let mirror_zone2 = Rswift.StringResource(key: "mirror_zone2", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mirror_zone3
+      static let mirror_zone3 = Rswift.StringResource(key: "mirror_zone3", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_brushed
       static let mouth_brushed = Rswift.StringResource(key: "mouth_brushed", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_brushed_water
@@ -1550,6 +1814,8 @@ struct R: Rswift.Validatable {
       static let mouth_default = Rswift.StringResource(key: "mouth_default", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouth_inside
       static let mouth_inside = Rswift.StringResource(key: "mouth_inside", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: pimple1.mp3
+      static let pimple1_sound = Rswift.StringResource(key: "pimple1_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: pimple1_bleeding
       static let pimple1_bleedning = Rswift.StringResource(key: "pimple1_bleedning", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: pimple1_fixed
@@ -1560,10 +1826,14 @@ struct R: Rswift.Validatable {
       static let pimple1_pinch_zone = Rswift.StringResource(key: "pimple1_pinch_zone", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: pimple2
       static let pimple2 = Rswift.StringResource(key: "pimple2", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: pimple2.mp3
+      static let pimple2_sound = Rswift.StringResource(key: "pimple2_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: pimple2_pinch_zone
       static let pimple2_pinch_zone = Rswift.StringResource(key: "pimple2_pinch_zone", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: pimple3
       static let pimple3 = Rswift.StringResource(key: "pimple3", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: pimple3.mp3
+      static let pimple3_sound = Rswift.StringResource(key: "pimple3_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: pimple3_pinch_zone
       static let pimple3_pinch_zone = Rswift.StringResource(key: "pimple3_pinch_zone", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: purple_cup
@@ -1578,6 +1848,22 @@ struct R: Rswift.Validatable {
       static let right_cheek = Rswift.StringResource(key: "right_cheek", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: right_eyeball
       static let right_eyeball = Rswift.StringResource(key: "right_eyeball", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: rinsing1.mp3
+      static let rinsing1_sound = Rswift.StringResource(key: "rinsing1_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: rinsing2.mp3
+      static let rinsing2_sound = Rswift.StringResource(key: "rinsing2_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: shave1.m4a
+      static let shave_sound1 = Rswift.StringResource(key: "shave_sound1", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: shave2.m4a
+      static let shave_sound2 = Rswift.StringResource(key: "shave_sound2", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: shave3.m4a
+      static let shave_sound3 = Rswift.StringResource(key: "shave_sound3", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: shave4.m4a
+      static let shave_sound4 = Rswift.StringResource(key: "shave_sound4", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: shave5.m4a
+      static let shave_sound5 = Rswift.StringResource(key: "shave_sound5", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: shave6.m4a
+      static let shave_sound6 = Rswift.StringResource(key: "shave_sound6", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: shirt_fixed
       static let shirt_fixed = Rswift.StringResource(key: "shirt_fixed", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: shirt_initial
@@ -1594,6 +1880,8 @@ struct R: Rswift.Validatable {
       static let spider_hands = Rswift.StringResource(key: "spider_hands", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: spider_legs
       static let spider_legs = Rswift.StringResource(key: "spider_legs", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: spit.mp3
+      static let spit_sound = Rswift.StringResource(key: "spit_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: steam1
       static let steam1 = Rswift.StringResource(key: "steam1", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: steam2
@@ -1608,8 +1896,16 @@ struct R: Rswift.Validatable {
       static let stick_right = Rswift.StringResource(key: "stick_right", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: stick_right_swipe
       static let stick_right_swipe = Rswift.StringResource(key: "stick_right_swipe", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: teeth1.mp3
+      static let teeth1_sounds = Rswift.StringResource(key: "teeth1_sounds", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: teeth2.mp3
+      static let teeth2_sounds = Rswift.StringResource(key: "teeth2_sounds", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: teeth3.mp3
+      static let teeth3_sounds = Rswift.StringResource(key: "teeth3_sounds", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: thermometer
       static let thermometer = Rswift.StringResource(key: "thermometer", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: thermometer_line
+      static let thermometer_line = Rswift.StringResource(key: "thermometer_line", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: toilet_water
       static let toilet_water = Rswift.StringResource(key: "toilet_water", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: toothbrush
@@ -1630,6 +1926,32 @@ struct R: Rswift.Validatable {
       static let water_falling3 = Rswift.StringResource(key: "water_falling3", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: web
       static let web = Rswift.StringResource(key: "web", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+
+      /// Value: angry_spider.mp3
+      static func angry_spider_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("angry_spider_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "angry_spider_sound"
+        }
+
+        return NSLocalizedString("angry_spider_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: bad_spray.mp3
+      static func bad_spray_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("bad_spray_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "bad_spray_sound"
+        }
+
+        return NSLocalizedString("bad_spray_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
 
       /// Value: bad_spray1
       static func bad_spray1(preferredLanguages: [String]? = nil) -> String {
@@ -1733,6 +2055,32 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("comb", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: comb1.mp3
+      static func comb1_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("comb1_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "comb1_sound"
+        }
+
+        return NSLocalizedString("comb1_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: comb2.mp3
+      static func comb2_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("comb2_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "comb2_sound"
+        }
+
+        return NSLocalizedString("comb2_sound", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: crane
@@ -1839,6 +2187,32 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("eyes", tableName: "Bath", bundle: bundle, comment: "")
       }
 
+      /// Value: filling_glass.mp3
+      static func fill_cup_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("fill_cup_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "fill_cup_sound"
+        }
+
+        return NSLocalizedString("fill_cup_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: fixing_spray.mp3
+      static func fixing_spray_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("fixing_spray_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "fixing_spray_sound"
+        }
+
+        return NSLocalizedString("fixing_spray_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
       /// Value: fly
       static func fly(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1850,6 +2224,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("fly", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: fly.mp3
+      static func fly_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("fly_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "fly_sound"
+        }
+
+        return NSLocalizedString("fly_sound", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: fly_body
@@ -2190,6 +2577,84 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("magenta_cup", tableName: "Bath", bundle: bundle, comment: "")
       }
 
+      /// Value: mirror1.mp3
+      static func mirror1_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror1_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror1_sound"
+        }
+
+        return NSLocalizedString("mirror1_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror2.mp3
+      static func mirror2_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror2_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror2_sound"
+        }
+
+        return NSLocalizedString("mirror2_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror3.mp3
+      static func mirror3_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror3_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror3_sound"
+        }
+
+        return NSLocalizedString("mirror3_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror4.mp3
+      static func mirror4_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror4_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror4_sound"
+        }
+
+        return NSLocalizedString("mirror4_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror5.mp3
+      static func mirror5_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror5_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror5_sound"
+        }
+
+        return NSLocalizedString("mirror5_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror6.mp3
+      static func mirror6_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror6_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror6_sound"
+        }
+
+        return NSLocalizedString("mirror6_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
       /// Value: mirror_shape
       static func mirror_shape(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -2201,6 +2666,45 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("mirror_shape", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror_zone1
+      static func mirror_zone1(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror_zone1", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror_zone1"
+        }
+
+        return NSLocalizedString("mirror_zone1", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror_zone2
+      static func mirror_zone2(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror_zone2", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror_zone2"
+        }
+
+        return NSLocalizedString("mirror_zone2", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: mirror_zone3
+      static func mirror_zone3(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mirror_zone3", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "mirror_zone3"
+        }
+
+        return NSLocalizedString("mirror_zone3", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: mouth_brushed
@@ -2268,6 +2772,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("mouth_inside", tableName: "Bath", bundle: bundle, comment: "")
       }
 
+      /// Value: pimple1.mp3
+      static func pimple1_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("pimple1_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "pimple1_sound"
+        }
+
+        return NSLocalizedString("pimple1_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
       /// Value: pimple1_bleeding
       static func pimple1_bleedning(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -2333,6 +2850,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("pimple2", tableName: "Bath", bundle: bundle, comment: "")
       }
 
+      /// Value: pimple2.mp3
+      static func pimple2_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("pimple2_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "pimple2_sound"
+        }
+
+        return NSLocalizedString("pimple2_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
       /// Value: pimple2_pinch_zone
       static func pimple2_pinch_zone(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -2357,6 +2887,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("pimple3", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: pimple3.mp3
+      static func pimple3_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("pimple3_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "pimple3_sound"
+        }
+
+        return NSLocalizedString("pimple3_sound", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: pimple3_pinch_zone
@@ -2448,6 +2991,110 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("right_eyeball", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: rinsing1.mp3
+      static func rinsing1_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("rinsing1_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "rinsing1_sound"
+        }
+
+        return NSLocalizedString("rinsing1_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: rinsing2.mp3
+      static func rinsing2_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("rinsing2_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "rinsing2_sound"
+        }
+
+        return NSLocalizedString("rinsing2_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: shave1.m4a
+      static func shave_sound1(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("shave_sound1", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "shave_sound1"
+        }
+
+        return NSLocalizedString("shave_sound1", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: shave2.m4a
+      static func shave_sound2(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("shave_sound2", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "shave_sound2"
+        }
+
+        return NSLocalizedString("shave_sound2", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: shave3.m4a
+      static func shave_sound3(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("shave_sound3", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "shave_sound3"
+        }
+
+        return NSLocalizedString("shave_sound3", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: shave4.m4a
+      static func shave_sound4(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("shave_sound4", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "shave_sound4"
+        }
+
+        return NSLocalizedString("shave_sound4", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: shave5.m4a
+      static func shave_sound5(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("shave_sound5", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "shave_sound5"
+        }
+
+        return NSLocalizedString("shave_sound5", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: shave6.m4a
+      static func shave_sound6(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("shave_sound6", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "shave_sound6"
+        }
+
+        return NSLocalizedString("shave_sound6", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: shirt_fixed
@@ -2554,6 +3201,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("spider_legs", tableName: "Bath", bundle: bundle, comment: "")
       }
 
+      /// Value: spit.mp3
+      static func spit_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("spit_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "spit_sound"
+        }
+
+        return NSLocalizedString("spit_sound", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
       /// Value: steam1
       static func steam1(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -2645,6 +3305,45 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("stick_right_swipe", tableName: "Bath", bundle: bundle, comment: "")
       }
 
+      /// Value: teeth1.mp3
+      static func teeth1_sounds(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("teeth1_sounds", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "teeth1_sounds"
+        }
+
+        return NSLocalizedString("teeth1_sounds", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: teeth2.mp3
+      static func teeth2_sounds(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("teeth2_sounds", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "teeth2_sounds"
+        }
+
+        return NSLocalizedString("teeth2_sounds", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: teeth3.mp3
+      static func teeth3_sounds(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("teeth3_sounds", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "teeth3_sounds"
+        }
+
+        return NSLocalizedString("teeth3_sounds", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
       /// Value: thermometer
       static func thermometer(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -2656,6 +3355,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("thermometer", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: thermometer_line
+      static func thermometer_line(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("thermometer_line", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "thermometer_line"
+        }
+
+        return NSLocalizedString("thermometer_line", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: toilet_water
@@ -2833,6 +3545,7 @@ struct _R: Rswift.Validatable {
       let name = "LaunchScreen"
 
       static func validate() throws {
+        if UIKit.UIImage(named: "bath_heart", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'bath_heart' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }

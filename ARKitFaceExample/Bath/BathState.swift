@@ -12,11 +12,19 @@ struct BathState {
     
     var winCondition: Bool {
         return isSmellFixed &&
-        teethState == .fixed &&
-        leftEarProgress <= 0 &&
-        rightEarProgress <= 0 &&
-        !isCharacterFreezing
+        teethFixed &&
+        isLeftEarCleaned &&
+        isRightEarCleaned &&
+        !isCharacterFreezing &&
+        isShirtFixed &&
+        pimplesFixed &&
+        isShaved &&
+        isDirtFixed &&
+        isHairFixed &&
+        stickState == .reseted
     }
+    
+    var winCallback: (() -> Void)?
     
     var isBlurInitiallySetUp: Bool = false
     var isTakingDamage: Bool = false
@@ -42,7 +50,11 @@ struct BathState {
     let minDistance: CGFloat = 50
     let minSpeed: CGFloat = 400
     
-    var isCharacterFreezing: Bool = true
+    var isCharacterFreezing: Bool = true {
+        didSet {
+            checkWin()
+        }
+    }
     
     var isMouthOpened: Bool = false
     var teethProgress: Int = 6
@@ -60,8 +72,14 @@ struct BathState {
         return .dirty
     }
     
+    var teethFixed: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
+    
     var isMagentaCupFilled: Bool = false
-    var isPurpleCupFilled: Bool = false
+    var isBrushMovedToSink: Bool = false
 
     var rinsingProgress = 6
     var rinsingReachedUpperBound: Bool = false
@@ -73,19 +91,90 @@ struct BathState {
     var isDirtFixed: Bool {
         return dirtProgress <= 0
     }
-    var isSmellFixed: Bool = false
+    var isSmellFixed: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
     
     var deodorantReachedLowerBound = false
     var deodorantFixingProgress = 1
     
     var isDeodorantFixed: Bool = false
-    var isShirtFixed: Bool = false
+    var isShirtFixed: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
+    
     var flyState: FlyState = .flying
     
     var leftEarProgress = 1
     var rightEarProgress = 1
-    var stickState: StickState = .reseted
+    var stickState: StickState = .reseted {
+        didSet {
+            checkWin()
+        }
+    }
+    var isLeftEarCleaned: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
+    var isRightEarCleaned: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
     
+    var pimple1Fixed: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
+    var pimple2Fixed: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
+    var pimple3Fixed: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
+    
+    var pimplesFixed: Bool {
+        return pimple1Fixed && pimple2Fixed && pimple3Fixed
+    }
+    
+    var isShaved: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
+    
+    var isHairFixed: Bool = false {
+        didSet {
+            checkWin()
+        }
+    }
+    
+    var isBlurSoundPlaying: Bool = false
+    var mirrorSounds: [String] = [
+        R.string.bath.mirror1_sound(),
+        R.string.bath.mirror3_sound(),
+        R.string.bath.mirror2_sound(),
+        R.string.bath.mirror4_sound(),
+        R.string.bath.mirror5_sound(),
+        R.string.bath.mirror6_sound()
+    ]
+    
+    var isFlySoundPlaying: Bool = false
+    
+    func checkWin() {
+        guard winCondition else { return }
+        winCallback?()
+    }
 }
 
 enum WaterTemprature {

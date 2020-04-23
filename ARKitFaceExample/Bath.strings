@@ -25,6 +25,7 @@
 "magenta_cup" = "magenta_cup";
 "purple_cup" = "purple_cup";
 "thermometer" = "thermometer";
+"thermometer_line" = "thermometer_line";
 
 //MARK: Spider
 
@@ -112,6 +113,9 @@
 //MARK: Mirror
 
 "mirror_shape" = "mirror_shape";
+"mirror_zone1" = "mirror_zone1";
+"mirror_zone2" = "mirror_zone2";
+"mirror_zone3" = "mirror_zone3";
 
 //MARK: Cold effects
 
@@ -123,3 +127,43 @@
 "shirt_zone" = "shirt_zone";
 "shirt_fixed" = "shirt_fixed";
 "shirt_initial" = "shirt_initial";
+
+//MARK: Sounds
+
+"pimple1_sound" = "pimple1.mp3";
+"pimple2_sound" = "pimple2.mp3";
+"pimple3_sound" = "pimple3.mp3";
+
+"comb1_sound" = "comb1.mp3";
+"comb2_sound" = "comb2.mp3";
+
+"rinsing1_sound" = "rinsing1.mp3";
+"rinsing2_sound" = "rinsing2.mp3";
+"spit_sound" = "spit.mp3";
+
+"teeth1_sounds" = "teeth1.mp3";
+"teeth2_sounds" = "teeth2.mp3";
+"teeth3_sounds" = "teeth3.mp3";
+
+"shave_sound1" = "shave1.m4a";
+"shave_sound2" = "shave2.m4a";
+"shave_sound3" = "shave3.m4a";
+"shave_sound4" = "shave4.m4a";
+"shave_sound5" = "shave5.m4a";
+"shave_sound6" = "shave6.m4a";
+
+"fill_cup_sound" = "filling_glass.mp3";
+
+"angry_spider_sound" = "angry_spider.mp3";
+
+"bad_spray_sound" = "bad_spray.mp3";
+"fixing_spray_sound" = "fixing_spray.mp3";
+
+"mirror1_sound" = "mirror1.mp3";
+"mirror2_sound" = "mirror2.mp3";
+"mirror3_sound" = "mirror3.mp3";
+"mirror4_sound" = "mirror4.mp3";
+"mirror5_sound" = "mirror5.mp3";
+"mirror6_sound" = "mirror6.mp3";
+
+"fly_sound" = "fly.mp3";

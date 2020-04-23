@@ -97,6 +97,11 @@ class BathNodes {
     let thermometer: Node
     let shirtInitial: Node
     let shirtFixed: Node
+    let redLine: Node
+    let mirrorZone1: Node
+    let mirrorZone2: Node
+    let mirrorZone3: Node
+    let flyAudio: SKAudioNode
     
     init(scene: SKScene?) {
         
@@ -174,7 +179,11 @@ class BathNodes {
         thermometer = setupNode(name: R.string.bath.thermometer())
         shirtInitial = setupNode(name: R.string.bath.shirt_initial())
         shirtFixed = setupNode(name: R.string.bath.shirt_fixed())
+        mirrorZone1 = setupNode(name: R.string.bath.mirror_zone1())
+        mirrorZone2 = setupNode(name: R.string.bath.mirror_zone2())
+        mirrorZone3 = setupNode(name: R.string.bath.mirror_zone3())
         
+        redLine = setupNode(name: R.string.bath.thermometer_line(), parentNode: thermometer)
         var hairs: [Node] = []
         for i in 2...91 {
             hairs.append(setupNode(name: R.string.bath.hair_piece() + String(i)))
@@ -221,5 +230,10 @@ class BathNodes {
         spiderHands = setupNode(name: R.string.bath.spider_hands(), parentNode: spider)
         spiderFace = setupNode(name: R.string.bath.spider_face(), parentNode: spider)
         spiderBody = setupNode(name: R.string.bath.spider_body(), parentNode: spider)
+        
+        flyAudio = SKAudioNode(fileNamed: R.string.bath.fly_sound())
+        flyAudio.autoplayLooped = true
+        flyAudio.run(SKAction.changeVolume(to: 0, duration: 0))
+        fly.addChild(flyAudio)
     }
 }
