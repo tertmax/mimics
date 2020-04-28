@@ -167,3 +167,7 @@
 "mirror6_sound" = "mirror6.mp3";
 
 "fly_sound" = "fly.mp3";
+
+"ding_sound" = "ding.mp3";
+
+"land_sound" = "item_land.mp3";

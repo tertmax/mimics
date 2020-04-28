@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l0z-uw-JQu">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -95,6 +95,54 @@
             </objects>
             <point key="canvasLocation" x="56.799999999999997" y="98.275862068965523"/>
         </scene>
+        <!--Warehouse View Controller-->
+        <scene sceneID="ik7-ic-pGd">
+            <objects>
+                <viewController id="l0z-uw-JQu" customClass="WarehouseViewController" customModule="ARKitFaceExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dcd-mh-p50">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xe4-8B-mbU">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </skView>
+                            <sceneKitView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeN-Sr-jdv" customClass="ARSCNView">
+                                <rect key="frame" x="258" y="595" width="117" height="183"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="117" id="RXX-sA-47J"/>
+                                    <constraint firstAttribute="height" constant="183" id="Xa4-0v-qYf"/>
+                                </constraints>
+                            </sceneKitView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1te-xa-si0">
+                                <rect key="frame" x="320" y="72" width="39" height="30"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="resetHeading:" destination="l0z-uw-JQu" eventType="touchUpInside" id="j4A-OA-CjH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="iyy-Lf-MFX" firstAttribute="trailing" secondItem="xe4-8B-mbU" secondAttribute="trailing" id="4cc-Ng-TfT"/>
+                            <constraint firstItem="iyy-Lf-MFX" firstAttribute="trailing" secondItem="LeN-Sr-jdv" secondAttribute="trailing" id="IRR-KQ-pOs"/>
+                            <constraint firstItem="iyy-Lf-MFX" firstAttribute="trailing" secondItem="1te-xa-si0" secondAttribute="trailing" constant="16" id="UEX-F3-tI4"/>
+                            <constraint firstItem="xe4-8B-mbU" firstAttribute="leading" secondItem="iyy-Lf-MFX" secondAttribute="leading" id="YRn-O0-4Al"/>
+                            <constraint firstAttribute="bottom" secondItem="xe4-8B-mbU" secondAttribute="bottom" id="a9J-bR-JZd"/>
+                            <constraint firstItem="1te-xa-si0" firstAttribute="top" secondItem="iyy-Lf-MFX" secondAttribute="top" constant="28" id="bo7-WL-Fiu"/>
+                            <constraint firstItem="iyy-Lf-MFX" firstAttribute="bottom" secondItem="LeN-Sr-jdv" secondAttribute="bottom" id="hHT-oK-psz"/>
+                            <constraint firstItem="xe4-8B-mbU" firstAttribute="top" secondItem="dcd-mh-p50" secondAttribute="top" id="yC6-tU-hGl"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iyy-Lf-MFX"/>
+                    </view>
+                    <connections>
+                        <outlet property="sceneView" destination="LeN-Sr-jdv" id="d2l-Aq-5gD"/>
+                        <outlet property="skView" destination="xe4-8B-mbU" id="AaQ-Hu-Bzd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wvd-0b-WCb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="789.60000000000002" y="97.536945812807886"/>
+        </scene>
         <!--Unsupported View Controller-->
         <scene sceneID="QPm-sc-AhW">
             <objects>
@@ -134,7 +182,7 @@ Shipping apps must support devices without face tracking. In your app, offer UI 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="01d-4b-zAD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="980" y="97.536945812807886"/>
+            <point key="canvasLocation" x="1543" y="98"/>
         </scene>
     </scenes>
 </document>

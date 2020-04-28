@@ -52,6 +52,12 @@
 		508E20E824491C05003893A9 /* shave2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 508E20E524491B06003893A9 /* shave2.m4a */; };
 		508E20EC24491C11003893A9 /* shave5.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 508E20E624491B06003893A9 /* shave5.m4a */; };
 		508E20ED24491C14003893A9 /* shave6.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 508E20E224491B06003893A9 /* shave6.m4a */; };
+		509F683524571CA900B7C03A /* Warehouse.sks in Resources */ = {isa = PBXBuildFile; fileRef = 509F683424571CA900B7C03A /* Warehouse.sks */; };
+		509F683724571DE200B7C03A /* WarehouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F683624571DE200B7C03A /* WarehouseViewController.swift */; };
+		509F683924571DEE00B7C03A /* WarehouseNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F683824571DEE00B7C03A /* WarehouseNodes.swift */; };
+		509F683B2457228C00B7C03A /* WarehouseMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F683A2457228C00B7C03A /* WarehouseMotion.swift */; };
+		509F683D245729E500B7C03A /* WarehouseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F683C245729E500B7C03A /* WarehouseState.swift */; };
+		509F683F2457690100B7C03A /* WarehouseAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F683E2457690100B7C03A /* WarehouseAnimator.swift */; };
 		50AA979D2450E084001941DA /* mirror1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 50AA97992450E084001941DA /* mirror1.mp3 */; };
 		50AA979E2450E084001941DA /* mirror3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 50AA979A2450E084001941DA /* mirror3.mp3 */; };
 		50AA979F2450E084001941DA /* mirror2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 50AA979B2450E084001941DA /* mirror2.mp3 */; };
@@ -126,6 +132,12 @@
 		508E20E224491B06003893A9 /* shave6.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = shave6.m4a; sourceTree = "<group>"; };
 		508E20E524491B06003893A9 /* shave2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = shave2.m4a; sourceTree = "<group>"; };
 		508E20E624491B06003893A9 /* shave5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = shave5.m4a; sourceTree = "<group>"; };
+		509F683424571CA900B7C03A /* Warehouse.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Warehouse.sks; sourceTree = "<group>"; };
+		509F683624571DE200B7C03A /* WarehouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarehouseViewController.swift; sourceTree = "<group>"; };
+		509F683824571DEE00B7C03A /* WarehouseNodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarehouseNodes.swift; sourceTree = "<group>"; };
+		509F683A2457228C00B7C03A /* WarehouseMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarehouseMotion.swift; sourceTree = "<group>"; };
+		509F683C245729E500B7C03A /* WarehouseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarehouseState.swift; sourceTree = "<group>"; };
+		509F683E2457690100B7C03A /* WarehouseAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarehouseAnimator.swift; sourceTree = "<group>"; };
 		50AA97992450E084001941DA /* mirror1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mirror1.mp3; sourceTree = "<group>"; };
 		50AA979A2450E084001941DA /* mirror3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mirror3.mp3; sourceTree = "<group>"; };
 		50AA979B2450E084001941DA /* mirror2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mirror2.mp3; sourceTree = "<group>"; };
@@ -207,6 +219,7 @@
 		3929C48A1E89EC2C00E00B60 /* ARKitFaceExample */ = {
 			isa = PBXGroup;
 			children = (
+				509F68332457006200B7C03A /* Warehouse */,
 				5016D692242E1F0700066A31 /* Utils */,
 				50ECB60C242D45AA0034DC57 /* Bath */,
 				50CFF261242920770002FE2C /* Extensions */,
@@ -272,6 +285,19 @@
 				508E20C324491387003893A9 /* rinsing2.m4a */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		509F68332457006200B7C03A /* Warehouse */ = {
+			isa = PBXGroup;
+			children = (
+				509F683424571CA900B7C03A /* Warehouse.sks */,
+				509F683624571DE200B7C03A /* WarehouseViewController.swift */,
+				509F683824571DEE00B7C03A /* WarehouseNodes.swift */,
+				509F683A2457228C00B7C03A /* WarehouseMotion.swift */,
+				509F683C245729E500B7C03A /* WarehouseState.swift */,
+				509F683E2457690100B7C03A /* WarehouseAnimator.swift */,
+			);
+			path = Warehouse;
 			sourceTree = "<group>";
 		};
 		50CFF261242920770002FE2C /* Extensions */ = {
@@ -424,6 +450,7 @@
 				50221CF8244F37BD00A1D80B /* teeth1.mp3 in Resources */,
 				50221CFA244F37BD00A1D80B /* rinsing2.mp3 in Resources */,
 				508E20CD24491387003893A9 /* rinsing1.m4a in Resources */,
+				509F683524571CA900B7C03A /* Warehouse.sks in Resources */,
 				50EF76FA2421862100A0B748 /* Bath.strings in Resources */,
 				50AA979F2450E084001941DA /* mirror2.mp3 in Resources */,
 				50485233241292BD008EDB80 /* andrii.png in Resources */,
@@ -525,6 +552,7 @@
 				11012C161F3D07BC0099F3A4 /* BlendShapeCharacter.swift in Sources */,
 				504FC9E224217CD800013F5B /* Node.swift in Sources */,
 				3929C48E1E89EC2C00E00B60 /* ViewController.swift in Sources */,
+				509F683D245729E500B7C03A /* WarehouseState.swift in Sources */,
 				5016D694242E1F2F00066A31 /* BaseAnimator.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
 				C8904E551F4CFD000089E530 /* VirtualContent.swift in Sources */,
@@ -536,11 +564,15 @@
 				C8904E571F4CFD730089E530 /* TexturedFace.swift in Sources */,
 				50EF76FE2421881400A0B748 /* R.generated.swift in Sources */,
 				50ECB612242D461D0034DC57 /* BathState.swift in Sources */,
+				509F683B2457228C00B7C03A /* WarehouseMotion.swift in Sources */,
 				50AA97A22450EC32001941DA /* CGPath+Points.swift in Sources */,
+				509F683724571DE200B7C03A /* WarehouseViewController.swift in Sources */,
 				508259AA243BDC9400F616E3 /* BathCoreMotion.swift in Sources */,
+				509F683924571DEE00B7C03A /* WarehouseNodes.swift in Sources */,
 				50CFF2632429209C0002FE2C /* SKPhysicsContactExtension.swift in Sources */,
 				5006B180243145C8005E42C6 /* SketchViewController.swift in Sources */,
 				5006B182243162F7005E42C6 /* OvalSketchView.swift in Sources */,
+				509F683F2457690100B7C03A /* WarehouseAnimator.swift in Sources */,
 				5016D691242D488E00066A31 /* BathAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

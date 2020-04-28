@@ -88,14 +88,12 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         nodes.stickLeftSwipe.isHidden = true
         
         state.winCallback = {
-            let winLabel = UILabel()
-            winLabel.text = "You won"
-            self.view.addSubview(winLabel)
+            BaseAnimator.playSound(name: R.string.bath.ding_sound(), node: self.nodes.shirtZone)
         }
         
         showFreezeAnimation()
         
-                skView.showsPhysics = true
+//        skView.showsPhysics = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -114,16 +112,6 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
             return true
         }
     }
-//
-//    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-//        if motion == .motionShake && nodeTouches.keys.contains(nodes.toiletWater) {
-//            UIDevice.current.vibrate()
-//            state.isDeodorantFixed = true
-//            if nodes.toiletWater.isContactingWith(nodes.shirtZone) {
-//                handleDeodorantShirtContact()
-//            }
-//        }
-//    }
     
     func createBlur() -> (crop: SKCropNode, sprite: SKSpriteNode, path: CGMutablePath) {
         let crop = SKCropNode()
@@ -279,22 +267,27 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     func createGestures() {
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinchPimple))
         pinch.cancelsTouchesInView = false
+        pinch.delaysTouchesEnded = false
         
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes))
         swipeDown.cancelsTouchesInView = false
         swipeDown.direction = .down
+        swipeDown.delaysTouchesEnded = false
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes))
         swipeUp.cancelsTouchesInView = false
         swipeUp.direction = .up
+        swipeUp.delaysTouchesEnded = false
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes))
         swipeRight.cancelsTouchesInView = false
         swipeRight.direction = .right
+        swipeRight.delaysTouchesEnded = false
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes))
         swipeLeft.cancelsTouchesInView = false
         swipeLeft.direction = .left
+        swipeLeft.delaysTouchesEnded = false
         
         self.skView.addGestureRecognizer(pinch)
         self.skView.addGestureRecognizer(swipeDown)
@@ -868,7 +861,6 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
         if hitPaths.isEmpty {
             state.isBlurSoundPlaying = true
-//            let sound = state.mirrorSounds[Int.random(in: 0...5)]
             let sound = state.mirrorSounds.remove(at: 0)
             state.mirrorSounds.insert(sound, at: state.mirrorSounds.count)
             BaseAnimator.playSound(name: sound, node: nodes.mirrorShape)

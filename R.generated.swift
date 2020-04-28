@@ -138,7 +138,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.file` struct is generated, and contains static references to 36 files.
+  /// This `R.file` struct is generated, and contains static references to 37 files.
   struct file {
     /// Resource file `20200306_161439.obj`.
     static let _161439Obj = Rswift.FileResource(bundle: R.hostingBundle, name: "20200306_161439", pathExtension: "obj")
@@ -148,6 +148,8 @@ struct R: Rswift.Validatable {
     static let modelsScnassets = Rswift.FileResource(bundle: R.hostingBundle, name: "Models", pathExtension: "scnassets")
     /// Resource file `VideoTexturedFace.shader`.
     static let videoTexturedFaceShader = Rswift.FileResource(bundle: R.hostingBundle, name: "VideoTexturedFace", pathExtension: "shader")
+    /// Resource file `Warehouse.sks`.
+    static let warehouseSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Warehouse", pathExtension: "sks")
     /// Resource file `andrii.png`.
     static let andriiPng = Rswift.FileResource(bundle: R.hostingBundle, name: "andrii", pathExtension: "png")
     /// Resource file `andrii.scn`.
@@ -234,6 +236,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "VideoTexturedFace", withExtension: "shader")`
     static func videoTexturedFaceShader(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.videoTexturedFaceShader
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Warehouse", withExtension: "sks")`
+    static func warehouseSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.warehouseSks
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -432,7 +440,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 138 images.
+  /// This `R.image` struct is generated, and contains static references to 139 images.
   struct image {
     /// Image `andrii`.
     static let andrii = Rswift.ImageResource(bundle: R.hostingBundle, name: "andrii")
@@ -708,6 +716,8 @@ struct R: Rswift.Validatable {
     static let transforms = Rswift.ImageResource(bundle: R.hostingBundle, name: "transforms")
     /// Image `videoTexture`.
     static let videoTexture = Rswift.ImageResource(bundle: R.hostingBundle, name: "videoTexture")
+    /// Image `warehouse`.
+    static let warehouse = Rswift.ImageResource(bundle: R.hostingBundle, name: "warehouse")
     /// Image `wireframeTexture`.
     static let wireframeTexture = Rswift.ImageResource(bundle: R.hostingBundle, name: "wireframeTexture")
 
@@ -1671,6 +1681,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "warehouse", bundle: ..., traitCollection: ...)`
+    static func warehouse(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.warehouse, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "wireframeTexture", bundle: ..., traitCollection: ...)`
     static func wireframeTexture(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.wireframeTexture, compatibleWith: traitCollection)
@@ -1682,7 +1699,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.bath` struct is generated, and contains static references to 121 localization keys.
+    /// This `R.string.bath` struct is generated, and contains static references to 123 localization keys.
     struct bath {
       /// Value: angry_spider.mp3
       static let angry_spider_sound = Rswift.StringResource(key: "angry_spider_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -1710,6 +1727,8 @@ struct R: Rswift.Validatable {
       static let comb2_sound = Rswift.StringResource(key: "comb2_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: crane
       static let crane = Rswift.StringResource(key: "crane", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: ding.mp3
+      static let ding_sound = Rswift.StringResource(key: "ding_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: dirt
       static let dirt = Rswift.StringResource(key: "dirt", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: ear_left
@@ -1768,6 +1787,8 @@ struct R: Rswift.Validatable {
       static let heart3 = Rswift.StringResource(key: "heart3", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: hot_valve
       static let hot_valve = Rswift.StringResource(key: "hot_valve", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: item_land.mp3
+      static let land_sound = Rswift.StringResource(key: "land_sound", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: jaw_bottom
       static let jaw_bottom = Rswift.StringResource(key: "jaw_bottom", tableName: "Bath", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: jaw_top
@@ -2094,6 +2115,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("crane", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: ding.mp3
+      static func ding_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("ding_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "ding_sound"
+        }
+
+        return NSLocalizedString("ding_sound", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: dirt
@@ -2471,6 +2505,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("hot_valve", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      /// Value: item_land.mp3
+      static func land_sound(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("land_sound", tableName: "Bath", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bath", preferredLanguages: preferredLanguages) else {
+          return "land_sound"
+        }
+
+        return NSLocalizedString("land_sound", tableName: "Bath", bundle: bundle, comment: "")
       }
 
       /// Value: jaw_bottom
@@ -3556,7 +3603,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = ViewController
+      typealias InitialController = WarehouseViewController
 
       let bundle = R.hostingBundle
       let name = "Main"

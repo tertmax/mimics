@@ -432,6 +432,7 @@ class BathAnimator {
         
         let pause = SKAction.wait(forDuration: 0.3)
         
+        let sound = BaseAnimator.AnimationActions.sound(name: R.string.bath.land_sound()).action
         
         let completion = SKAction.customAction(withDuration: 0, actionBlock: { _,_ in
             completion()
@@ -439,7 +440,7 @@ class BathAnimator {
         
         let dropGroup = SKAction.group([moveDown1, rotate1])
         
-        razor.run(SKAction.sequence([dropGroup, pause, completion]))
+        razor.run(SKAction.sequence([dropGroup, pause, sound, completion]))
     }
     
     func runFlyMoveToSpider(completion: @escaping(() -> Void)) {
