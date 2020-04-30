@@ -24,6 +24,7 @@ class WarehouseViewController: UIViewController, WarehouseAnimatable {
     var maskCircle: SKShapeNode!
     
     private let motion = WarehouseMotion()
+    private let physicsUtils = WarehousePhysicsUtil()
     
     @IBAction func resetHeading(_ sender: Any) {
         state.initialRotation = nil
@@ -50,20 +51,22 @@ class WarehouseViewController: UIViewController, WarehouseAnimatable {
         
         motion.start(motionCallback: { data in
             
-            
             self.handleMotionUpdate(data: data)
 
         })
         
-        maskCircle = createBackgroundMask()
-        
+        maskCircle = nodes.flashlight
+        skView.scene?.physicsWorld.contactDelegate = self
+        physicsUtils.createPhyscisBodies(nodes: nodes)
         animator.runMouseWalking()
         animator.runCandleFire()
+        
+        skView.showsPhysics = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        resetTracking()
+//        resetTracking()
     }
     
     /// - Tag: ARFaceTrackingSetup
@@ -139,32 +142,6 @@ class WarehouseViewController: UIViewController, WarehouseAnimatable {
         
         animator.runMoveFlashlightY(node: maskCircle, y: nodes.background.initPoint.y + CGFloat(zDelta) * 1500)
     }
-    
-    func createBackgroundMask() -> SKShapeNode {
-
-        let fullScreen = SKSpriteNode(color: .black, size: nodes.background.size)
-        fullScreen.alpha = 0.95
-
-        let mask = SKSpriteNode(color: .white, size: nodes.background.size)
-        mask.alpha = 1
-
-        let circle = SKShapeNode(circleOfRadius: 150)
-        circle.fillColor = .white
-        circle.lineWidth = 0
-        circle.alpha = 0.001
-        circle.blendMode = .replace
-        circle.position = nodes.background.position
-        
-        mask.addChild(circle)
-
-        let crop = SKCropNode()
-        crop.maskNode = mask
-        crop.addChild(fullScreen)
-
-        skView.scene?.addChild(crop)
-        
-        return circle
-    }
 }
 
 extension WarehouseViewController: ARSCNViewDelegate {
@@ -173,4 +150,23 @@ extension WarehouseViewController: ARSCNViewDelegate {
 
 extension WarehouseViewController: ARSessionDelegate {
     
+}
+
+extension WarehouseViewController: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        if let contact = contact.orderedBodies(for: [WarehousePhysicsUtil.Contact.lense]), contact.other.category == .flashlight {
+            handleLenseFlashlightContact(contact: contact)
+        }
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        if let contact = contact.orderedBodies(for: [WarehousePhysicsUtil.Contact.lense]), contact.other.category == .flashlight {
+                BaseAnimator.fadeOut(nodes: [nodes.lenseBeam], duration: 0.5)
+        }
+    }
+    
+    func handleLenseFlashlightContact(contact: OrderedContactBodies<WarehousePhysicsUtil.Contact>) {
+        guard nodes.lenseBeam.alpha == 0 else { return }
+        BaseAnimator.fadeIn(nodes: [nodes.lenseBeam], duration: 0.5)
+    }
 }

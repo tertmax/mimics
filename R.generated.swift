@@ -440,7 +440,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 152 images.
+  /// This `R.image` struct is generated, and contains static references to 153 images.
   struct image {
     /// Image `andrii`.
     static let andrii = Rswift.ImageResource(bundle: R.hostingBundle, name: "andrii")
@@ -732,6 +732,8 @@ struct R: Rswift.Validatable {
     static let wh_candle_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_candle_on")
     /// Image `wh_cheese`.
     static let wh_cheese = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_cheese")
+    /// Image `wh_lense_beam`.
+    static let wh_lense_beam = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_lense_beam")
     /// Image `wh_lense`.
     static let wh_lense = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_lense")
     /// Image `wh_mouse1`.
@@ -1766,6 +1768,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "wh_lense", bundle: ..., traitCollection: ...)`
     static func wh_lense(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.wh_lense, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_lense_beam", bundle: ..., traitCollection: ...)`
+    static func wh_lense_beam(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_lense_beam, compatibleWith: traitCollection)
     }
     #endif
 
@@ -3667,7 +3676,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.wh` struct is generated, and contains static references to 6 localization keys.
+    /// This `R.string.wh` struct is generated, and contains static references to 7 localization keys.
     struct wh {
       /// Value: candle
       static let candle = Rswift.StringResource(key: "candle", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -3677,6 +3686,8 @@ struct R: Rswift.Validatable {
       static let cheese = Rswift.StringResource(key: "cheese", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: lense
       static let lense = Rswift.StringResource(key: "lense", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: lense_beam
+      static let lense_beam = Rswift.StringResource(key: "lense_beam", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: mouse
       static let mouse = Rswift.StringResource(key: "mouse", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: warehouse
@@ -3732,6 +3743,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("lense", tableName: "Wh", bundle: bundle, comment: "")
+      }
+
+      /// Value: lense_beam
+      static func lense_beam(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("lense_beam", tableName: "Wh", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wh", preferredLanguages: preferredLanguages) else {
+          return "lense_beam"
+        }
+
+        return NSLocalizedString("lense_beam", tableName: "Wh", bundle: bundle, comment: "")
       }
 
       /// Value: mouse

@@ -17,6 +17,7 @@ class WarehouseNodes {
     let cheese: Node
     let lense: Node
     let flashlight: SKShapeNode
+    let lenseBeam: Node
     
     init(scene: SKScene?) {
         
@@ -40,6 +41,7 @@ class WarehouseNodes {
         
         cheese = setupNode(name: R.string.wh.cheese(), parentNode: background)
         lense = setupNode(name: R.string.wh.lense(), parentNode: background)
+        lenseBeam = setupNode(name: R.string.wh.lense_beam(), parentNode: lense)
         
         
         // MARK: - Flashlight and mask
@@ -62,6 +64,7 @@ class WarehouseNodes {
         let crop = SKCropNode()
         crop.maskNode = mask
         crop.addChild(fullScreen)
+        crop.zPosition = 10
         
         background.scene?.addChild(crop)
         
