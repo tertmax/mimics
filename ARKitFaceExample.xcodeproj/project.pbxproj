@@ -35,6 +35,8 @@
 		50221CFE244F37BD00A1D80B /* filling_glass.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 50221CF1244F37BD00A1D80B /* filling_glass.mp3 */; };
 		50221CFF244F37BD00A1D80B /* item_land.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 50221CF2244F37BD00A1D80B /* item_land.mp3 */; };
 		50221D00244F37BD00A1D80B /* comb2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 50221CF3244F37BD00A1D80B /* comb2.mp3 */; };
+		50289D92245B1D8100D6F467 /* WarehousePhysicsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50289D91245B1D8100D6F467 /* WarehousePhysicsUtil.swift */; };
+		50289D94245B1EA000D6F467 /* BasePhysics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50289D93245B1EA000D6F467 /* BasePhysics.swift */; };
 		504852312412929F008EDB80 /* 20200306_161439.obj in Resources */ = {isa = PBXBuildFile; fileRef = 504852302412929F008EDB80 /* 20200306_161439.obj */; };
 		50485233241292BD008EDB80 /* andrii.png in Resources */ = {isa = PBXBuildFile; fileRef = 50485232241292BD008EDB80 /* andrii.png */; };
 		50485235241292C4008EDB80 /* model.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 50485234241292C4008EDB80 /* model.mtl */; };
@@ -65,6 +67,7 @@
 		50AA97A22450EC32001941DA /* CGPath+Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA97A12450EC32001941DA /* CGPath+Points.swift */; };
 		50AA97A52450F1B1001941DA /* mirror5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 50AA97A32450F1B0001941DA /* mirror5.mp3 */; };
 		50AA97A62450F1B1001941DA /* mirror6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 50AA97A42450F1B1001941DA /* mirror6.mp3 */; };
+		50B7D46C245AFDB1008F18BB /* Wh.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50B7D46B245AFDB1008F18BB /* Wh.strings */; };
 		50CFF2632429209C0002FE2C /* SKPhysicsContactExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CFF2622429209C0002FE2C /* SKPhysicsContactExtension.swift */; };
 		50CFF265242921260002FE2C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CFF264242921260002FE2C /* File.swift */; };
 		50CFF2672429324D0002FE2C /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CFF2662429324D0002FE2C /* UIDeviceExtension.swift */; };
@@ -115,6 +118,8 @@
 		50221CF1244F37BD00A1D80B /* filling_glass.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = filling_glass.mp3; sourceTree = "<group>"; };
 		50221CF2244F37BD00A1D80B /* item_land.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = item_land.mp3; sourceTree = "<group>"; };
 		50221CF3244F37BD00A1D80B /* comb2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = comb2.mp3; sourceTree = "<group>"; };
+		50289D91245B1D8100D6F467 /* WarehousePhysicsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarehousePhysicsUtil.swift; sourceTree = "<group>"; };
+		50289D93245B1EA000D6F467 /* BasePhysics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePhysics.swift; sourceTree = "<group>"; };
 		504852302412929F008EDB80 /* 20200306_161439.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20200306_161439.obj; sourceTree = "<group>"; };
 		50485232241292BD008EDB80 /* andrii.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = andrii.png; sourceTree = "<group>"; };
 		50485234241292C4008EDB80 /* model.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = model.mtl; sourceTree = "<group>"; };
@@ -145,6 +150,7 @@
 		50AA97A12450EC32001941DA /* CGPath+Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+Points.swift"; sourceTree = "<group>"; };
 		50AA97A32450F1B0001941DA /* mirror5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mirror5.mp3; sourceTree = "<group>"; };
 		50AA97A42450F1B1001941DA /* mirror6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mirror6.mp3; sourceTree = "<group>"; };
+		50B7D46B245AFDB1008F18BB /* Wh.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Wh.strings; sourceTree = "<group>"; };
 		50CFF2622429209C0002FE2C /* SKPhysicsContactExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsContactExtension.swift; sourceTree = "<group>"; };
 		50CFF264242921260002FE2C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		50CFF2662429324D0002FE2C /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
@@ -247,6 +253,7 @@
 			children = (
 				5016D693242E1F2F00066A31 /* BaseAnimator.swift */,
 				5006B181243162F7005E42C6 /* OvalSketchView.swift */,
+				50289D93245B1EA000D6F467 /* BasePhysics.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -296,6 +303,8 @@
 				509F683A2457228C00B7C03A /* WarehouseMotion.swift */,
 				509F683C245729E500B7C03A /* WarehouseState.swift */,
 				509F683E2457690100B7C03A /* WarehouseAnimator.swift */,
+				50B7D46B245AFDB1008F18BB /* Wh.strings */,
+				50289D91245B1D8100D6F467 /* WarehousePhysicsUtil.swift */,
 			);
 			path = Warehouse;
 			sourceTree = "<group>";
@@ -441,6 +450,7 @@
 				50AA97A62450F1B1001941DA /* mirror6.mp3 in Resources */,
 				50221CFC244F37BD00A1D80B /* rinsing1.mp3 in Resources */,
 				50221CF7244F37BD00A1D80B /* teeth3.mp3 in Resources */,
+				50B7D46C245AFDB1008F18BB /* Wh.strings in Resources */,
 				50221CF6244F37BD00A1D80B /* comb1.mp3 in Resources */,
 				50221CFE244F37BD00A1D80B /* filling_glass.mp3 in Resources */,
 				3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */,
@@ -550,6 +560,7 @@
 				116FDD742130A6BD008404D3 /* TransformVisualization.swift in Sources */,
 				C81DA0C61F4CC79A002AF1DA /* FaceOcclusionOverlay.swift in Sources */,
 				11012C161F3D07BC0099F3A4 /* BlendShapeCharacter.swift in Sources */,
+				50289D92245B1D8100D6F467 /* WarehousePhysicsUtil.swift in Sources */,
 				504FC9E224217CD800013F5B /* Node.swift in Sources */,
 				3929C48E1E89EC2C00E00B60 /* ViewController.swift in Sources */,
 				509F683D245729E500B7C03A /* WarehouseState.swift in Sources */,
@@ -573,6 +584,7 @@
 				5006B180243145C8005E42C6 /* SketchViewController.swift in Sources */,
 				5006B182243162F7005E42C6 /* OvalSketchView.swift in Sources */,
 				509F683F2457690100B7C03A /* WarehouseAnimator.swift in Sources */,
+				50289D94245B1EA000D6F467 /* BasePhysics.swift in Sources */,
 				5016D691242D488E00066A31 /* BathAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,39 +8,41 @@
 
 import SpriteKit
 
-enum Contact: UInt32, PhysicsCategory {
-    
-    var mask: UInt32 {
-        return self.rawValue
-    }
-    
-    static func create(value: UInt32) -> PhysicsCategory? {
-        return Contact(rawValue: value)
-    }
-    
-    case other = 0
-    case comb = 1
-    case hair = 2
-    case teeth = 4
-    case toothBrush = 8
-    case cup = 16
-    case water = 32
-    case hairPiece = 64
-    case razor = 128
-    case mouthBrushed = 256
-    case pimple = 512
-    case bandage = 1024
-    case towel = 2048
-    case dirt = 4096
-    case shirt = 8196
-    case toiletWater = 16392
-    case leftEar = 32784
-    case rightEar = 65568
-    case stickLeft = 131136
-    case stickRight = 262272
-}
 
 class BathPhysicsUtil {
+    
+    enum Contact: UInt32, PhysicsCategory {
+        
+        var mask: UInt32 {
+            return self.rawValue
+        }
+        
+        static func create(value: UInt32) -> PhysicsCategory? {
+            return Contact(rawValue: value)
+        }
+        
+        case other = 0
+        case comb = 1
+        case hair = 2
+        case teeth = 4
+        case toothBrush = 8
+        case cup = 16
+        case water = 32
+        case hairPiece = 64
+        case razor = 128
+        case mouthBrushed = 256
+        case pimple = 512
+        case bandage = 1024
+        case towel = 2048
+        case dirt = 4096
+        case shirt = 8196
+        case toiletWater = 16392
+        case leftEar = 32784
+        case rightEar = 65568
+        case stickLeft = 131136
+        case stickRight = 262272
+    }
+
     func createPhyscisBodies(nodes: BathNodes) {
         
         // Hair
@@ -182,12 +184,6 @@ class BathPhysicsUtil {
     }
 
     private func makeRectBody(size: CGSize, contact: Contact, categoty: Contact) -> SKPhysicsBody {
-        let body = SKPhysicsBody(rectangleOf: size)
-        body.affectedByGravity = false
-        body.contactTestBitMask = contact.rawValue
-        body.categoryBitMask = categoty.rawValue
-        body.collisionBitMask = Contact.other.rawValue
-        
-        return body
+        return BasePhysics.makeBody(shape: .rect(size: size), contact: contact, categoty: categoty)
     }
 }

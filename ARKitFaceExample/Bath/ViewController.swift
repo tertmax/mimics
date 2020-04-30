@@ -971,16 +971,16 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
     
     // MARK: SK Contacts
     
-    private func handleHairCombContact(contact: OrderedContactBodies<Contact>) {
+    private func handleHairCombContact(contact: OrderedContactBodies<BathPhysicsUtil.Contact>) {
         guard state.hairMoveStart == nil else { return }
         state.hairMoveStart = (point: nodeTouches[nodes.comb]!.location(in: skView.scene!), time: NSDate().timeIntervalSince1970)
     }
     
-    private func handleToothbrushTeethContact(contact: OrderedContactBodies<Contact>) {
+    private func handleToothbrushTeethContact(contact: OrderedContactBodies<BathPhysicsUtil.Contact>) {
         updateTeeth()
     }
     
-    private func handleCupWaterContact(contact: OrderedContactBodies<Contact>) {
+    private func handleCupWaterContact(contact: OrderedContactBodies<BathPhysicsUtil.Contact>) {
         
         switch state.waterTemprature {
         case .cold, .hot:
@@ -992,7 +992,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
     }
     
-    private func handleRazorHairContact(contact: OrderedContactBodies<Contact>) {
+    private func handleRazorHairContact(contact: OrderedContactBodies<BathPhysicsUtil.Contact>) {
         if let node = contact.main.body.node as? Node, nodes.hairPieces.contains(node) {
             animator.runFallHairPiece(node: node)
             nodes.hairPieces.removeAll(where: { $0 == node })
@@ -1002,7 +1002,7 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
     }
     
-    private func handleTowelWaterContact(contact: OrderedContactBodies<Contact>) {
+    private func handleTowelWaterContact(contact: OrderedContactBodies<BathPhysicsUtil.Contact>) {
         
         switch state.waterTemprature {
         case .cold, .hot:
@@ -1014,12 +1014,12 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
         }
     }
     
-    private func handleTowelDirtContact(contact: OrderedContactBodies<Contact>) {
+    private func handleTowelDirtContact(contact: OrderedContactBodies<BathPhysicsUtil.Contact>) {
         guard state.dirtMoveStart == nil else { return }
         state.dirtMoveStart = (point: nodeTouches[nodes.towel]!.location(in: skView.scene!), time: NSDate().timeIntervalSince1970)
     }
     
-    private func handleDeodorantShirtContact(contact: OrderedContactBodies<Contact>? = nil) {
+    private func handleDeodorantShirtContact(contact: OrderedContactBodies<BathPhysicsUtil.Contact>? = nil) {
         
     }
 }
@@ -1028,37 +1028,37 @@ class ViewController: UIViewController, ARSessionDelegate, BathAnimatable {
 
 extension ViewController: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        if let contact = contact.orderedBodies(for: [Contact.comb]), contact.other.category == .hair {
+        if let contact = contact.orderedBodies(for: [BathPhysicsUtil.Contact.comb]), contact.other.category == .hair {
             handleHairCombContact(contact: contact)
         }
         
-        if let contact = contact.orderedBodies(for: [Contact.toothBrush]), contact.other.category == .teeth {
+        if let contact = contact.orderedBodies(for: [BathPhysicsUtil.Contact.toothBrush]), contact.other.category == .teeth {
             handleToothbrushTeethContact(contact: contact)
         }
         
-        if let contact = contact.orderedBodies(for: [Contact.cup]), contact.other.category == .water {
+        if let contact = contact.orderedBodies(for: [BathPhysicsUtil.Contact.cup]), contact.other.category == .water {
             handleCupWaterContact(contact: contact)
         }
         
-        if let contact = contact.orderedBodies(for: [Contact.hairPiece]), contact.other.category == .razor {
+        if let contact = contact.orderedBodies(for: [BathPhysicsUtil.Contact.hairPiece]), contact.other.category == .razor {
             handleRazorHairContact(contact: contact)
         }
         
-        if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .water {
+        if let contact = contact.orderedBodies(for: [BathPhysicsUtil.Contact.towel]), contact.other.category == .water {
             handleTowelWaterContact(contact: contact)
         }
         
-        if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .dirt {
+        if let contact = contact.orderedBodies(for: [BathPhysicsUtil.Contact.towel]), contact.other.category == .dirt {
             handleTowelDirtContact(contact: contact)
         }
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
-        if let contact = contact.orderedBodies(for: [Contact.comb]), contact.other.category == .hair {
+        if let contact = contact.orderedBodies(for: [BathPhysicsUtil.Contact.comb]), contact.other.category == .hair {
             state.hairMoveStart = nil
         }
         
-        if let contact = contact.orderedBodies(for: [Contact.towel]), contact.other.category == .dirt {
+        if let contact = contact.orderedBodies(for: [BathPhysicsUtil.Contact.towel]), contact.other.category == .dirt {
             state.dirtMoveStart = nil
         }
     }

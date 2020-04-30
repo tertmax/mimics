@@ -1,0 +1,21 @@
+/* 
+  Wh.strings
+  ARKitFaceExample
+
+  Created by Max Tert on 30.04.2020.
+  Copyright © 2020 Apple. All rights reserved.
+*/
+
+//MARK: - Mouse
+
+"mouse" = "mouse";
+
+"cheese" = "cheese";
+
+"lense" = "lense";
+
+"warehouse" = "warehouse";
+
+"candle" = "candle";
+"candle_fire" = "candle_fire";
+

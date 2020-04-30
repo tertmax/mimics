@@ -440,7 +440,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 139 images.
+  /// This `R.image` struct is generated, and contains static references to 152 images.
   struct image {
     /// Image `andrii`.
     static let andrii = Rswift.ImageResource(bundle: R.hostingBundle, name: "andrii")
@@ -718,6 +718,32 @@ struct R: Rswift.Validatable {
     static let videoTexture = Rswift.ImageResource(bundle: R.hostingBundle, name: "videoTexture")
     /// Image `warehouse`.
     static let warehouse = Rswift.ImageResource(bundle: R.hostingBundle, name: "warehouse")
+    /// Image `wh_candle_fire1`.
+    static let wh_candle_fire1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_candle_fire1")
+    /// Image `wh_candle_fire2`.
+    static let wh_candle_fire2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_candle_fire2")
+    /// Image `wh_candle_fire3`.
+    static let wh_candle_fire3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_candle_fire3")
+    /// Image `wh_candle_fire4`.
+    static let wh_candle_fire4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_candle_fire4")
+    /// Image `wh_candle_off`.
+    static let wh_candle_off = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_candle_off")
+    /// Image `wh_candle_on`.
+    static let wh_candle_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_candle_on")
+    /// Image `wh_cheese`.
+    static let wh_cheese = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_cheese")
+    /// Image `wh_lense`.
+    static let wh_lense = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_lense")
+    /// Image `wh_mouse1`.
+    static let wh_mouse1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_mouse1")
+    /// Image `wh_mouse2`.
+    static let wh_mouse2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_mouse2")
+    /// Image `wh_mouse3`.
+    static let wh_mouse3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_mouse3")
+    /// Image `wh_mouse4`.
+    static let wh_mouse4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_mouse4")
+    /// Image `wh_mouse5`.
+    static let wh_mouse5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "wh_mouse5")
     /// Image `wireframeTexture`.
     static let wireframeTexture = Rswift.ImageResource(bundle: R.hostingBundle, name: "wireframeTexture")
 
@@ -1688,6 +1714,97 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_candle_fire1", bundle: ..., traitCollection: ...)`
+    static func wh_candle_fire1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_candle_fire1, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_candle_fire2", bundle: ..., traitCollection: ...)`
+    static func wh_candle_fire2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_candle_fire2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_candle_fire3", bundle: ..., traitCollection: ...)`
+    static func wh_candle_fire3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_candle_fire3, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_candle_fire4", bundle: ..., traitCollection: ...)`
+    static func wh_candle_fire4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_candle_fire4, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_candle_off", bundle: ..., traitCollection: ...)`
+    static func wh_candle_off(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_candle_off, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_candle_on", bundle: ..., traitCollection: ...)`
+    static func wh_candle_on(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_candle_on, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_cheese", bundle: ..., traitCollection: ...)`
+    static func wh_cheese(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_cheese, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_lense", bundle: ..., traitCollection: ...)`
+    static func wh_lense(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_lense, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_mouse1", bundle: ..., traitCollection: ...)`
+    static func wh_mouse1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_mouse1, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_mouse2", bundle: ..., traitCollection: ...)`
+    static func wh_mouse2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_mouse2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_mouse3", bundle: ..., traitCollection: ...)`
+    static func wh_mouse3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_mouse3, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_mouse4", bundle: ..., traitCollection: ...)`
+    static func wh_mouse4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_mouse4, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "wh_mouse5", bundle: ..., traitCollection: ...)`
+    static func wh_mouse5(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.wh_mouse5, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "wireframeTexture", bundle: ..., traitCollection: ...)`
     static func wireframeTexture(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.wireframeTexture, compatibleWith: traitCollection)
@@ -1697,7 +1814,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 1 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
     /// This `R.string.bath` struct is generated, and contains static references to 123 localization keys.
     struct bath {
@@ -3545,6 +3662,102 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("web", tableName: "Bath", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
+
+    /// This `R.string.wh` struct is generated, and contains static references to 6 localization keys.
+    struct wh {
+      /// Value: candle
+      static let candle = Rswift.StringResource(key: "candle", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: candle_fire
+      static let candle_fire = Rswift.StringResource(key: "candle_fire", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: cheese
+      static let cheese = Rswift.StringResource(key: "cheese", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: lense
+      static let lense = Rswift.StringResource(key: "lense", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: mouse
+      static let mouse = Rswift.StringResource(key: "mouse", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: warehouse
+      static let warehouse = Rswift.StringResource(key: "warehouse", tableName: "Wh", bundle: R.hostingBundle, locales: [], comment: nil)
+
+      /// Value: candle
+      static func candle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("candle", tableName: "Wh", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wh", preferredLanguages: preferredLanguages) else {
+          return "candle"
+        }
+
+        return NSLocalizedString("candle", tableName: "Wh", bundle: bundle, comment: "")
+      }
+
+      /// Value: candle_fire
+      static func candle_fire(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("candle_fire", tableName: "Wh", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wh", preferredLanguages: preferredLanguages) else {
+          return "candle_fire"
+        }
+
+        return NSLocalizedString("candle_fire", tableName: "Wh", bundle: bundle, comment: "")
+      }
+
+      /// Value: cheese
+      static func cheese(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cheese", tableName: "Wh", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wh", preferredLanguages: preferredLanguages) else {
+          return "cheese"
+        }
+
+        return NSLocalizedString("cheese", tableName: "Wh", bundle: bundle, comment: "")
+      }
+
+      /// Value: lense
+      static func lense(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("lense", tableName: "Wh", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wh", preferredLanguages: preferredLanguages) else {
+          return "lense"
+        }
+
+        return NSLocalizedString("lense", tableName: "Wh", bundle: bundle, comment: "")
+      }
+
+      /// Value: mouse
+      static func mouse(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("mouse", tableName: "Wh", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wh", preferredLanguages: preferredLanguages) else {
+          return "mouse"
+        }
+
+        return NSLocalizedString("mouse", tableName: "Wh", bundle: bundle, comment: "")
+      }
+
+      /// Value: warehouse
+      static func warehouse(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("warehouse", tableName: "Wh", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wh", preferredLanguages: preferredLanguages) else {
+          return "warehouse"
+        }
+
+        return NSLocalizedString("warehouse", tableName: "Wh", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

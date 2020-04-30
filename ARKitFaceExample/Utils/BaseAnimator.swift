@@ -63,6 +63,7 @@ extension BaseAnimator {
         case rotateBy(angle: CGFloat, duration: TimeInterval)
         case scale(to: CGFloat, duration: TimeInterval)
         case sound(name: String)
+        case frameChange(textures: [SKTexture], pause: Double)
         
         var action: SKAction {
             switch self {
@@ -88,6 +89,15 @@ extension BaseAnimator {
                 return SKAction.scale(to: scale, duration: duration)
             case .sound(let name):
                 return SKAction.playSoundFileNamed(name, waitForCompletion: false)
+            case .frameChange(let textures, let pause):
+                var actionList: [SKAction] = []
+                for texture in textures {
+                    let changeTexture = SKAction.setTexture(texture)
+                    let pause = SKAction.wait(forDuration: pause)
+                    let sequence = SKAction.sequence([changeTexture, pause])
+                    actionList.append(sequence)
+                }
+                return SKAction.sequence(actionList)
             }
         }
     }

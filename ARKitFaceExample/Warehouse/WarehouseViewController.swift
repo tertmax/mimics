@@ -56,6 +56,9 @@ class WarehouseViewController: UIViewController, WarehouseAnimatable {
         })
         
         maskCircle = createBackgroundMask()
+        
+        animator.runMouseWalking()
+        animator.runCandleFire()
     }
     
     override func viewWillAppear(_ animated: Bool) {

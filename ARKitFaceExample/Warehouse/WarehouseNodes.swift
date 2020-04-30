@@ -9,7 +9,14 @@
 import SpriteKit
 
 class WarehouseNodes {
+    
     let background: Node
+    let mouse: Node
+    let candle: Node
+    let candleFire: Node
+    let cheese: Node
+    let lense: Node
+    let flashlight: SKShapeNode
     
     init(scene: SKScene?) {
         
@@ -25,6 +32,40 @@ class WarehouseNodes {
             }
         }
         
-        background = setupNode(name: "warehouse")
+        background = setupNode(name: R.string.wh.warehouse())
+        mouse = setupNode(name: R.string.wh.mouse(), parentNode: background)
+        
+        candle = setupNode(name: R.string.wh.candle(), parentNode: background)
+        candleFire = setupNode(name: R.string.wh.candle_fire(), parentNode: candle)
+        
+        cheese = setupNode(name: R.string.wh.cheese(), parentNode: background)
+        lense = setupNode(name: R.string.wh.lense(), parentNode: background)
+        
+        
+        // MARK: - Flashlight and mask
+        
+        let fullScreen = SKSpriteNode(color: .black, size: background.size)
+        fullScreen.alpha = 0.95
+        
+        let mask = SKSpriteNode(color: .white, size: background.size)
+        mask.alpha = 1
+        
+        let circle = SKShapeNode(circleOfRadius: 150)
+        circle.fillColor = .white
+        circle.lineWidth = 0
+        circle.alpha = 0.001
+        circle.blendMode = .replace
+        circle.position = background.position
+        
+        mask.addChild(circle)
+        
+        let crop = SKCropNode()
+        crop.maskNode = mask
+        crop.addChild(fullScreen)
+        
+        background.scene?.addChild(crop)
+        
+        flashlight = circle
+        
     }
 }
